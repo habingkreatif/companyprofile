@@ -9,13 +9,13 @@ export default function FloatingMenu() {
 
   const menuItems = [
     { icon: <Home size={22} />, link: "#" },
-    { icon: <Info size={22} />, link: "#tentang" },
+    { icon: <Info size={22} />, link: "#tentangkami" },
     { icon: <Hammer size={22} />, link: "#layanan" },
-    { icon: <Phone size={22} />, link: "#kontak" },
+    { icon: <Phone size={22} />, link: "#hubungikami" },
   ];
 
   return (
-    <div className="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
+    <div className="fixed md:hidden bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
       {/* Menu Items */}
       <AnimatePresence>
         {open &&

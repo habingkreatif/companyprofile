@@ -297,7 +297,7 @@ export default function Home() {
 
       {/* About Section */}
       <section
-        id="tentang"
+        id="tentangkami"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
       >
         <div className="max-w-7xl mx-auto relative z-10">
@@ -316,7 +316,7 @@ export default function Home() {
               <p className="text-lg text-[#3A3A3A] leading-relaxed">
                 Di{" "}
                 <strong className="text-[#B61F2B] text-xl">
-                  Habs Konstruksi Karya
+                  HABS Konstruksi Karya
                 </strong>
                 , kami percaya bahwa setiap bangunan bukan hanya struktur,
                 melainkan perwujudan visi, nilai, dan masa depan. Itulah alasan
