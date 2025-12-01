@@ -66,8 +66,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden md:h-screen flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-[#162A43] via-[#1E1E1E] to-[#101010] opacity-95"></div>
 
         <div className="absolute inset-0 opacity-10">
@@ -357,7 +356,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#101010] text-white py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-[#101010] text-white py-12 md:py-5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -399,7 +398,7 @@ export default function Home() {
                     href="tel:085326566522"
                     className="hover:text-[#C9A74A] transition-colors flex items-center gap-2"
                   >
-                    <FaPhone className="w-4 h-4" /> 0877 9293 3166
+                    <FaPhone className="w-4 h-4" /> 0853 2656 6522
                   </a>
                 </li>
 
@@ -438,7 +437,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-[#3A3A3A] pt-8 text-center">
+          <div className="border-t border-[#3A3A3A] pt-5 text-center">
             <p className="text-[#E2E2E2] text-sm">
               © {new Date().getFullYear()} Habs Konstruksi Karya. All rights
               reserved.
