@@ -19,52 +19,22 @@ const projects: Project[] = [
   {
     id: 1,
     title: "Renovasi Rumah Minimalis",
-    location: "Yogyakarta",
-    year: "2024",
-    status: "Selesai",
-    image: "/project-1.svg",
+    location: "Sleman, Yogyakarta",
+    year: "2025",
+    status: "Sedang Berjalan",
+    image: "/photo1.jpg",
     description:
       "Renovasi complete interior rumah dengan konsep minimalis modern",
   },
-  {
-    id: 2,
-    title: "Ruko Komersial 3 Lantai",
-    location: "Bantul",
-    year: "2024",
-    status: "Selesai",
-    image: "/project-2.svg",
-    description:
-      "Konstruksi ruko dengan fasilitas lengkap untuk keperluan komersial",
-  },
-  {
-    id: 3,
-    title: "Kitchen Set Premium",
-    location: "Sleman",
-    year: "2024",
-    status: "Selesai",
-    image: "/project-3.svg",
-    description:
-      "Desain dan instalasi kitchen set custom dengan material berkualitas tinggi",
-  },
-  {
-    id: 4,
-    title: "Renovasi Toko Elektronik",
-    location: "Yogyakarta",
-    year: "2024",
-    status: "Sedang Berjalan",
-    image: "/project-4.svg",
-    description:
-      "Redesign toko dengan konsep modern dan efisien untuk display produk",
-  },
+
   {
     id: 5,
     title: "Instalasi Sistem MEP",
-    location: "Bantul",
-    year: "2024",
+    location: "Sleman, Yogyakarta",
+    year: "2025",
     status: "Perencanaan",
-    image: "/project-5.svg",
-    description:
-      "Instalasi mechanical, electrical, dan plumbing untuk gedung bertingkat",
+    image: "/photo2.jpg",
+    description: "Instalasi mechanical, electrical, dan plumbing untuk rumah",
   },
 ];
 

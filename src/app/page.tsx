@@ -1,6 +1,12 @@
 "use client";
 
-import { FaEnvelope, FaInstagram, FaPhone, FaTiktok } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaInstagram,
+  FaPhone,
+  FaTiktok,
+  FaWhatsapp,
+} from "react-icons/fa";
 import Image from "next/image";
 import MobileTouchbar from "@/components/Touchbar";
 import PortfolioSection from "@/components/PortfolioSection";
@@ -80,7 +86,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <div className="inline-block mb-6 px-4 py-2 bg-[#B61F2B]/20 border border-[#B61F2B]/30 rounded-full">
             <span className="text-[#F2DCA1] text-sm font-semibold">
-              ✨ Garansi 6 Bulan
+              ✨ Garansi Pekerjaan 6 Bulan
             </span>
           </div>
 
@@ -91,12 +97,14 @@ export default function Home() {
           </h1>
 
           <p className="text-xl md:text-2xl text-[#E2E2E2] mb-4 max-w-3xl mx-auto font-light">
-            Solusi Konstruksi & Renovasi Profesional untuk Proyek Anda
+            Solusi Konstruksi & Renovasi Profesional untuk Hunian Impian Anda!
           </p>
 
           <p className="text-lg text-[#C9A74A] mb-10 max-w-2xl mx-auto">
-            Dari perencanaan hingga eksekusi, kami hadir memberikan layanan
-            konstruksi berkualitas dengan standar profesional
+            Kami menyediakan layanan konstruksi profesional dari perencanaan
+            hingga selesai, dengan mengutamakan ketepatan, keamanan, dan
+            kualitas. Didukung tim berpengalaman dan proses transparan, kami
+            siap mewujudkan hunian modern yang nyaman dan fungsional.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -289,20 +297,21 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-[#F2DCA1] mb-3">
                       Kontak
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-1">
                       <a
                         href="tel:087792933166"
-                        className="block text-white hover:text-[#C9A74A] font-semibold text-xl transition-colors"
+                        className="flex items-center gap-2 text-white hover:text-[#C9A74A] transition-colors text-lg"
                       >
-                        0877 9293 3166
+                        <FaPhone className="w-4 h-4" /> 0877 9293 3166
                       </a>
                       <a
                         href="https://instagram.com/habskonstruksikarya"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block text-white hover:text-[#C9A74A] transition-colors text-lg"
+                        className="flex items-center gap-2 text-white hover:text-[#C9A74A] transition-colors text-lg"
                       >
-                        📷 @habskonstruksikarya
+                        <FaEnvelope className="w-4 h-4" />{" "}
+                        habingkreatif@gmail.com
                       </a>
                     </div>
                   </div>
@@ -314,9 +323,9 @@ export default function Home() {
                 href="https://wa.me/6287792933166"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full px-8 py-5 bg-[#25D366] text-white rounded-xl font-bold text-lg hover:bg-[#20BA5A] transition-all shadow-2xl hover:shadow-[#25D366]/50 transform hover:scale-105 text-center"
+                className="flex items-center justify-center gap-2 w-full px-8 py-5 bg-[#25D366] text-white rounded-xl font-bold text-lg hover:bg-[#20BA5A] transition-all shadow-2xl hover:shadow-[#25D366]/50 transform hover:scale-105 text-center"
               >
-                💬 Chat WhatsApp Sekarang
+                <FaWhatsapp className="w-7 h-7" /> Chat WhatsApp Sekarang
               </a>
             </div>
 

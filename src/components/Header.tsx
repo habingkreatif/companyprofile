@@ -1,21 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { AnimatePresence, motion } from "framer-motion";
-import { Briefcase, Info, Phone } from "lucide-react";
-
-const menuItems = [
-  { label: "Tentang", href: "#tentang", icon: Info },
-  { label: "Layanan", href: "#layanan", icon: Briefcase },
-  { label: "Kontak", href: "#kontak", icon: Phone },
-];
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
-
   return (
     <nav
       className="fixed top-0 w-full bg-white/90 backdrop-blur-lg shadow-md z-50 
@@ -23,20 +11,21 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-[50px] h-[50px]">
-              <Image
-                src="/53.png"
-                alt="Logo Habs Konstruksi Karya"
-                fill
-                className="object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
-              />
-              <div
-                className="absolute inset-0 rounded-full border-2 border-transparent 
-            group-hover:border-[#B61F2B] transition-all duration-300"
-              />
+              <div className="relative w-full h-full p-1.5 rounded-full overflow-hidden">
+                <Image
+                  src="/55.png"
+                  alt="Logo Habs Konstruksi Karya"
+                  width={60}
+                  height={60}
+                  className="object-cover mt-0.5 rounded-full transition-transform duration-300"
+                />
+              </div>
+
+              <div className="absolute inset-0 rounded-full border-2 border-[#B61F2B]" />
             </div>
+
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight group-hover:opacity-90 transition-all duration-300">
               <span className="text-[#101010]">Habs</span>{" "}
               <span className="text-[#B61F2B]">Konstruksi Karya</span>
@@ -45,17 +34,19 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {["Tentang", "Layanan", "Kontak"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
+            {["Tentang", "Layanan", "Portofolio", "Proyek", "Kontak"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
             before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 
             hover:before:w-full before:bg-[#B61F2B] before:transition-all"
-              >
-                {item}
-              </a>
-            ))}
+                >
+                  {item}
+                </a>
+              )
+            )}
 
             <a
               href="https://wa.me/6287792933166"
