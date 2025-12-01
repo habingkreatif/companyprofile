@@ -127,7 +127,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      <section className="pt-28 md:pt-14 relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="pt-28 md:pt-14 relative min-h-screen pb-10 md:pb-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0">
           <video

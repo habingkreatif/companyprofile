@@ -33,7 +33,7 @@ export default function Header() {
             </div>
 
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight group-hover:opacity-90 transition-all duration-300">
-              <span className="text-[#101010]">Habs</span>{" "}
+              <span className="text-[#101010]">HABS</span>{" "}
               <span className="text-[#B61F2B]">Konstruksi Karya</span>
             </h1>
           </Link>
