@@ -17,24 +17,14 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: 1,
-    title: "Renovasi Rumah Minimalis",
+    id: 5,
+    title: "Renovasi Rumah Bapak Ferry",
     location: "Sleman, Yogyakarta",
     year: "2025",
     status: "Sedang Berjalan",
     image: "/photo1.jpg",
     description:
       "Renovasi complete interior rumah dengan konsep minimalis modern",
-  },
-
-  {
-    id: 5,
-    title: "Instalasi Sistem MEP",
-    location: "Sleman, Yogyakarta",
-    year: "2025",
-    status: "Perencanaan",
-    image: "/photo2.jpg",
-    description: "Instalasi mechanical, electrical, dan plumbing untuk rumah",
   },
 ];
 

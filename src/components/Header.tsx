@@ -34,22 +34,20 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {["Tentang", "Layanan", "Portofolio", "Proyek", "Kontak"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
+            {["Tentang", "Layanan", "Kontak"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
             before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 
             hover:before:w-full before:bg-[#B61F2B] before:transition-all"
-                >
-                  {item}
-                </a>
-              )
-            )}
+              >
+                {item}
+              </a>
+            ))}
 
             <a
-              href="https://wa.me/6287792933166"
+              href="https://wa.me/6285326566522"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 bg-[#B61F2B] text-white rounded-lg font-semibold hover:bg-[#8E1A22] 

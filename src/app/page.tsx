@@ -109,7 +109,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://wa.me/6287792933166"
+              href="https://wa.me/6285326566522"
               target="_blank"
               rel="noopener noreferrer"
               className="px-10 py-4 bg-[#B61F2B] text-white rounded-lg font-bold text-lg hover:bg-[#8E1A22] transition-all shadow-2xl hover:shadow-[#B61F2B]/50 transform hover:scale-105 flex items-center justify-center gap-2"
@@ -237,16 +237,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
       <PortfolioSection />
 
-      {/* Project Carousel Section */}
       <ProjectCarousel />
 
-      {/* Partner Logos Section */}
       <PartnerLogos />
 
-      {/* Contact Section */}
       <section
         id="kontak"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-[#162A43] relative overflow-hidden"
@@ -299,7 +295,7 @@ export default function Home() {
                     </h3>
                     <div className="space-y-1">
                       <a
-                        href="tel:087792933166"
+                        href="tel:085326566522"
                         className="flex items-center gap-2 text-white hover:text-[#C9A74A] transition-colors text-lg"
                       >
                         <FaPhone className="w-4 h-4" /> 0877 9293 3166
@@ -320,7 +316,7 @@ export default function Home() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/6287792933166"
+                href="https://wa.me/6285326566522"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full px-8 py-5 bg-[#25D366] text-white rounded-xl font-bold text-lg hover:bg-[#20BA5A] transition-all shadow-2xl hover:shadow-[#25D366]/50 transform hover:scale-105 text-center"
@@ -402,7 +398,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-[#E2E2E2]">
                 <li>
                   <a
-                    href="tel:087792933166"
+                    href="tel:085326566522"
                     className="hover:text-[#C9A74A] transition-colors flex items-center gap-2"
                   >
                     <FaPhone className="w-4 h-4" /> 0877 9293 3166

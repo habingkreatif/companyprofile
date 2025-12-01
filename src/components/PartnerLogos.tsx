@@ -11,7 +11,6 @@ interface Partner {
 const partners: Partner[] = [
   { id: 1, name: "Partner 1", logo: "/commodities.png" },
   { id: 2, name: "Partner 2", logo: "/crew.png" },
-  { id: 3, name: "Partner 3", logo: "/group.png" },
   { id: 4, name: "Partner 4", logo: "/konstruksi.png" },
   { id: 5, name: "Partner 5", logo: "/production.png" },
 ];
@@ -33,6 +32,15 @@ export default function PartnerLogos() {
             <span className="text-red-700 text-sm font-medium">
               HABS Group Ecosystem
             </span>
+          </div>
+          <div className="flex justify-center">
+            <Image
+              src={"/group.png"}
+              alt={"HABS Group Ecosystem"}
+              width={120}
+              height={120}
+              className="object-contain drop-shadow-sm"
+            />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             <span className="text-red-600">Satu Keluarga</span>, Beragam Solusi
