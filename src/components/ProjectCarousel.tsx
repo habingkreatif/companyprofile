@@ -22,7 +22,7 @@ const projects: Project[] = [
     location: "Sleman, Yogyakarta",
     year: "2025",
     status: "Sedang Berjalan",
-    image: "/photo1.jpg",
+    image: "/ferry.png",
     description:
       "Renovasi complete interior rumah dengan konsep minimalis modern",
   },

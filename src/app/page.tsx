@@ -66,8 +66,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Header moved to shared component `Header` */}
-
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#162A43] via-[#1E1E1E] to-[#101010] opacity-95"></div>
