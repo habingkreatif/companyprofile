@@ -298,7 +298,7 @@ export default function Home() {
                         href="tel:085326566522"
                         className="flex items-center gap-2 text-white hover:text-[#C9A74A] transition-colors text-lg"
                       >
-                        <FaPhone className="w-4 h-4" /> 0877 9293 3166
+                        <FaPhone className="w-4 h-4" /> 0853 2656 6522
                       </a>
                       <a
                         href="https://instagram.com/habskonstruksikarya"
