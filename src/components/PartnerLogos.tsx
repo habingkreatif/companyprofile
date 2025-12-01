@@ -65,7 +65,7 @@ export default function PartnerLogos() {
               {[...partners, ...partners].map((partner, idx) => (
                 <div
                   key={`first-${partner.id}-${idx}`}
-                  className="flex-shrink-0 w-40 h-24 mx-6 flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  className="flex-shrink-0 w-56 h-32 mx-6 flex items-center justify-center transition-transform duration-300 hover:scale-105"
                 >
                   <div className="relative w-full h-full">
                     <Image
@@ -85,7 +85,7 @@ export default function PartnerLogos() {
               {[...partners, ...partners].map((partner, idx) => (
                 <div
                   key={`second-${partner.id}-${idx}`}
-                  className="flex-shrink-0 w-40 h-24 mx-6 flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  className="flex-shrink-0 w-56 h-32 mx-6 flex items-center justify-center transition-transform duration-300 hover:scale-105"
                 >
                   <div className="relative w-full h-full">
                     <Image

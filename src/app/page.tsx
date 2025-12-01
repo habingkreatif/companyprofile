@@ -1,11 +1,28 @@
 "use client";
 
 import {
+  FaBolt,
+  FaBuilding,
+  FaChartBar,
+  FaClipboard,
+  FaDoorClosed,
+  FaDraftingCompass,
   FaEnvelope,
+  FaHammer,
+  FaHome,
   FaInstagram,
+  FaLayerGroup,
+  FaPaintBrush,
   FaPhone,
+  FaStar,
+  FaTh,
   FaTiktok,
+  FaTools,
+  FaTree,
+  FaUtensils,
+  FaWarehouse,
   FaWhatsapp,
+  FaWindowMaximize,
 } from "react-icons/fa";
 import Image from "next/image";
 import MobileTouchbar from "@/components/Touchbar";
@@ -16,183 +33,334 @@ import PartnerLogos from "@/components/PartnerLogos";
 export default function Home() {
   const services = [
     {
-      title: "Perencanaan",
+      title: "Perencanaan & Konsultasi Proyek",
       description:
-        "Perencanaan proyek yang matang dan detail untuk memastikan hasil optimal",
-      icon: "📋",
+        "Perencanaan proyek yang matang dan konsultasi profesional untuk hasil optimal",
+      icon: <FaClipboard className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Konstruksi",
+      title: "Jasa Konstruksi & Pembangunan",
       description:
-        "Jasa konstruksi berkualitas dengan standar tinggi dan profesional",
-      icon: "🏗️",
+        "Konstruksi berkualitas dengan standar tinggi dan profesional",
+      icon: <FaHammer className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Management Proyek",
+      title: "Renovasi Bangunan & Peremajaan Ruang",
       description:
-        "Pengelolaan proyek yang efisien dan terorganisir dari awal hingga selesai",
-      icon: "📊",
+        "Renovasi menyeluruh untuk memperbarui bangunan dan interior",
+      icon: <FaTools className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Lanskap & Penataan Area Hijau",
+      description:
+        "Desain dan perawatan taman serta area hijau secara profesional",
+      icon: <FaTree className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Pengerjaan Kaca & Aluminium",
+      description:
+        "Instalasi kaca, jendela, dan struktur aluminium berkualitas",
+      icon: <FaWindowMaximize className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Fabrikasi & Instalasi Pagar Besi",
+      description:
+        "Pembuatan dan pemasangan pagar besi custom sesuai kebutuhan",
+      icon: <FaWarehouse className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Perbaikan, Renovasi & Instalasi Atap",
+      description: "Solusi atap anti bocor dan renovasi atap profesional",
+      icon: <FaHome className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Jasa Kitchen Set & Interior Dapur",
+      description:
+        "Desain dan pembuatan kitchen set custom sesuai kebutuhan Anda",
+      icon: <FaUtensils className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Interior & Eksterior Makeover",
+      description: "Transformasi interior dan eksterior dengan desain modern",
+      icon: <FaStar className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Desain 2D/3D & RAB",
       description:
-        "Desain visualisasi 2D dan 3D lengkap dengan Rencana Anggaran Biaya",
-      icon: "🎨",
+        "Desain visualisasi 2D/3D lengkap dengan Rencana Anggaran Biaya",
+      icon: <FaDraftingCompass className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Make Over Interior & Eksterior",
+      title: "Pembuatan & Perbaikan Kusen, Pintu & Jendela",
       description:
-        "Transformasi ruangan interior dan eksterior dengan desain modern",
-      icon: "✨",
+        "Kusen, pintu, dan jendela dibuat & diperbaiki dengan presisi",
+      icon: <FaDoorClosed className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Kitchen Set",
+      title: "Pembangunan Dak & Struktur Beton",
       description:
-        "Desain dan pembuatan kitchen set custom sesuai kebutuhan Anda",
-      icon: "🍳",
+        "Struktur beton & dak bangunan dikerjakan profesional dan aman",
+      icon: <FaBuilding className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Atap & Plafon Anti Bocor",
-      description: "Solusi atap dan plafon anti bocor dengan teknologi terbaru",
-      icon: "🏠",
+      title: "Pengecatan Interior & Eksterior",
+      description: "Pengecatan berkualitas untuk interior dan eksterior",
+      icon: <FaPaintBrush className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
-      title: "Instalasi MEP",
+      title: "Plafon, Partisi & Gypsum",
+      description: "Pemasangan plafon, partisi, dan gypsum dengan hasil rapi",
+      icon: <FaLayerGroup className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Instalasi Listrik & Plumbing",
+      description: "Instalasi listrik dan plumbing secara profesional dan aman",
+      icon: <FaBolt className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Pemasangan Lantai & Keramik",
       description:
-        "Instalasi Mechanical, Electrical, dan Plumbing yang profesional",
-      icon: "⚡",
+        "Lantai & keramik dipasang rapi dengan standar kualitas tinggi",
+      icon: <FaTh className="w-8 h-8 text-[#B61F2B]" />,
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden md:h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#162A43] via-[#1E1E1E] to-[#101010] opacity-95"></div>
+      <section className="pt-28 md:pt-14 relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/placeholder-construction.jpg" // Fallback image
+          >
+            <source src="/background1.mp4" type="video/mp4" />
+            {/* Fallback ke gradient jika video tidak load */}
+          </video>
+          {/* Overlay untuk meningkatkan readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        </div>
 
-        <div className="absolute inset-0 opacity-10">
+        {/* Pattern overlay subtle */}
+        <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0"
             style={{
-              background:
-                "radial-gradient(circle at 2px 2px, rgba(182, 31, 43, 0.1) 1px, transparent 0)",
-              backgroundSize: "40px 40px",
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundSize: "60px 60px",
             }}
           ></div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <div className="inline-block mb-6 px-4 py-2 bg-[#B61F2B]/20 border border-[#B61F2B]/30 rounded-full">
-            <span className="text-[#F2DCA1] text-sm font-semibold">
-              ✨ Garansi Pekerjaan 6 Bulan
-            </span>
+        <div className="max-w-6xl mx-auto relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="space-y-8">
+              {/* Badge - Modern */}
+              <div className="inline-flex items-center gap-3 px-5 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+                <div className="relative">
+                  <div className="w-2 h-2 bg-[#C9A74A] rounded-full"></div>
+                  <div className="absolute inset-0 w-2 h-2 bg-[#C9A74A] rounded-full animate-ping"></div>
+                </div>
+                <span className="text-white font-semibold tracking-wide">
+                  🛡️ Garansi 6 Bulan • Material Premium
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-5xl sm:text-6xl font-bold text-white leading-tight">
+                Hunian Berkualitas,
+                <span className="block mt-4">
+                  <span className="text-[#F2DCA1]">Hasil</span>{" "}
+                  <span className="relative">
+                    Presisi
+                    <span className="absolute -bottom-2 left-0 w-full h-1 bg-[#B61F2B] transform scale-x-75"></span>
+                  </span>
+                </span>
+              </h1>
+
+              {/* Tagline */}
+              <p className="text-xl text-gray-200 leading-relaxed">
+                Transformasi properti Anda dengan layanan konstruksi
+                profesional. Setiap detail diperhitungkan, setiap hasil
+                sempurna.
+              </p>
+
+              {/* Quick Stats */}
+              <div className="flex items-center gap-8 pt-4">
+                <div>
+                  <div className="text-3xl font-bold text-white">8+</div>
+                  <div className="text-gray-300 text-sm">Layanan</div>
+                </div>
+                <div className="w-px h-12 bg-white/20"></div>
+                <div>
+                  <div className="text-3xl font-bold text-[#C9A74A]">24/7</div>
+                  <div className="text-gray-300 text-sm">Support</div>
+                </div>
+                <div className="w-px h-12 bg-white/20"></div>
+                <div>
+                  <div className="text-3xl font-bold text-[#B61F2B]">100%</div>
+                  <div className="text-gray-300 text-sm">Klien Puas</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Content - Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
+              <h3 className="text-white text-2xl font-bold mb-6">
+                Mulai Proyek Anda
+              </h3>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#B61F2B] flex items-center justify-center text-white font-bold flex-shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">
+                      Konsultasi Gratis
+                    </h4>
+                    <p className="text-gray-300 text-sm">
+                      Diskusikan ide dan kebutuhan Anda dengan ahli kami
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#C9A74A] flex items-center justify-center text-white font-bold flex-shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">
+                      Rencana Detail
+                    </h4>
+                    <p className="text-gray-300 text-sm">
+                      Desain 3D dan breakdown biaya yang transparan
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#F2DCA1] flex items-center justify-center text-gray-900 font-bold flex-shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">
+                      Eksekusi Profesional
+                    </h4>
+                    <p className="text-gray-300 text-sm">
+                      Pengerjaan oleh tim ahli dengan monitoring berkala
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA dalam card */}
+              <div className="mt-8 space-y-4">
+                <a
+                  href="https://wa.me/6285326566522"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-4 bg-gradient-to-r from-[#B61F2B] to-[#9e1a24] text-white rounded-xl font-bold text-center hover:shadow-xl hover:shadow-[#B61F2B]/30 transition-all duration-300"
+                >
+                  📞 Hubungi Sekarang
+                </a>
+
+                <div className="text-center">
+                  <a
+                    href="#portofolio"
+                    className="text-gray-300 text-sm hover:text-white transition-colors inline-flex items-center gap-2"
+                  >
+                    Lihat hasil kerja kami
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="text-[#F2DCA1]">HABS</span>{" "}
-            <span className="text-[#FFFFFF]">KONSTRUKSI</span>{" "}
-            <span className="text-[#C9A74A]">KARYA</span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-[#E2E2E2] mb-4 max-w-3xl mx-auto font-light">
-            Solusi Konstruksi & Renovasi Profesional untuk Hunian Impian Anda!
-          </p>
-
-          <p className="text-lg text-[#C9A74A] mb-10 max-w-2xl mx-auto">
-            Kami menyediakan layanan konstruksi profesional dari perencanaan
-            hingga selesai, dengan mengutamakan ketepatan, keamanan, dan
-            kualitas. Didukung tim berpengalaman dan proses transparan, kami
-            siap mewujudkan hunian modern yang nyaman dan fungsional.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://wa.me/6285326566522"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-10 py-4 bg-[#B61F2B] text-white rounded-lg font-bold text-lg hover:bg-[#8E1A22] transition-all shadow-2xl hover:shadow-[#B61F2B]/50 transform hover:scale-105 flex items-center justify-center gap-2"
-            >
-              <span>💬</span> Chat WhatsApp
-            </a>
-
-            <a
-              href="#layanan"
-              className="px-10 py-4 bg-transparent text-white border-2 border-[#C9A74A] rounded-lg font-bold text-lg hover:bg-[#C9A74A]/20 transition-all backdrop-blur-sm"
-            >
-              Lihat Layanan
-            </a>
-          </div>
+          {/* Scroll indicator */}
+          {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+            <div className="animate-bounce">
+              <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
+              </div>
+            </div>
+          </div> */}
         </div>
       </section>
 
       {/* About Section */}
       <section
         id="tentang"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-white relative"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Heading */}
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-[#101010] mb-4">
               Tentang Kami
             </h2>
             <div className="w-32 h-1.5 bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] mx-auto rounded-full"></div>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <p className="text-lg text-[#3A3A3A] leading-relaxed">
-                  <strong className="text-[#B61F2B] text-xl">
-                    Habs Konstruksi Karya
-                  </strong>{" "}
-                  adalah perusahaan konstruksi profesional yang berkomitmen
-                  memberikan layanan terbaik dalam bidang perencanaan,
-                  konstruksi, dan management proyek.
-                </p>
-                <p className="text-lg text-[#3A3A3A] leading-relaxed">
-                  Dengan pengalaman dan keahlian yang mumpuni, kami siap
-                  membantu mewujudkan impian konstruksi dan renovasi Anda dengan
-                  hasil yang berkualitas tinggi.
-                </p>
-                <div className="bg-gradient-to-r from-[#F2DCA1] to-[#C9A74A] p-6 rounded-xl border-l-4 border-[#B61F2B] shadow-lg">
-                  <p className="text-[#101010] font-bold text-lg">
-                    ✨ Garansi 6 Bulan untuk Semua Pekerjaan
-                  </p>
-                  <p className="text-[#1E1E1E] mt-2 text-sm">
-                    Kami menjamin kualitas pekerjaan dengan memberikan garansi
-                    selama 6 bulan
-                  </p>
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-[#162A43] to-[#1E1E1E] p-8 rounded-2xl shadow-2xl">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-[#C9A74A] mb-2">
-                      100%
-                    </div>
-                    <div className="text-[#E2E2E2] text-sm">Kepuasan Klien</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-[#C9A74A] mb-2">
-                      6
-                    </div>
-                    <div className="text-[#E2E2E2] text-sm">Bulan Garansi</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-[#C9A74A] mb-2">
-                      8+
-                    </div>
-                    <div className="text-[#E2E2E2] text-sm">Layanan</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-[#C9A74A] mb-2">
-                      24/7
-                    </div>
-                    <div className="text-[#E2E2E2] text-sm">Support</div>
-                  </div>
-                </div>
-              </div>
+
+          {/* Content Grid */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Text */}
+            <div className="space-y-6 animate-fade-in-left">
+              <p className="text-lg text-[#3A3A3A] leading-relaxed">
+                Di{" "}
+                <strong className="text-[#B61F2B] text-xl">
+                  Habs Konstruksi Karya
+                </strong>
+                , kami percaya bahwa setiap bangunan bukan hanya struktur,
+                melainkan perwujudan visi, nilai, dan masa depan. Itulah alasan
+                kami hadir sebagai mitra konstruksi terpercaya yang menghadirkan
+                solusi menyeluruh dengan standar kualitas terbaik.
+              </p>
+              <p className="text-lg text-[#3A3A3A] leading-relaxed">
+                Sebagai brand yang berfokus pada inovasi, ketepatan, dan
+                keunggulan, Habs Konstruksi Karya menetapkan standar baru dalam
+                dunia konstruksi. Kami menggabungkan pengalaman lapangan,
+                teknologi, serta pendekatan manajemen modern untuk memastikan
+                setiap detail dikerjakan dengan presisi.
+              </p>
+              <p className="text-lg text-[#3A3A3A] leading-relaxed">
+                Dengan tim yang berdedikasi dan berpengalaman, kami tidak
+                sekadar membangun, kami menciptakan nilai, mulai dari
+                perencanaan visioner, eksekusi konstruksi yang rapi dan aman,
+                hingga manajemen proyek yang terukur dan profesional.
+              </p>
+              <p className="text-lg text-[#3A3A3A] leading-relaxed">
+                Komitmen kami sederhana: Mewujudkan karya konstruksi yang kokoh,
+                estetis, dan tahan lama, sekaligus membangun kepercayaan yang
+                langgeng dengan setiap klien.
+              </p>
+            </div>
+
+            {/* Image / Illustration */}
+            <div className="relative animate-fade-in-right">
+              <Image
+                src="/background5.png"
+                alt="Tentang Kami"
+                width={600}
+                height={400}
+                className=" h-auto rounded-xl shadow-xl object-cover"
+              />
+              {/* Optional overlay icon atau dekoratif */}
+              <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-[#B61F2B] to-[#C9A74A] rounded-full opacity-30"></div>
             </div>
           </div>
         </div>
+
+        {/* Background Decorative Shapes */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-[#B61F2B] rounded-full opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A74A] rounded-full opacity-10 translate-x-1/2 translate-y-1/2"></div>
       </section>
 
       {/* Services Section */}
@@ -241,7 +409,7 @@ export default function Home() {
       <PartnerLogos />
 
       <section
-        id="kontak"
+        id="hubungikami"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-[#162A43] relative overflow-hidden"
       >
         <div className="absolute inset-0 opacity-20">

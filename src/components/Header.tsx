@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import {
+  FaInfoCircle,
+  FaPhone,
+  FaServicestack,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 export default function Header() {
   return (
@@ -34,15 +40,20 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {["Tentang", "Layanan", "Kontak"].map((item) => (
+            {[
+              { label: "Tentang Kami", icon: <FaInfoCircle /> },
+              { label: "Layanan", icon: <FaServicestack /> },
+              { label: "Hubungi Kami", icon: <FaPhone /> },
+            ].map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
-            before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 
-            hover:before:w-full before:bg-[#B61F2B] before:transition-all"
+                key={item.label}
+                href={`#${item.label.toLowerCase().replace(/\s+/g, "")}`}
+                className="flex items-center gap-2 text-[#3A3A3A] hover:text-[#B61F2B] transition-all duration-300 font-medium relative
+        before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 
+        hover:before:w-full before:bg-[#B61F2B] before:transition-all"
               >
-                {item}
+                {item.icon}
+                {item.label}
               </a>
             ))}
 
@@ -50,10 +61,11 @@ export default function Header() {
               href="https://wa.me/6285326566522"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2 bg-[#B61F2B] text-white rounded-lg font-semibold hover:bg-[#8E1A22] 
-          transition-all shadow-md hover:shadow-lg hover:scale-105"
+              className="flex items-center gap-2 px-6 py-2 bg-[#B61F2B] text-white rounded-lg font-semibold hover:bg-[#8E1A22] 
+      transition-all shadow-md hover:shadow-lg hover:scale-105"
             >
-              Hubungi
+              <FaWhatsapp />
+              Whatsapp
             </a>
           </div>
         </div>
