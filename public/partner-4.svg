@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100">
+  <rect width="200" height="100" fill="#F0F0F0"/>
+  <circle cx="80" cy="40" r="15" fill="#B61F2B" opacity="0.2"/>
+  <circle cx="120" cy="40" r="15" fill="#B61F2B" opacity="0.2"/>
+  <rect x="75" y="60" width="50" height="15" fill="#B61F2B" opacity="0.2" rx="3"/>
+  <text x="50%" y="85%" font-size="12" fill="#666" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Partner 4</text>
+</svg>

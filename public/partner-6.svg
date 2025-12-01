@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100">
+  <rect width="200" height="100" fill="#F0F0F0"/>
+  <rect x="60" y="25" width="20" height="50" fill="#B61F2B" opacity="0.2"/>
+  <rect x="90" y="20" width="20" height="60" fill="#B61F2B" opacity="0.2"/>
+  <rect x="120" y="30" width="20" height="45" fill="#B61F2B" opacity="0.2"/>
+  <text x="50%" y="85%" font-size="14" fill="#666" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Partner 6</text>
+</svg>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "../components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +18,7 @@ export const metadata: Metadata = {
   description:
     "Habs Konstruksi Karya menyediakan jasa perencanaan, konstruksi, management proyek, desain 2D/3D & RAB, make over interior & eksterior, kitchen set, atap & plafon anti bocor, dan instalasi MEP dengan garansi 6 bulan.",
   icons: {
-    icon: "/50.png",
-    shortcut: "/50.png",
-    apple: "/50.png",
+    icon: "/51.png",
   },
 };
 
@@ -33,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
       </body>
     </html>

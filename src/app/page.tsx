@@ -2,6 +2,10 @@
 
 import { FaEnvelope, FaInstagram, FaPhone, FaTiktok } from "react-icons/fa";
 import Image from "next/image";
+import MobileTouchbar from "@/components/Touchbar";
+import PortfolioSection from "@/components/PortfolioSection";
+import ProjectCarousel from "@/components/ProjectCarousel";
+import PartnerLogos from "@/components/PartnerLogos";
 
 export default function Home() {
   const services = [
@@ -56,54 +60,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      <nav className="fixed top-0 w-full bg-[#FFFFFF]/95 backdrop-blur-md shadow-lg z-50 border-b border-[#E2E2E2]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/52.png" // bisa pakai /50.png juga
-                alt="Logo Habs Konstruksi Karya"
-                width={50}
-                height={50}
-                className="object-cover rounded-full"
-              />
-              <h1 className="text-2xl font-bold">
-                <span className="text-[#101010]">Habs</span>{" "}
-                <span className="text-[#B61F2B]">Konstruksi Karya</span>
-              </h1>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#tentang"
-                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-colors font-medium"
-              >
-                Tentang
-              </a>
-              <a
-                href="#layanan"
-                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-colors font-medium"
-              >
-                Layanan
-              </a>
-              <a
-                href="#kontak"
-                className="text-[#3A3A3A] hover:text-[#B61F2B] transition-colors font-medium"
-              >
-                Kontak
-              </a>
-              <a
-                href="https://wa.me/6287792933166"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-[#B61F2B] text-white rounded-lg font-semibold hover:bg-[#8E1A22] transition-all shadow-md hover:shadow-lg"
-              >
-                Hubungi
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Header moved to shared component `Header` */}
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -272,6 +229,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Portfolio Section */}
+      <PortfolioSection />
+
+      {/* Project Carousel Section */}
+      <ProjectCarousel />
+
+      {/* Partner Logos Section */}
+      <PartnerLogos />
+
       {/* Contact Section */}
       <section
         id="kontak"
@@ -392,10 +358,19 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">
-                <span className="text-white">Habs</span>{" "}
-                <span className="text-[#B61F2B]">Konstruksi Karya</span>
-              </h3>
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/53.png"
+                  alt="Logo Habs Konstruksi Karya"
+                  width={50}
+                  height={50}
+                  className="object-cover rounded-full"
+                />
+                <h3 className="text-2xl font-bold">
+                  <span className="text-white">Habs</span>{" "}
+                  <span className="text-[#B61F2B]">Konstruksi Karya</span>
+                </h3>
+              </div>
               <p className="text-[#E2E2E2] text-sm">
                 Solusi Konstruksi & Renovasi Profesional dengan Garansi 6 Bulan
               </p>
@@ -468,6 +443,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <MobileTouchbar />
     </div>
   );
 }
