@@ -154,7 +154,7 @@ export default function Home() {
         </div>
 
         {/* Pattern overlay subtle */}
-        <div className="absolute inset-0 opacity-5">
+        {/* <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0"
             style={{
@@ -162,7 +162,7 @@ export default function Home() {
               backgroundSize: "60px 60px",
             }}
           ></div>
-        </div>
+        </div> */}
 
         <div className="max-w-6xl mx-auto relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
