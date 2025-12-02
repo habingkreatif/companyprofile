@@ -16,7 +16,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Budi Santoso",
+    name: "Warsito Hadi",
     position: "Pemilik Cafe",
     company: "Yogyakarta",
     rating: 5,
@@ -57,7 +57,7 @@ const testimonials: Testimonial[] = [
     company: "Sleman, Yogyakarta",
     rating: 5,
     comment:
-      "Renovasi rumah kami selesai tepat waktu dengan kualitas sangat baik. Tim Habs Konstruksi Karya sangat responsif dan profesional. Hasilnya memuaskan!",
+      "Renovasi rumah kami pekerjaannya lebih cepat dari timeline dgn kualitas sangat baik. Tim Habs Konstruksi Karya sangat responsif dan profesional. Hasilnya memuaskan!",
   },
   {
     id: 6,

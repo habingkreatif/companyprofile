@@ -31,6 +31,7 @@ import PortfolioSection from "@/components/PortfolioSection";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialSection from "@/components/TestimonialSection";
+import { FaShield } from "react-icons/fa6";
 
 export default function Home() {
   const services = [
@@ -176,15 +177,6 @@ export default function Home() {
             {/* Left Content */}
             <div className="space-y-8">
               {/* Badge - Modern */}
-              <div className="inline-flex items-center gap-3 px-5 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-                <div className="relative">
-                  <div className="w-2 h-2 bg-[#C9A74A] rounded-full"></div>
-                  <div className="absolute inset-0 w-2 h-2 bg-[#C9A74A] rounded-full animate-ping"></div>
-                </div>
-                <span className="text-white font-semibold tracking-wide">
-                  🛡️ Garansi 6 Bulan • Material Premium
-                </span>
-              </div>
 
               {/* Headline */}
               <h1 className="text-5xl sm:text-6xl font-bold text-white leading-tight">
@@ -221,6 +213,11 @@ export default function Home() {
                   <div className="text-3xl font-bold text-[#B61F2B]">100%</div>
                   <div className="text-gray-300 text-sm">Klien Puas</div>
                 </div>
+              </div>
+              <div className="inline-flex items-center gap-3 px-5 py-3 bg-soft-gold backdrop-blur-md rounded-xl border border-white/20">
+                <span className="text-black font-bold tracking-wide uppercase flex items-center gap-2">
+                  <FaShield className="w-4 h-4 " /> Garansi Pekerjaan 6 Bulan
+                </span>
               </div>
             </div>
 
