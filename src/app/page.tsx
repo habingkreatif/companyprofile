@@ -149,7 +149,7 @@ export default function Home() {
             {/* Fallback ke gradient jika video tidak load */}
           </video>
           {/* Overlay untuk meningkatkan readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
         </div>
 
@@ -544,7 +544,7 @@ export default function Home() {
                   className="object-cover rounded-full"
                 />
                 <h3 className="text-2xl font-bold">
-                  <span className="text-white">Habs</span>{" "}
+                  <span className="text-white">HABS</span>{" "}
                   <span className="text-[#B61F2B]">Konstruksi Karya</span>
                 </h3>
               </div>
