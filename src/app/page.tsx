@@ -30,6 +30,7 @@ import MobileTouchbar from "@/components/Touchbar";
 import PortfolioSection from "@/components/PortfolioSection";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import PartnerLogos from "@/components/PartnerLogos";
+import TestimonialSection from "@/components/TestimonialSection";
 
 export default function Home() {
   const services = [
@@ -128,6 +129,12 @@ export default function Home() {
       title: "Pembuatan Website & Company Profile",
       description:
         "Pembuatan website profesional untuk bisnis, portofolio proyek, dan company profile perusahaan.",
+      icon: <FaGlobe className="w-8 h-8 text-[#B61F2B]" />,
+    },
+    {
+      title: "Pemeliharaan Bangunan",
+      description:
+        "Pemeliharaan bangunan secara rutin untuk menjaga kondisi bangunan tetap baik",
       icon: <FaGlobe className="w-8 h-8 text-[#B61F2B]" />,
     },
   ];
@@ -414,6 +421,8 @@ export default function Home() {
       <ProjectCarousel />
 
       <PartnerLogos />
+
+      <TestimonialSection />
 
       <section
         id="hubungikami"
