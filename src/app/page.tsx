@@ -8,6 +8,7 @@ import {
   FaDoorClosed,
   FaDraftingCompass,
   FaEnvelope,
+  FaGlobe,
   FaHammer,
   FaHome,
   FaInstagram,
@@ -123,6 +124,12 @@ export default function Home() {
         "Lantai & keramik dipasang rapi dengan standar kualitas tinggi",
       icon: <FaTh className="w-8 h-8 text-[#B61F2B]" />,
     },
+    {
+      title: "Pembuatan Website & Company Profile",
+      description:
+        "Pembuatan website profesional untuk bisnis, portofolio proyek, dan company profile perusahaan.",
+      icon: <FaGlobe className="w-8 h-8 text-[#B61F2B]" />,
+    },
   ];
 
   return (
@@ -194,7 +201,7 @@ export default function Home() {
               {/* Quick Stats */}
               <div className="flex items-center gap-8 pt-4">
                 <div>
-                  <div className="text-3xl font-bold text-white">8+</div>
+                  <div className="text-3xl font-bold text-white">15+</div>
                   <div className="text-gray-300 text-sm">Layanan</div>
                 </div>
                 <div className="w-px h-12 bg-white/20"></div>
@@ -554,6 +561,7 @@ export default function Home() {
                 <li>Management Proyek</li>
                 <li>Desain 2D/3D & RAB</li>
                 <li>Renovasi Interior & Eksterior</li>
+                <li>Pembuatan Website & Company Profile</li>
               </ul>
             </div>
             <div>
