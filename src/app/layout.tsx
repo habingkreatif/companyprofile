@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,7 +67,6 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head>
-        {/* Google Tag */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-5X5GKZN38S"
@@ -87,6 +87,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   );

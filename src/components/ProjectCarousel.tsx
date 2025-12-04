@@ -3,12 +3,20 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Calendar,
+  CalendarCheck,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+} from "lucide-react";
 
 interface Project {
   id: number;
   title: string;
   location: string;
+  start: string;
+  end: string;
   year: string;
   status: "Selesai" | "Sedang Berjalan" | "Perencanaan";
   image: string;
@@ -18,13 +26,27 @@ interface Project {
 const projects: Project[] = [
   {
     id: 5,
-    title: "Renovasi Rumah Bapak Ferry",
+    title: "Proyek Renovasi & Pembangunan Rumah Bp Ferry Ramadhan",
     location: "Sleman, Yogyakarta",
+    start: "01 Desember 2025",
+    end: "Sedang Berjalan",
     year: "2025",
     status: "Sedang Berjalan",
-    image: "/ferry.png",
+    image: "/ferry1.png",
     description:
       "Renovasi complete interior rumah dengan konsep minimalis modern",
+  },
+  {
+    id: 6,
+    title: "Proyek Renovasi Plafon Bp Suryadi",
+    location: "Bantul, Yogyakarta",
+    start: "26 November 2025",
+    end: "29 November 2025",
+    year: "2025",
+    status: "Selesai",
+    image: "/ferry.png",
+    description:
+      "Renovasi plafon rumah dengan material anti bocor dan desain estetis",
   },
 ];
 
@@ -108,21 +130,41 @@ export default function ProjectCarousel() {
                       {projects[current].description}
                     </p>
 
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-3">
+                    <div className="space-y-2 mb-6">
+                      <div className="flex items-center gap-2">
+                        <MapPin
+                          className="w-5 h-5 text-[#B61F2B]"
+                          aria-hidden="true"
+                        />
                         <span className="text-[#B61F2B] font-semibold">
-                          📍 Lokasi:
+                          Lokasi:
                         </span>
                         <p className="text-[#3A3A3A]">
                           {projects[current].location}
                         </p>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <Calendar
+                          className="w-5 h-5 text-[#B61F2B]"
+                          aria-hidden="true"
+                        />
                         <span className="text-[#B61F2B] font-semibold">
-                          📅 Tahun:
+                          Dimulai:
                         </span>
                         <p className="text-[#3A3A3A]">
-                          {projects[current].year}
+                          {projects[current].start}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CalendarCheck
+                          className="w-5 h-5 text-[#B61F2B]"
+                          aria-hidden="true"
+                        />
+                        <span className="text-[#B61F2B] font-semibold">
+                          Berakhir:
+                        </span>
+                        <p className="text-[#3A3A3A]">
+                          {projects[current].end}
                         </p>
                       </div>
                     </div>
