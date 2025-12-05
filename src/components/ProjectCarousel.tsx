@@ -44,7 +44,7 @@ const projects: Project[] = [
     end: "29 November 2025",
     year: "2025",
     status: "Selesai",
-    image: "/ferry.png",
+    image: "/plafon.png",
     description:
       "Renovasi plafon rumah dengan material anti bocor dan desain estetis",
   },
