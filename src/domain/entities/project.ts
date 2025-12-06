@@ -8,6 +8,7 @@ export interface Project {
   status: "Selesai" | "Sedang Berjalan" | "Perencanaan";
   image: string;
   description: string;
+  updated_at: string;
   progress: Array<{ task: string; percentage: number }>;
   totalProgress: number;
 }

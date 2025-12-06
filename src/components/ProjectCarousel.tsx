@@ -32,6 +32,19 @@ export default function ProjectCarousel() {
     setCurrent((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
+  const formatHariTanggal = (rawDate: string) => {
+    const fixedDate = rawDate.replace(/(\d+)\.(\d+)\.(\d+)/, "$1:$2:$3");
+
+    const date = new Date(fixedDate);
+
+    return date.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F5F5F5] to-white">
       <div className="max-w-5xl mx-auto">
@@ -371,7 +384,8 @@ export default function ProjectCarousel() {
                         Total Progress Proyek
                       </h4>
                       <span className="text-2xl font-bold text-[#B61F2B]">
-                        {projects[current].totalProgress}%
+                        {projects[current].totalProgress}% /{" "}
+                        {formatHariTanggal(projects[current].updated_at)}
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-4">

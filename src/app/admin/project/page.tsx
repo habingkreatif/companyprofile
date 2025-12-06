@@ -52,6 +52,7 @@ import {
   Save,
 } from "lucide-react";
 import Image from "next/image";
+import { update } from "firebase/database";
 
 export default function AdminProjectsPage() {
   const {
@@ -78,6 +79,7 @@ export default function AdminProjectsPage() {
     image: "",
     description: "",
     progress: [] as { task: string; percentage: number }[],
+    updated_at: "",
   });
 
   const handleInputChange = (
@@ -104,7 +106,9 @@ export default function AdminProjectsPage() {
       ...formData,
       totalProgress: calculateTotalProgress(formData.progress),
       progress: formData.progress,
+      updated_at: new Date().toLocaleString("id-ID"),
     };
+    console.log("oke :", projectData);
 
     try {
       if (selectedProject) {
@@ -133,6 +137,7 @@ export default function AdminProjectsPage() {
       image: project.image,
       description: project.description,
       progress: project.progress ?? [],
+      updated_at: project.updated_at,
     });
 
     setIsDialogOpen(true);
