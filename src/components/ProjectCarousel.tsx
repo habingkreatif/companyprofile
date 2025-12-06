@@ -147,7 +147,7 @@ export default function ProjectCarousel() {
                             Dimulai:
                           </span>
                           <p className="text-[#3A3A3A]">
-                            {projects[current].start}
+                            {formatHariTanggal(projects[current].start)}
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export default function ProjectCarousel() {
                             Berakhir:
                           </span>
                           <p className="text-[#3A3A3A]">
-                            {projects[current].end}
+                            {formatHariTanggal(projects[current].end)}
                           </p>
                         </div>
                       </div>
