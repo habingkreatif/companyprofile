@@ -210,7 +210,9 @@ export default function Home() {
                 </div>
                 <div className="w-px h-12 bg-white/20"></div>
                 <div>
-                  <div className="text-3xl font-bold text-[#B61F2B]">100%</div>
+                  <div className="text-3xl font-bold text-[#B61F2B]">
+                    99,98%
+                  </div>
                   <div className="text-gray-300 text-sm">Klien Puas</div>
                 </div>
               </div>

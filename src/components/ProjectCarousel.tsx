@@ -157,39 +157,6 @@ export default function ProjectCarousel() {
                         <span>Lihat Detail Progress</span>
                         <ChevronRight className="w-5 h-5" />
                       </button>
-
-                      <div className="flex gap-3">
-                        <button
-                          onClick={prev}
-                          className="p-3 rounded-full bg-[#B61F2B] text-white hover:bg-[#8E1A22] transition-colors"
-                          aria-label="Previous project"
-                        >
-                          <ChevronLeft className="w-6 h-6" />
-                        </button>
-                        <button
-                          onClick={next}
-                          className="p-3 rounded-full bg-[#B61F2B] text-white hover:bg-[#8E1A22] transition-colors"
-                          aria-label="Next project"
-                        >
-                          <ChevronRight className="w-6 h-6" />
-                        </button>
-                      </div>
-
-                      {/* Dots */}
-                      <div className="flex gap-2 mt-6">
-                        {projects.map((_, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => setCurrent(idx)}
-                            className={`h-2 rounded-full transition-all ${
-                              idx === current
-                                ? "w-8 bg-[#B61F2B]"
-                                : "w-2 bg-[#E2E2E2]"
-                            }`}
-                            aria-label={`Go to project ${idx + 1}`}
-                          />
-                        ))}
-                      </div>
                     </motion.div>
                   </div>
                 </div>
@@ -197,13 +164,159 @@ export default function ProjectCarousel() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Counter */}
-          <div className="text-center mt-8">
-            <p className="text-[#3A3A3A] text-sm">
-              Proyek{" "}
-              <span className="font-bold text-[#B61F2B]">{current + 1}</span>{" "}
-              dari <span className="font-bold">{projects.length}</span>
-            </p>
+          {/* Enhanced Pagination */}
+          <div className="mt-12">
+            {/* Compact Progress Bar */}
+            <div className="relative mb-8">
+              <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: `${((current + 1) / projects.length) * 100}%`,
+                  }}
+                  className="h-full bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] rounded-full"
+                />
+              </div>
+
+              {/* Current Position Indicator */}
+              <div className="absolute -top-1.5 left-0 transform -translate-x-1/2">
+                <motion.div
+                  layoutId="currentIndicator"
+                  className="w-3 h-3 rounded-full bg-[#B61F2B] border-2 border-white shadow-lg"
+                />
+              </div>
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-between bg-gradient-to-r from-gray-50 to-white p-4 rounded-2xl border border-gray-200">
+              {/* Previous Button */}
+              <button
+                onClick={prev}
+                disabled={current === 0}
+                className={`group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${
+                  current === 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-white hover:shadow-md hover:border-[#B61F2B]/30"
+                }`}
+              >
+                <div
+                  className={`p-2 rounded-lg transition-colors ${
+                    current === 0
+                      ? "bg-gray-200"
+                      : "bg-gray-100 group-hover:bg-[#B61F2B]/10"
+                  }`}
+                >
+                  <ChevronLeft
+                    className={`w-4 h-4 ${
+                      current === 0
+                        ? "text-gray-400"
+                        : "text-gray-600 group-hover:text-[#B61F2B]"
+                    }`}
+                  />
+                </div>
+                <div className="text-left">
+                  <div
+                    className={`text-xs ${
+                      current === 0
+                        ? "text-gray-400"
+                        : "text-gray-500 group-hover:text-[#B61F2B]"
+                    }`}
+                  >
+                    Sebelumnya
+                  </div>
+                  {current > 0 && (
+                    <div className="text-sm font-medium text-gray-700 group-hover:text-[#B61F2B] line-clamp-1 max-w-[150px]">
+                      {projects[current - 1]?.title}
+                    </div>
+                  )}
+                </div>
+              </button>
+
+              {/* Current Info */}
+              <div className="flex flex-col items-center">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-[#B61F2B]">
+                    {current + 1}
+                  </span>
+                  <span className="text-gray-400 mx-1">/</span>
+                  <span className="text-lg font-medium text-gray-700">
+                    {projects.length}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Proyek Saat Ini</p>
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={next}
+                disabled={current === projects.length - 1}
+                className={`group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${
+                  current === projects.length - 1
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-white hover:shadow-md hover:border-[#B61F2B]/30"
+                }`}
+              >
+                <div className="text-right">
+                  <div
+                    className={`text-xs ${
+                      current === projects.length - 1
+                        ? "text-gray-400"
+                        : "text-gray-500 group-hover:text-[#B61F2B]"
+                    }`}
+                  >
+                    Selanjutnya
+                  </div>
+                  {current < projects.length - 1 && (
+                    <div className="text-sm font-medium text-gray-700 group-hover:text-[#B61F2B] line-clamp-1 max-w-[150px]">
+                      {projects[current + 1]?.title}
+                    </div>
+                  )}
+                </div>
+                <div
+                  className={`p-2 rounded-lg transition-colors ${
+                    current === projects.length - 1
+                      ? "bg-gray-200"
+                      : "bg-gray-100 group-hover:bg-[#B61F2B]/10"
+                  }`}
+                >
+                  <ChevronRight
+                    className={`w-4 h-4 ${
+                      current === projects.length - 1
+                        ? "text-gray-400"
+                        : "text-gray-600 group-hover:text-[#B61F2B]"
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
+
+            {/* Dots Navigation - Minimal */}
+            <div className="flex justify-center gap-1.5 mt-6">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrent(index)}
+                  className="group relative"
+                  aria-label={`Ke proyek ${index + 1}`}
+                >
+                  <div
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === current
+                        ? "bg-[#B61F2B] scale-125"
+                        : "bg-gray-300 group-hover:bg-gray-400"
+                    }`}
+                  />
+
+                  {/* Tooltip on hover */}
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                      {projects[index]?.title}
+                    </div>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
