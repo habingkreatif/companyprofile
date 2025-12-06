@@ -33,6 +33,7 @@ export default function ProjectCarousel() {
   };
 
   const formatHariTanggal = (rawDate: string) => {
+    // Ubah "14.35.23" → "14:35:23" biar bisa dibaca Date()
     const fixedDate = rawDate.replace(/(\d+)\.(\d+)\.(\d+)/, "$1:$2:$3");
 
     const date = new Date(fixedDate);

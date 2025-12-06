@@ -106,7 +106,7 @@ export default function AdminProjectsPage() {
       ...formData,
       totalProgress: calculateTotalProgress(formData.progress),
       progress: formData.progress,
-      updated_at: new Date().toLocaleString("id-ID"),
+      updated_at: new Date().toISOString(),
     };
     console.log("oke :", projectData);
 
