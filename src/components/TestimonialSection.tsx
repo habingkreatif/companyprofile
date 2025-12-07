@@ -52,7 +52,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 5,
-    name: "Ferry Ramadhan",
+    name: "Dewangga Anggara",
     position: "Pemilik Rumah",
     company: "Sleman, Yogyakarta",
     rating: 5,
