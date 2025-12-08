@@ -1,17 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "./ui/pagination";
 
 interface Portfolio {
   id: number;
@@ -85,69 +77,94 @@ const portfolios: Portfolio[] = [
     image: "/rumah3.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
+  {
+    id: 10,
+    title: "Ruang Minimalis",
+    category: "Desain 3D Interior",
+    image: "/2.jpg",
+    description: "Interior ruang minimalis yang modern dan rapi.",
+  },
+  {
+    id: 11,
+    title: "Ruang Minimalis",
+    category: "Desain 3D Interior",
+    image: "/3.jpg",
+    description: "Interior ruang minimalis yang modern dan rapi.",
+  },
+  {
+    id: 12,
+    title: "Ruang Minimalis",
+    category: "Desain 3D Interior",
+    image: "/4.jpg",
+    description: "Interior ruang minimalis yang modern dan rapi.",
+  },
+  {
+    id: 13,
+    title: "Ruang Minimalis",
+    category: "Desain 3D Interior",
+    image: "/6.jpg",
+    description: "Interior ruang minimalis yang modern dan rapi.",
+  },
 ];
 
-const getItemsPerView = () => {
-  if (typeof window === "undefined") return 3;
-
-  const width = window.innerWidth;
-  if (width < 640) return 1;
-  if (width < 1024) return 2;
-  return 3;
+// Grid layout configuration - asymmetric sizing
+const gridConfig = {
+  base: [
+    { row: "span 2", col: "span 2" }, // Large item
+    { row: "span 1", col: "span 1" }, // Small item
+    { row: "span 1", col: "span 1" }, // Small item
+    { row: "span 1", col: "span 1" }, // Small item
+    { row: "span 2", col: "span 2" }, // Large item
+    { row: "span 1", col: "span 1" }, // Small item
+    { row: "span 1", col: "span 2" }, // Medium horizontal
+    { row: "span 2", col: "span 1" }, // Medium vertical
+    { row: "span 1", col: "span 1" }, // Small item
+  ],
+  md: [
+    { row: "span 3", col: "span 3" },
+    { row: "span 2", col: "span 2" },
+    { row: "span 2", col: "span 2" },
+    { row: "span 1", col: "span 1" },
+    { row: "span 3", col: "span 3" },
+    { row: "span 2", col: "span 2" },
+    { row: "span 2", col: "span 3" },
+    { row: "span 3", col: "span 2" },
+    { row: "span 1", col: "span 1" },
+  ],
+  lg: [
+    { row: "span 4", col: "span 4" },
+    { row: "span 3", col: "span 3" },
+    { row: "span 3", col: "span 3" },
+    { row: "span 2", col: "span 2" },
+    { row: "span 4", col: "span 4" },
+    { row: "span 3", col: "span 3" },
+    { row: "span 3", col: "span 4" },
+    { row: "span 4", col: "span 3" },
+    { row: "span 2", col: "span 2" },
+  ],
 };
 
 export default function PortfolioSection() {
-  const [currentStartIndex, setCurrentStartIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(3);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const updateItemsPerView = useCallback(() => {
-    setItemsPerView(getItemsPerView());
-  }, []);
-
-  useState(() => {
-    if (typeof window !== "undefined") {
-      setItemsPerView(getItemsPerView());
-      window.addEventListener("resize", updateItemsPerView);
-      return () => window.removeEventListener("resize", updateItemsPerView);
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -400, behavior: "smooth" });
     }
-  });
+  };
 
-  const visiblePortfolios = portfolios.slice(
-    currentStartIndex,
-    currentStartIndex + itemsPerView
-  );
-
-  const nextSet = useCallback(() => {
-    setCurrentStartIndex((prev) => {
-      if (prev + itemsPerView >= portfolios.length) {
-        return 0;
-      }
-      return prev + itemsPerView;
-    });
-  }, [itemsPerView]);
-
-  const prevSet = useCallback(() => {
-    setCurrentStartIndex((prev) => {
-      if (prev - itemsPerView < 0) {
-        const lastPossibleStart = portfolios.length - itemsPerView;
-        return lastPossibleStart < 0 ? 0 : lastPossibleStart;
-      }
-      return prev - itemsPerView;
-    });
-  }, [itemsPerView]);
-
-  const canGoNext = currentStartIndex + itemsPerView < portfolios.length;
-  const canGoPrev = currentStartIndex > 0;
-
-  const currentSet = Math.floor(currentStartIndex / itemsPerView);
-  const totalSets = Math.ceil(portfolios.length / itemsPerView);
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 400, behavior: "smooth" });
+    }
+  };
 
   return (
     <section
       id="portofolio"
       className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-full mx-auto">
         <motion.div
           className="text-center mb-10 md:mb-14 lg:mb-16 px-4"
           initial={{ opacity: 0, y: -20 }}
@@ -165,236 +182,238 @@ export default function PortfolioSection() {
         </motion.div>
 
         <div className="relative">
-          <div className="overflow-hidden pb-[10px]">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 lg:px-8">
-              {visiblePortfolios.map((portfolio, index) => (
-                <motion.div
-                  key={portfolio.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className={`
-                        flex-shrink-0 group
-                        ${itemsPerView === 1 ? "w-full" : ""}
-                        ${
-                          itemsPerView === 2
-                            ? "w-[calc(50%-8px)] sm:w-[calc(50%-12px)]"
-                            : ""
-                        }
-                        ${
-                          itemsPerView === 3
-                            ? "w-[calc(33.333%-10.67px)] sm:w-[calc(33.333%-16px)]"
-                            : ""
-                        }
-                  `}
-                >
-                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 bg-white h-full">
-                    {/* Image Container */}
-                    <div className="relative aspect-[4/3] sm:aspect-[3/2] overflow-hidden">
-                      <Image
-                        src={portfolio.image}
-                        alt={portfolio.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        priority={index < 2}
-                      />
+          <button
+            onClick={scrollLeft}
+            className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
+            aria-label="Scroll kiri"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
+          </button>
 
-                      {/* Category Badge */}
-                      <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
-                        <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#B61F2B] text-white text-xs font-semibold rounded-full">
-                          {portfolio.category}
+          <button
+            onClick={scrollRight}
+            className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
+            aria-label="Scroll kanan"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
+          </button>
+
+          <div
+            ref={scrollContainerRef}
+            className="overflow-x-auto pb-20 w-full scrollbar-hide"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
+            <div className="inline-flex min-w-max">
+              <div className="grid grid-flow-col auto-cols-[minmax(300px,400px)] md:auto-cols-[minmax(400px,500px)] gap-4 md:gap-6">
+                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
+                  {/* Column 1 */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                  >
+                    <Image
+                      src={portfolios[0].image}
+                      alt={portfolios[0].title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                      <div>
+                        <span className="inline-block px-3 py-1.5 bg-[#B61F2B] text-white text-xs font-semibold rounded-full mb-2">
+                          {portfolios[0].category}
                         </span>
-                      </div>
-
-                      {/* Hover Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 sm:p-6">
-                        <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 sm:mb-2">
-                          {portfolio.title}
+                        <h3 className="text-xl font-bold text-white">
+                          {portfolios[0].title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-gray-200 line-clamp-2 sm:line-clamp-3">
-                          {portfolio.description}
-                        </p>
-                        {/* <button className="mt-2 sm:mt-3 text-xs sm:text-sm text-white font-medium hover:text-gray-300 self-start flex items-center gap-1">
-                          <span>Lihat Detail</span>
-                          <svg
-                            className="w-3 h-3 sm:w-4 sm:h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            />
-                          </svg>
-                        </button> */}
                       </div>
                     </div>
+                  </motion.div>
 
-                    {/* Content */}
-                    <div className="p-4 bg-white">
-                      <h3 className="font-bold text-[#101010] line-clamp-2">
-                        {portfolio.title}
-                      </h3>
-                      <p className="text-[#3A3A3A] text-sm mt-1">
-                        {portfolio.category}
-                      </p>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    className="row-span-2 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                  >
+                    <Image
+                      src={portfolios[1].image}
+                      alt={portfolios[1].title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </motion.div>
+                </div>
+
+                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
+                  {/* Column 2 */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    className="row-span-2 grid grid-cols-2 gap-4 md:gap-6"
+                  >
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                      <Image
+                        src={portfolios[2].image}
+                        alt={portfolios[2].title}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                      <Image
+                        src={portfolios[3].image}
+                        alt={portfolios[3].title}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                  </motion.div>
 
-          {canGoPrev && (
-            <button
-              onClick={prevSet}
-              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
-              aria-label="Sebelumnya"
-            >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
-            </button>
-          )}
-
-          {canGoNext && (
-            <button
-              onClick={nextSet}
-              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
-              aria-label="Selanjutnya"
-            >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
-            </button>
-          )}
-        </div>
-
-        <div className="mt-6 sm:mt-8">
-          {totalSets > 1 && (
-            <div className="flex justify-center mb-4">
-              <Pagination>
-                <PaginationContent>
-                  {/* Previous */}
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (canGoPrev) prevSet();
-                      }}
-                      className={
-                        !canGoPrev
-                          ? "pointer-events-none opacity-40"
-                          : "cursor-pointer hover:bg-gray-100"
-                      }
-                      aria-disabled={!canGoPrev}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                  >
+                    <Image
+                      src={portfolios[4].image}
+                      alt={portfolios[4].title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                  </PaginationItem>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                      <div>
+                        <span className="inline-block px-3 py-1.5 bg-[#B61F2B] text-white text-xs font-semibold rounded-full mb-2">
+                          {portfolios[4].category}
+                        </span>
+                        <h3 className="text-xl font-bold text-white">
+                          {portfolios[4].title}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
 
-                  {/* Always show first page */}
-                  <PaginationItem>
-                    <PaginationLink
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setCurrentStartIndex(0);
-                      }}
-                      isActive={currentSet === 0}
-                      className="cursor-pointer"
-                    >
-                      1
-                    </PaginationLink>
-                  </PaginationItem>
-
-                  {/* First ellipsis */}
-                  {currentSet > 2 && totalSets > 5 && (
-                    <PaginationItem>
-                      <span className="flex h-9 w-9 items-center justify-center text-gray-400">
-                        ...
-                      </span>
-                    </PaginationItem>
-                  )}
-
-                  {/* Middle pages */}
-                  {(() => {
-                    const pages = [];
-                    const start = Math.max(1, currentSet - 1);
-                    const end = Math.min(totalSets - 2, currentSet + 1);
-
-                    for (let i = start; i <= end; i++) {
-                      if (i > 0 && i < totalSets - 1) {
-                        pages.push(
-                          <PaginationItem key={i}>
-                            <PaginationLink
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setCurrentStartIndex(i * itemsPerView);
-                              }}
-                              isActive={currentSet === i}
-                              className="cursor-pointer"
-                            >
-                              {i + 1}
-                            </PaginationLink>
-                          </PaginationItem>
-                        );
-                      }
-                    }
-                    return pages;
-                  })()}
-
-                  {/* Last ellipsis */}
-                  {currentSet < totalSets - 3 && totalSets > 5 && (
-                    <PaginationItem>
-                      <span className="flex h-9 w-9 items-center justify-center text-gray-400">
-                        ...
-                      </span>
-                    </PaginationItem>
-                  )}
-
-                  {/* Always show last page if more than 1 page */}
-                  {totalSets > 1 && (
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setCurrentStartIndex((totalSets - 1) * itemsPerView);
-                        }}
-                        isActive={currentSet === totalSets - 1}
-                        className="cursor-pointer"
-                      >
-                        {totalSets}
-                      </PaginationLink>
-                    </PaginationItem>
-                  )}
-
-                  {/* Next */}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (canGoNext) nextSet();
-                      }}
-                      className={
-                        !canGoNext
-                          ? "pointer-events-none opacity-40"
-                          : "cursor-pointer hover:bg-gray-100"
-                      }
-                      aria-disabled={!canGoNext}
+                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
+                  {/* Column 3 */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.5 }}
+                    className="row-span-3 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                  >
+                    <Image
+                      src={portfolios[5].image}
+                      alt={portfolios[5].title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
+                  </motion.div>
 
-          <div className="text-center mt-4">
-            <div className="text-sm text-gray-600">
-              Menampilkan {currentStartIndex + 1}-
-              {Math.min(currentStartIndex + itemsPerView, portfolios.length)}{" "}
-              dari {portfolios.length} portofolio
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                    className="row-span-3 grid grid-cols-2 gap-4 md:gap-6"
+                  >
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                      <Image
+                        src={portfolios[6].image}
+                        alt={portfolios[6].title}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="grid grid-rows-2 gap-4 md:gap-6">
+                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                        <Image
+                          src={portfolios[7].image}
+                          alt={portfolios[7].title}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
+                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                        <Image
+                          src={portfolios[8].image}
+                          alt={portfolios[8].title}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Additional columns would go here for more scrolling content */}
+                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 }}
+                    className="row-span-2 grid grid-cols-2 gap-4 md:gap-6"
+                  >
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                      <Image
+                        src={portfolios[11].image}
+                        alt={portfolios[11].title}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                      <Image
+                        src={portfolios[12].image}
+                        alt={portfolios[12].title}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.9 }}
+                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                  >
+                    <Image
+                      src={portfolios[10].image}
+                      alt={portfolios[10].title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </motion.div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }
