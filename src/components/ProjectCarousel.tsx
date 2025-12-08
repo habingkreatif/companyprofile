@@ -217,10 +217,6 @@ export default function ProjectCarousel() {
                       transition={{ delay: 0.2 }}
                     >
                       <div className="mb-4">
-                        <span className="text-xs text-gray-500">
-                          Proyek {current + 1}/{projects.length}
-                        </span>
-
                         <h3 className="text-xl md:text-2xl font-bold text-gray-900 mt-1 mb-2">
                           {projects[current].title}
                         </h3>
