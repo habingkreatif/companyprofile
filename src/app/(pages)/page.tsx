@@ -5,25 +5,37 @@ import {
   FaBuilding,
   FaChartBar,
   FaClipboard,
+  FaClipboardList,
+  FaDesktop,
   FaDoorClosed,
+  FaDoorOpen,
   FaDraftingCompass,
   FaEnvelope,
   FaGlobe,
+  FaGripLines,
   FaHammer,
+  FaHardHat,
   FaHome,
+  FaHouseDamage,
   FaInstagram,
   FaLayerGroup,
   FaPaintBrush,
+  FaPaintRoller,
   FaPhone,
+  FaPlug,
+  FaRulerCombined,
+  FaSquare,
   FaStar,
   FaTh,
   FaTiktok,
   FaTools,
   FaTree,
   FaUtensils,
+  FaVectorSquare,
   FaWarehouse,
   FaWhatsapp,
   FaWindowMaximize,
+  FaWindowRestore,
 } from "react-icons/fa";
 import Image from "next/image";
 import MobileTouchbar from "@/components/Touchbar";
@@ -39,19 +51,19 @@ export default function Home() {
       title: "Perencanaan & Konsultasi Proyek",
       description:
         "Perencanaan proyek yang matang dan konsultasi profesional untuk hasil optimal",
-      icon: <FaClipboard className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaClipboardList className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Jasa Konstruksi & Pembangunan",
       description:
         "Konstruksi berkualitas dengan standar tinggi dan profesional",
-      icon: <FaHammer className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaHardHat className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Renovasi Bangunan & Peremajaan Ruang",
       description:
         "Renovasi menyeluruh untuk memperbarui bangunan dan interior",
-      icon: <FaTools className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaHammer className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Lanskap & Penataan Area Hijau",
@@ -63,18 +75,18 @@ export default function Home() {
       title: "Pengerjaan Kaca & Aluminium",
       description:
         "Instalasi kaca, jendela, dan struktur aluminium berkualitas",
-      icon: <FaWindowMaximize className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaWindowRestore className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Fabrikasi & Instalasi Pagar Besi",
       description:
         "Pembuatan dan pemasangan pagar besi custom sesuai kebutuhan",
-      icon: <FaWarehouse className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaGripLines className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Perbaikan, Renovasi & Instalasi Atap",
       description: "Solusi atap anti bocor dan renovasi atap profesional",
-      icon: <FaHome className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaHouseDamage className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Jasa Kitchen Set & Interior Dapur",
@@ -85,19 +97,19 @@ export default function Home() {
     {
       title: "Interior & Eksterior Makeover",
       description: "Transformasi interior dan eksterior dengan desain modern",
-      icon: <FaStar className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaPaintRoller className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Desain 2D/3D & RAB",
       description:
         "Desain visualisasi 2D/3D lengkap dengan Rencana Anggaran Biaya",
-      icon: <FaDraftingCompass className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaRulerCombined className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Pembuatan & Perbaikan Kusen, Pintu & Jendela",
       description:
         "Kusen, pintu, dan jendela dibuat & diperbaiki dengan presisi",
-      icon: <FaDoorClosed className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaDoorOpen className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Pembangunan Dak & Struktur Beton",
@@ -113,37 +125,36 @@ export default function Home() {
     {
       title: "Plafon, Partisi & Gypsum",
       description: "Pemasangan plafon, partisi, dan gypsum dengan hasil rapi",
-      icon: <FaLayerGroup className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaVectorSquare className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Instalasi Listrik & Plumbing",
       description: "Instalasi listrik dan plumbing secara profesional dan aman",
-      icon: <FaBolt className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaPlug className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Pemasangan Lantai & Keramik",
       description:
         "Lantai & keramik dipasang rapi dengan standar kualitas tinggi",
-      icon: <FaTh className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaSquare className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Pembuatan Website & Company Profile",
       description:
         "Pembuatan website profesional untuk bisnis, portofolio proyek, dan company profile perusahaan.",
-      icon: <FaGlobe className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaDesktop className="w-8 h-8 text-[#B61F2B]" />,
     },
     {
       title: "Pemeliharaan Bangunan",
       description:
         "Pemeliharaan bangunan secara rutin untuk menjaga kondisi bangunan tetap baik",
-      icon: <FaGlobe className="w-8 h-8 text-[#B61F2B]" />,
+      icon: <FaTools className="w-8 h-8 text-[#B61F2B]" />,
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
       <section className="pt-28 md:pt-14 relative min-h-screen pb-10 md:pb-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Video Background */}
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -151,34 +162,17 @@ export default function Home() {
             loop
             playsInline
             className="w-full h-full object-cover"
-            poster="/placeholder-construction.jpg" // Fallback image
+            poster="/placeholder-construction.jpg"
           >
             <source src="/background1.mp4" type="video/mp4" />
-            {/* Fallback ke gradient jika video tidak load */}
           </video>
-          {/* Overlay untuk meningkatkan readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
         </div>
 
-        {/* Pattern overlay subtle */}
-        {/* <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-              backgroundSize: "60px 60px",
-            }}
-          ></div>
-        </div> */}
-
         <div className="max-w-6xl mx-auto relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
             <div className="space-y-8">
-              {/* Badge - Modern */}
-
-              {/* Headline */}
               <h1 className="text-5xl sm:text-6xl font-bold text-white leading-tight">
                 Hunian Berkualitas,
                 <span className="block mt-4">
@@ -190,14 +184,12 @@ export default function Home() {
                 </span>
               </h1>
 
-              {/* Tagline */}
               <p className="text-xl text-gray-200 leading-relaxed">
                 Transformasi properti Anda dengan layanan konstruksi
                 profesional. Setiap detail diperhitungkan, setiap hasil
                 sempurna.
               </p>
 
-              {/* Quick Stats */}
               <div className="flex items-center gap-8 pt-4">
                 <div>
                   <div className="text-3xl font-bold text-white">15+</div>
