@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useProjects } from "@/presentation/hooks/useProject";
 import { Alert, AlertDescription } from "./ui/alert";
+import DescriptionModal from "./DescriptionModal";
 
 const statusColors = {
   Selesai: "bg-green-100 text-green-800",
@@ -265,41 +266,20 @@ export default function ProjectCarousel() {
                         </div>
                       </div>
 
-                      {showFullDescription && (
-                        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                          <div className="bg-white/95 backdrop-blur rounded-xl shadow-lg border border-gray-200 max-w-lg w-full max-h-[75vh] overflow-hidden">
-                            {/* Minimal header */}
-                            <div className="p-4 border-b border-gray-100">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm font-medium text-gray-600">
-                                  Deskripsi
-                                </span>
-                                <button
-                                  onClick={() => setShowFullDescription(false)}
-                                  className="text-gray-500 hover:text-gray-700"
-                                >
-                                  <X className="w-4 h-4" />
-                                </button>
-                              </div>
-                            </div>
-
-                            <div className="p-5 overflow-y-auto max-h-[55vh]">
-                              <div className="text-gray-700 whitespace-pre-line leading-relaxed">
-                                {projects[current]?.description}
-                              </div>
-                            </div>
-
-                            <div className="p-4 border-t border-gray-100 flex justify-center">
-                              <button
-                                onClick={() => setShowFullDescription(false)}
-                                className="text-sm text-gray-600 hover:text-gray-800"
-                              >
-                                Selesai membaca
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                      <DescriptionModal
+                        isOpen={showFullDescription}
+                        onClose={() => setShowFullDescription(false)}
+                        title={projects[current].title}
+                        description={projects[current].description}
+                        projectData={{
+                          category: projects[current].location,
+                          location: projects[current].location,
+                          author: projects[current].location,
+                          updatedAt: projects[current].updated_at,
+                          startDate: projects[current].start,
+                          endDate: projects[current].end,
+                        }}
+                      />
 
                       {/* Tombol kompak */}
                       <button
