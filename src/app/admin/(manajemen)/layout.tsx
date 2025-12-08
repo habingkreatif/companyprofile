@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,9 +19,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { LogOut, Settings, User } from "lucide-react";
+import { useAuth } from "@/presentation/hooks/useAuth";
+import { Bell, LogOut, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 export default function AdminLayout({
@@ -31,6 +33,8 @@ export default function AdminLayout({
   const pathname = usePathname();
   const userName = "HABS Group";
   const firstName = "HABS Group";
+  const { logout } = useAuth();
+  const router = useRouter();
 
   const segments = pathname.split("/").filter((s) => s !== "");
 
@@ -40,6 +44,11 @@ export default function AdminLayout({
     if (hour >= 12 && hour < 15) return "Selamat Siang";
     if (hour >= 15 && hour < 18) return "Selamat Sore";
     return "Selamat Malam";
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/admin/login");
   };
 
   return (
@@ -90,15 +99,26 @@ export default function AdminLayout({
 
             {/* Right Section */}
             <div className="flex items-center space-x-4">
+              {/* Notifications */}
+              <button className="relative p-2 rounded-lg hover:bg-gray-100">
+                <Bell className="w-6 h-6" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center space-x-2 rounded-full hover:bg-gray-100 px-2 py-1 transition">
+                  <button className="flex items-center space-x-2 px-2 py-1 rounded-full hover:bg-gray-100 transition">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="/user.png" alt="User" />
                       <AvatarFallback>A</AvatarFallback>
                     </Avatar>
-                    <span className="text-sm font-medium text-gray-700 pr-2">
-                      {userName}
+
+                    <span className="hidden md:flex flex-col items-start pr-2">
+                      <span className="text-sm font-medium text-gray-700">
+                        {userName}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        Project Manager
+                      </span>
                     </span>
                   </button>
                 </DropdownMenuTrigger>
@@ -107,16 +127,25 @@ export default function AdminLayout({
                   <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                    <User className="mr-2 h-4 w-4" /> Profile
+                  <DropdownMenuItem asChild>
+                    <Link href="/admin/profile" className="flex items-center">
+                      <User className="mr-2 h-4 w-4" /> Profile
+                    </Link>
                   </DropdownMenuItem>
 
-                  <DropdownMenuItem>
-                    <Settings className="mr-2 h-4 w-4" /> Settings
+                  <DropdownMenuItem asChild>
+                    <Link href="/admin/settings" className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" /> Settings
+                    </Link>
                   </DropdownMenuItem>
 
-                  <DropdownMenuItem className="text-red-600 cursor-pointer">
-                    <LogOut className="mr-2 h-4 w-4" /> Logout
+                  <DropdownMenuItem asChild>
+                    <div
+                      onClick={() => handleLogout()}
+                      className="flex items-center text-red-600"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" /> Logout
+                    </div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

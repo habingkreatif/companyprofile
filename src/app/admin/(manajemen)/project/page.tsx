@@ -52,7 +52,6 @@ import {
   Save,
 } from "lucide-react";
 import Image from "next/image";
-import { update } from "firebase/database";
 
 export default function AdminProjectsPage() {
   const {
@@ -241,7 +240,6 @@ export default function AdminProjectsPage() {
                     <TableCell className="text-center">
                       {project.totalProgress} %
                     </TableCell>
-
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-2">
                         <Button
@@ -280,7 +278,6 @@ export default function AdminProjectsPage() {
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Tabs Navigation */}
             <div className="border-b">
               <div className="flex space-x-4">
                 <button
@@ -310,13 +307,10 @@ export default function AdminProjectsPage() {
               </div>
             </div>
 
-            {/* Tab Content */}
             <div className="space-y-6">
-              {/* Tab 1: Basic Information */}
               {activeTab === "basic" && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Column 1 */}
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <label className="text-sm font-medium flex items-center">
@@ -386,7 +380,6 @@ export default function AdminProjectsPage() {
                       </div>
                     </div>
 
-                    {/* Column 2 */}
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -441,7 +434,6 @@ export default function AdminProjectsPage() {
                           required
                         />
 
-                        {/* Image Preview */}
                         {formData.image ? (
                           <div className="mt-2 border rounded-lg overflow-hidden">
                             <div className="relative aspect-video bg-gray-100">
@@ -475,7 +467,6 @@ export default function AdminProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Description - Full Width */}
                   <div className="space-y-2">
                     <label className="text-sm font-medium flex items-center">
                       <AlignLeft className="w-4 h-4 mr-2 text-gray-400" />
@@ -503,7 +494,6 @@ export default function AdminProjectsPage() {
                 </>
               )}
 
-              {/* Tab 2: Progress */}
               {activeTab === "progress" && (
                 <div className="space-y-4">
                   <div className="flex justify-between items-center mb-4">
@@ -569,14 +559,12 @@ export default function AdminProjectsPage() {
                           key={index}
                           className="grid grid-cols-12 gap-3 items-center bg-white border rounded-lg p-4 hover:border-blue-300 transition-colors"
                         >
-                          {/* Task Number */}
                           <div className="col-span-1">
                             <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-medium">
                               {index + 1}
                             </div>
                           </div>
 
-                          {/* Task Input */}
                           <div className="col-span-5">
                             <Input
                               type="text"
@@ -594,7 +582,6 @@ export default function AdminProjectsPage() {
                             />
                           </div>
 
-                          {/* Percentage Input */}
                           <div className="col-span-4">
                             <div className="flex items-center gap-3">
                               <div className="flex-1">
@@ -645,7 +632,6 @@ export default function AdminProjectsPage() {
                             </div>
                           </div>
 
-                          {/* Delete Button */}
                           <div className="col-span-2 text-right">
                             <Button
                               type="button"
@@ -668,7 +654,6 @@ export default function AdminProjectsPage() {
                         </div>
                       ))}
 
-                      {/* Total Progress Summary */}
                       {formData.progress.length > 0 && (
                         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                           <div className="flex items-center justify-between">
@@ -703,7 +688,6 @@ export default function AdminProjectsPage() {
               )}
             </div>
 
-            {/* Footer with Navigation */}
             <DialogFooter className="flex justify-between items-center pt-6 border-t">
               <div className="text-sm text-gray-500">
                 {activeTab === "basic" ? (
@@ -714,7 +698,6 @@ export default function AdminProjectsPage() {
               </div>
 
               <div className="flex gap-2">
-                {/* Tab Navigation Buttons */}
                 {activeTab === "progress" && (
                   <Button
                     type="button"
