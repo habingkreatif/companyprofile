@@ -4,6 +4,7 @@ import { AuthRepositoryImpl } from "../../data/repository/AuthRepositoryImpl";
 import { LoginUseCase } from "../../domain/usecase/auth/LoginUseCase";
 import { RegisterUseCase } from "../../domain/usecase/auth/RegisterUseCase";
 import { LogoutUseCase } from "../../domain/usecase/auth/LogoutUseCase";
+import { UpdateProfileUseCase } from "../../domain/usecase/auth/UpdateProfileUseCase";
 import { UserRepositoryImpl } from "../../data/repository/UserReposiroty";
 
 // Manual Dependency Injection
@@ -12,6 +13,7 @@ const userRepository = new UserRepositoryImpl();
 const loginUseCase = new LoginUseCase(authRepository);
 const registerUseCase = new RegisterUseCase(authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authRepository);
+const updateProfileUseCase = new UpdateProfileUseCase(userRepository, authRepository);
 
 export function useAuthViewModel() {
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -65,6 +67,30 @@ export function useAuthViewModel() {
     }
   };
 
+  const updateProfile = async (updates: { username?: string; phone?: string; address?: string; position?: string; department?: string }) => {
+    if (!user) return false;
+    setLoading(true);
+    setError(null);
+    try {
+      // Map flat updates to User entity structure
+      const entityUpdates: any = {
+        ...updates,
+      };
+      
+      if (updates.address) {
+        entityUpdates.address = { street: updates.address };
+      }
+
+      await updateProfileUseCase.execute(user.uid, entityUpdates);
+      return true;
+    } catch (err: any) {
+      setError(err.message);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     user,
     loading,
@@ -72,5 +98,6 @@ export function useAuthViewModel() {
     login,
     register,
     logout,
+    updateProfile,
   };
 }

@@ -22,12 +22,12 @@ import {
   Settings,
   Search,
 } from "lucide-react";
-import { useAuth } from "@/presentation/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthViewModel } from "@/presentation/hooks/useAuthViewModel";
 
 const DashboardPage = () => {
-  const { user, loading } = useAuth();
+   const { user, loading } = useAuthViewModel();
   const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"overview" | "projects" | "tasks">(
@@ -169,10 +169,7 @@ const DashboardPage = () => {
     },
   ];
 
-  const getUserName = () => {
-    if (!user?.email) return "User";
-    return user.email.split("@")[0].split(".")[0];
-  };
+ 
 
   return (
     <div className="min-h-screen">

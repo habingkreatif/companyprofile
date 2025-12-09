@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { useAuth } from "@/presentation/hooks/useAuth";
+import { useAuthViewModel } from "@/presentation/hooks/useAuthViewModel";
 import { Bell, LogOut, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -31,9 +31,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const userName = "HABS Group";
-  const firstName = "HABS Group";
-  const { logout, user } = useAuth();
+  const { user, logout} = useAuthViewModel();
+  
   const router = useRouter();
 
   const segments = pathname.split("/").filter((s) => s !== "");
@@ -63,7 +62,7 @@ export default function AdminLayout({
 
               {pathname === "/admin" || pathname === "/admin/" ? (
                 <h1 className="text-lg font-semibold">
-                  {getGreeting()}, {firstName}!
+                  {getGreeting()}, {user?.username || "Admin"}!
                 </h1>
               ) : (
                 <Breadcrumb>
@@ -109,7 +108,7 @@ export default function AdminLayout({
                   <button className="flex items-center space-x-2 px-2 py-1 rounded-full hover:bg-gray-100 transition">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="/user.png" alt="User" />
-                      <AvatarFallback>A</AvatarFallback>
+                      <AvatarFallback>{user?.username?.charAt(0).toUpperCase() || "A"}</AvatarFallback>
                     </Avatar>
 
                     <span className="hidden md:flex flex-col items-start pr-2">
@@ -117,7 +116,7 @@ export default function AdminLayout({
                         {user?.username}
                       </span>
                       <span className="text-xs text-gray-500">
-                        Project Manager
+                        {user?.position}
                       </span>
                     </span>
                   </button>

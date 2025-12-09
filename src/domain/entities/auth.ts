@@ -9,4 +9,5 @@ export interface AuthUser {
   department?: string;
   phone?: string;
   address?: string;
+  created_at?: string;
 }

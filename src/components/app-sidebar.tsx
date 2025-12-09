@@ -13,7 +13,8 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Boxes, Handshake, Building2, FolderKanban } from "lucide-react";
+import { Boxes, Handshake, Building2, FolderKanban, Users } from "lucide-react";
+import { useAuthViewModel } from "@/presentation/hooks/useAuthViewModel";
 
 const menuGroups = [
   {
@@ -29,6 +30,7 @@ const menuGroups = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user } = useAuthViewModel();
 
   return (
     <Sidebar className="w-64 bg-white border-r border-slate-200 shadow-sm">
@@ -98,6 +100,33 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+
+        {user?.role === "superadmin" && (
+            <SidebarGroup>
+                <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Super Admin
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton asChild>
+                                <Link
+                                    href="/admin/users"
+                                    className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-colors ${
+                                        pathname.startsWith("/admin/users")
+                                            ? "bg-blue-50 text-blue-600"
+                                            : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                                    }`}
+                                >
+                                    <Users className="w-5 h-5" />
+                                    <span>User Management</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+        )}
       </SidebarContent>
     </Sidebar>
   );
