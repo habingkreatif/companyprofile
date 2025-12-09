@@ -15,6 +15,8 @@ export interface User {
   birth_date?: Date;
   profile_picture?: string;
   role: "user" | "admin" | "superadmin";
+  position?: string;
+  department?: string;
   points: number;
   created_at: Date;
   updated_at: Date;

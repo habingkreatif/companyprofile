@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/presentation/hooks/useAuth";
+import { useAuthViewModel } from "@/presentation/hooks/useAuthViewModel";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -14,6 +14,7 @@ import {
   MapPin,
   UserPlus,
   CheckCircle,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -22,15 +23,18 @@ export default function RegisterPage() {
     email: "",
     password: "",
     confirmPassword: "",
+    username: "",
     phone: "",
     address: "",
+    position: "",
+    department: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [step, setStep] = useState(1); // 1: Account info, 2: Personal info
 
-  const { register, loading, error, clearError } = useAuth();
+  const { register, loading, error } = useAuthViewModel();
   const router = useRouter();
 
   const validatePassword = (password: string) => {
@@ -47,7 +51,7 @@ export default function RegisterPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (error) clearError();
+    // if (error) clearError(); // useAuthViewModel doesn't have clearError, it clears on new action
 
     // Validasi password real-time
     if (name === "password") {
@@ -63,7 +67,7 @@ export default function RegisterPage() {
   };
 
   const handleNextStep = () => {
-    if (!formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.email || !formData.password || !formData.confirmPassword || !formData.username) {
       alert("Harap lengkapi semua field wajib di langkah ini");
       return;
     }
@@ -89,12 +93,14 @@ export default function RegisterPage() {
       return;
     }
 
-    const result = await register(formData.email, formData.password, {
+    const success = await register(formData.email, formData.password, formData.username, {
       phone: formData.phone,
       address: formData.address,
+      position: formData.position,
+      department: formData.department,
     });
 
-    if (result.success) {
+    if (success) {
       router.push("/admin");
     }
   };
@@ -270,6 +276,25 @@ export default function RegisterPage() {
                       animate={{ opacity: 1, x: 0 }}
                       className="space-y-5"
                     >
+                      {/* Username */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Username <span className="text-red-400">*</span>
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                          <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500"
+                            placeholder="username"
+                            required
+                          />
+                        </div>
+                      </div>
+
                       {/* Email */}
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -419,6 +444,42 @@ export default function RegisterPage() {
                           <p className="text-red-300 text-sm">{error}</p>
                         </div>
                       )}
+
+                      {/* Position */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Jabatan
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                          <input
+                            type="text"
+                            name="position"
+                            value={formData.position}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500"
+                            placeholder="Contoh: Project Manager"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Department */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Departemen
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                          <input
+                            type="text"
+                            name="department"
+                            value={formData.department}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500"
+                            placeholder="Contoh: Konstruksi"
+                          />
+                        </div>
+                      </div>
 
                       <div className="flex space-x-4 pt-4">
                         <button

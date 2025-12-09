@@ -28,21 +28,33 @@ export class UserRepositoryImpl implements UserRepository {
   async create(user: Omit<User, "id">): Promise<User> {
     if (!user.uid) throw new Error("UID is required for Firebase user");
 
-    await set(ref(db, `${this.collection}/${user.uid}`), {
+    const userData = {
       ...user,
-      created_at: user.created_at ?? new Date(),
-      updated_at: user.updated_at ?? new Date(),
-    });
+      created_at: user.created_at?.toISOString() ?? new Date().toISOString(),
+      updated_at: user.updated_at?.toISOString() ?? new Date().toISOString(),
+      birth_date: user.birth_date?.toISOString(),
+    };
+
+    // Remove undefined fields to avoid Firebase errors
+    Object.keys(userData).forEach(key => (userData as any)[key] === undefined && delete (userData as any)[key]);
+
+    await set(ref(db, `${this.collection}/${user.uid}`), userData);
 
     return user as User;
   }
 
   // ✔ UPDATE USER
   async update(id: string, user: Partial<User>): Promise<User> {
-    const newData = {
+    const newData: any = {
       ...user,
-      updated_at: new Date(),
+      updated_at: new Date().toISOString(),
     };
+
+    if (user.created_at) newData.created_at = user.created_at.toISOString();
+    if (user.birth_date) newData.birth_date = user.birth_date.toISOString();
+
+    // Remove undefined fields
+    Object.keys(newData).forEach(key => newData[key] === undefined && delete newData[key]);
 
     await update(ref(db, `${this.collection}/${id}`), newData);
 

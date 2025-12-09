@@ -33,7 +33,7 @@ export default function AdminLayout({
   const pathname = usePathname();
   const userName = "HABS Group";
   const firstName = "HABS Group";
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const router = useRouter();
 
   const segments = pathname.split("/").filter((s) => s !== "");
@@ -114,7 +114,7 @@ export default function AdminLayout({
 
                     <span className="hidden md:flex flex-col items-start pr-2">
                       <span className="text-sm font-medium text-gray-700">
-                        {userName}
+                        {user?.username}
                       </span>
                       <span className="text-xs text-gray-500">
                         Project Manager

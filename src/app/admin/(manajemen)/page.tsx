@@ -176,13 +176,12 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <div className="top-0 z-10 bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
             <p className="text-sm text-gray-600 mt-1">
-              Welcome back, {getUserName()} !
+              Welcome back, {user?.username} !
             </p>
           </div>
           <div className="flex items-center space-x-4">
@@ -201,7 +200,6 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex space-x-6 mt-6 border-b border-gray-200">
           {["overview", "projects", "tasks", "reports"].map((tab) => (
             <button
@@ -222,7 +220,6 @@ const DashboardPage = () => {
       </div>
 
       <div className="px-6 py-8 max-w-7xl mx-auto">
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
             <motion.div
@@ -255,9 +252,7 @@ const DashboardPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Projects Section */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="p-6 border-b border-gray-100">
                 <div className="flex items-center justify-between">
@@ -353,7 +348,6 @@ const DashboardPage = () => {
               </div>
             </div>
 
-            {/* Quick Actions */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Quick Actions
@@ -383,9 +377,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-8">
-            {/* Today's Schedule */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="p-6 border-b border-gray-100">
                 <div className="flex items-center justify-between">
@@ -442,7 +434,6 @@ const DashboardPage = () => {
               </div>
             </div>
 
-            {/* Export Section */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-4">
                 <BarChart3 className="w-6 h-6" />
@@ -458,7 +449,6 @@ const DashboardPage = () => {
               </button>
             </div>
 
-            {/* Progress Summary */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Progress Summary

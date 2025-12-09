@@ -12,9 +12,10 @@ import { FirebaseError } from "firebase/app";
 export interface UserProfile {
   uid: string;
   email: string;
-  role: "user" | "admin";
+  role: "user" | "admin" | "superadmin";
   phone?: string;
   address?: string;
+  username?: string;
   created_at: string;
 }
 
@@ -22,7 +23,7 @@ interface UserAuth {
   uid: string;
   email: string;
   email_verified: boolean;
-  display_name?: string;
+  username?: string;
 }
 
 interface AuthState {
@@ -62,7 +63,7 @@ export const useAuth = () => {
           uid: firebaseUser.uid,
           email: firebaseUser.email || "",
           email_verified: firebaseUser.emailVerified,
-          display_name: firebaseUser.displayName || undefined,
+          username: firebaseUser.displayName || undefined,
         };
 
         const profile = await loadUserProfile(firebaseUser.uid);
@@ -103,7 +104,7 @@ export const useAuth = () => {
           uid: userCredential.user.uid,
           email: userCredential.user.email || "",
           email_verified: userCredential.user.emailVerified,
-          display_name: userCredential.user.displayName || undefined,
+          username: userCredential.user.displayName || undefined,
         },
         profile,
         loading: false,
@@ -158,7 +159,7 @@ export const useAuth = () => {
           uid: user.uid,
           email: user.email || "",
           email_verified: user.emailVerified,
-          display_name: profileData?.display_name,
+          username: profileData?.display_name,
         },
         profile: userProfile,
         loading: false,
