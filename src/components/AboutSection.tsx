@@ -38,10 +38,10 @@ export default function AboutSection() {
               setiap detail dikerjakan dengan presisi.
             </p>
             <p className="text-lg text-[#3A3A3A] leading-relaxed">
-              Dengan tim yang berdedikasi dan berpengalaman, kami tidak
-              sekadar membangun, kami menciptakan nilai, mulai dari
-              perencanaan visioner, eksekusi konstruksi yang rapi dan aman,
-              hingga manajemen proyek yang terukur dan profesional.
+              Dengan tim yang berdedikasi dan berpengalaman, kami tidak sekadar
+              membangun, kami menciptakan nilai, mulai dari perencanaan
+              visioner, eksekusi konstruksi yang rapi dan aman, hingga manajemen
+              proyek yang terukur dan profesional.
             </p>
             <p className="text-lg text-[#3A3A3A] leading-relaxed">
               Komitmen kami sederhana: Mewujudkan karya konstruksi yang kokoh,
