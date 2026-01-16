@@ -5,15 +5,18 @@ import {
   Calendar,
   ChevronLeft,
   Clock,
-  Navigation,
+  Share2,
+  Maximize2
 } from "lucide-react";
 import { useEffect } from "react";
+import Image from "next/image";
 
 interface DescriptionModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   description: string;
+  image?: string;
   projectData?: {
     category?: string;
     location?: string;
@@ -29,6 +32,7 @@ export default function DescriptionModal({
   onClose,
   title,
   description,
+  image,
   projectData,
 }: DescriptionModalProps) {
   const calculateDuration = (startDate: string, endDate: string) => {
@@ -49,13 +53,9 @@ export default function DescriptionModal({
   };
 
   const formatHariTanggal = (rawDate: string) => {
-    // Ubah "14.35.23" → "14:35:23" biar bisa dibaca Date()
     const fixedDate = rawDate.replace(/(\d+)\.(\d+)\.(\d+)/, "$1:$2:$3");
-
     const date = new Date(fixedDate);
-
     return date.toLocaleDateString("id-ID", {
-      weekday: "long",
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -80,191 +80,133 @@ export default function DescriptionModal({
 
   if (!isOpen) return null;
 
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return "";
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">
       <div
-        className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
       />
 
-      <div className="relative flex items-center justify-center min-h-screen p-4">
-        <div className="relative bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-scale-in border border-gray-100">
-          <div className="sticky top-0 z-20 bg-white border-b border-gray-100 px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={onClose}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                  aria-label="Kembali"
-                >
-                  <ChevronLeft className="w-5 h-5 text-gray-600" />
-                </button>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">
-                    Deskripsi Proyek
-                  </h2>
-                </div>
+      <div className="relative bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-scale-in">
+        {/* Left/Top: Hero Image Section */}
+        <div className="relative w-full md:w-2/5 h-64 md:h-auto bg-slate-100 shrink-0">
+          {image ? (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 40vw"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full text-slate-300">
+               <Maximize2 className="w-12 h-12" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
+          
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-4 p-2 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white md:hidden z-10 transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Right/Bottom: Content Section */}
+        <div className="flex-1 flex flex-col min-w-0 bg-white h-full max-h-[90vh] md:max-h-[85vh]">
+           {/* Sticky Header */}
+           <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-6 py-4 flex items-center justify-between">
+              <div>
+                 <h2 className="text-xl font-bold text-slate-900 line-clamp-1">{title}</h2>
+                 {projectData?.location && (
+                    <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                       <MapPin className="w-3.5 h-3.5 text-[#B61F2B]" />
+                       {projectData.location}
+                    </div>
+                 )}
               </div>
               <button
-                onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label="Tutup modal"
+                 onClick={onClose}
+                 className="p-2 hover:bg-slate-100 rounded-full transition-colors hidden md:block"
               >
-                <X className="w-5 h-5 text-gray-500" />
+                 <X className="w-6 h-6 text-slate-400" />
               </button>
-            </div>
-          </div>
+           </div>
 
-          {/* Content Area */}
-          <div className="overflow-y-auto max-h-[calc(90vh-120px)]">
-            <div className="p-6 md:p-8">
-              {/* Title Section */}
-              <div className="mb-8">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  {title}
-                </h1>
-
-                {/* Meta Info Bar */}
-                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
-                  {projectData?.author && (
-                    <div className="flex items-center gap-2">
-                      <User className="w-4 h-4 text-gray-500" />
-                      <span className="font-medium">Alex</span>
+           {/* Scrollable Content */}
+           <div className="overflow-y-auto p-6 md:p-8 space-y-8 custom-scrollbar">
+              
+              {/* Meta Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 block">Timeline</span>
+                    <div className="flex items-center gap-2 text-slate-700 font-semibold">
+                       <Calendar className="w-4 h-4 text-[#B61F2B]" />
+                       <span>{projectData?.startDate ? formatHariTanggal(projectData.startDate) : "TBD"}</span>
                     </div>
-                  )}
-
-                  {projectData?.updatedAt && (
-                    <>
-                      <div className="hidden sm:block text-gray-400">•</div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-gray-500" />
-                        <span>
-                          Diperbarui {formatHariTanggal(projectData.updatedAt)}
-                        </span>
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="flex flex-col sm:flex-row justify-between gap-4">
-                  {projectData?.location && (
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-blue-100/30 rounded-xl border border-blue-200 w-full sm:w-[200px] lg:w-[220px] xl:w-[240px] gap-2 flex-shrink-0">
-                      <div className="flex items-start gap-3">
-                        <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
-                          <MapPin className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          {" "}
-                          <div className="text-xs font-medium text-blue-700 mb-1 truncate">
-                            Lokasi Proyek
-                          </div>
-                          <div className="font-semibold text-gray-900 truncate">
-                            {projectData.location}
-                          </div>
-                        </div>
-                      </div>
+                 </div>
+                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 block">Durasi</span>
+                    <div className="flex items-center gap-2 text-slate-700 font-semibold">
+                       <Clock className="w-4 h-4 text-[#C9A74A]" />
+                       <span>
+                          {projectData?.startDate && projectData?.endDate 
+                             ? calculateDuration(projectData.startDate, projectData.endDate) 
+                             : "-"}
+                       </span>
                     </div>
-                  )}
-
-                  {/* Timeline Card - More prominent */}
-                  {(projectData?.startDate || projectData?.endDate) && (
-                    <div className="w-full sm:flex-1 inline-flex flex-col sm:flex-row items-start sm:items-center gap-4 px-4 py-3 bg-gradient-to-r from-[#B61F2B]/5 to-[#C9A74A]/5 rounded-lg border border-[#B61F2B]/20">
-                      <div className="flex items-center gap-2 w-full sm:w-auto">
-                        <div className="p-2 bg-white rounded-lg shadow-sm flex-shrink-0">
-                          <Clock className="w-4 h-4 text-[#B61F2B]" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs font-medium text-gray-500">
-                            Timeline Proyek
-                          </div>
-                          <div className="font-semibold text-gray-900 truncate">
-                            {projectData?.startDate
-                              ? formatDate(projectData.startDate)
-                              : "TBD"}
-                            {projectData?.endDate &&
-                              ` → ${formatDate(projectData.endDate)}`}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Duration indicator */}
-                      {projectData?.startDate && projectData?.endDate && (
-                        <div className="w-full sm:w-auto sm:pl-4 sm:border-l border-gray-300 pt-2 sm:pt-0 border-t sm:border-t-0 mt-2 sm:mt-0">
-                          <div className="text-xs text-gray-500">Durasi</div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {calculateDuration(
-                              projectData.startDate,
-                              projectData.endDate
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+                 </div>
               </div>
 
-              {/* Description Section */}
-              <div className="mb-8">
-                <div className="text-gray-700 leading-relaxed space-y-4 text-base md:text-lg">
-                  {description.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="text-justify">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
+              {/* Main Description */}
+              <div className="prose prose-slate prose-lg max-w-none">
+                 <h3 className="text-lg font-bold text-slate-900 mb-3">Tentang Proyek</h3>
+                 <div className="text-slate-600 leading-relaxed text-base space-y-4 text-justify">
+                    {description.split('\n\n').map((paragraph, index) => (
+                       <p key={index}>{paragraph}</p>
+                    ))}
+                 </div>
               </div>
 
-              {/* Stats Section */}
-            </div>
-          </div>
-
-          {/* Footer - Clean Action Buttons */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-500">
-                    <span className="font-medium">{description.length}</span>{" "}
-                    karakter
-                  </div>
-                </div>
+              {/* Tag/Author */}
+              <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                 <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                       <User className="w-5 h-5 text-slate-400" />
+                    </div>
+                    <div>
+                       <div className="text-xs text-slate-400 font-medium">Project Manager</div>
+                       <div className="text-sm font-bold text-slate-900">Alex</div>
+                    </div>
+                 </div>
+                 <div className="text-xs text-slate-400">
+                    Updated: {projectData?.updatedAt ? formatHariTanggal(projectData.updatedAt) : "-"}
+                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={onClose}
-                  className="px-5 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Tutup
-                </button>
-                <button
+           </div>
+
+           {/* Footer Action */}
+           <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
+               <button
                   onClick={() => {
-                    if (navigator.share) {
-                      navigator.share({
-                        title: title,
-                        text: description.substring(0, 100) + "...",
-                        url: window.location.href,
-                      });
-                    } else {
-                      navigator.clipboard.writeText(window.location.href);
-                      alert("Link berhasil disalin!");
-                    }
+                     if (navigator.share) {
+                        navigator.share({
+                           title: title,
+                           text: description.substring(0, 100) + "...",
+                           url: window.location.href,
+                        });
+                     } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Link berhasil disalin!");
+                     }
                   }}
-                  className="px-5 py-2.5 bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] text-white font-medium rounded-lg hover:shadow-md transition-shadow"
-                >
-                  Bagikan
-                </button>
-              </div>
-            </div>
-          </div>
+                  className="px-6 py-2.5 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-2 shadow-sm"
+               >
+                  <Share2 className="w-4 h-4" />
+                  <span>Bagikan</span>
+               </button>
+           </div>
         </div>
       </div>
     </div>
