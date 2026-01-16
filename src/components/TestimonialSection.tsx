@@ -1,7 +1,8 @@
-"use client";
+ "use client";
 
 import { motion } from "framer-motion";
-import { FaStar, FaQuoteLeft } from "react-icons/fa";
+import { Star, Quote, UserCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface Testimonial {
   id: number;
@@ -10,7 +11,7 @@ interface Testimonial {
   company: string;
   rating: number;
   comment: string;
-  avatar?: string;
+  initial: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -22,6 +23,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     comment:
       "Desain 3D Cafe yang diberikan sangat realistis dan detail. Membantu kami membayangkan konsep interior dan layout sebelum pembangunan. Sangat memuaskan!",
+    initial: "W",
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     comment:
       "Desain 3D kitchen set dan cafe sangat membantu visualisasi. Detail setiap elemen terlihat jelas, mempermudah pengambilan keputusan desain.",
+    initial: "S",
   },
   {
     id: 3,
@@ -40,6 +43,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     comment:
       "Desain 3D apartemen yang diberikan akurat dan realistis. Membantu kami memperlihatkan konsep properti kepada klien sebelum pembangunan dimulai.",
+    initial: "A",
   },
   {
     id: 4,
@@ -49,6 +53,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     comment:
       "Desain 3D masjid yang diberikan sangat detail dan memudahkan kami membayangkan hasil akhir. Eksekusi konstruksi sesuai dengan desain yang ditampilkan.",
+    initial: "D",
   },
   {
     id: 5,
@@ -57,7 +62,8 @@ const testimonials: Testimonial[] = [
     company: "Sleman, Yogyakarta",
     rating: 5,
     comment:
-      "Renovasi rumah kami pekerjaannya lebih cepat dari timeline dgn kualitas sangat baik. Tim Habs Konstruksi Karya sangat responsif dan profesional. Hasilnya memuaskan!",
+      "Renovasi rumah kami pekerjaannya lebih cepat dari timeline dgn kualitas sangat baik. Tim Habs Konstruksi Karya sangat responsif dan profesional.",
+    initial: "D",
   },
   {
     id: 6,
@@ -66,128 +72,102 @@ const testimonials: Testimonial[] = [
     company: "Sleman, Yogyakarta",
     rating: 5,
     comment:
-      "Desain 3D rumah dan RAB yang diberikan sangat detail, mempermudah kami melihat visual rumah secara lengkap sebelum pembangunan dimulai. Sangat membantu dalam pengambilan keputusan.",
+      "Desain 3D rumah dan RAB yang diberikan sangat detail, mempermudah kami melihat visual rumah secara lengkap sebelum pembangunan dimulai.",
+    initial: "M",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
+const MarqueeCard = ({ item }: { item: Testimonial }) => (
+  <div className="w-[350px] md:w-[450px] flex-shrink-0 mx-4">
+    <div className="bg-white p-8 rounded-2xl shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] border border-slate-100 h-full hover:border-[#B61F2B]/20 transition-colors group">
+      <div className="flex items-start justify-between mb-6">
+        <div className="flex gap-1">
+          {[...Array(item.rating)].map((_, i) => (
+            <Star key={i} className="w-4 h-4 text-[#C9A74A] fill-current" />
+          ))}
+        </div>
+        <Quote className="w-8 h-8 text-slate-100 group-hover:text-[#B61F2B]/10 transition-colors" />
+      </div>
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut" as const,
-    },
-  },
-};
+      <p className="text-slate-600 leading-relaxed mb-6 font-medium">
+        "{item.comment}"
+      </p>
+
+      <div className="flex items-center gap-4 pt-4 border-t border-slate-50">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#B61F2B] to-[#C9A74A] flex items-center justify-center text-white font-bold text-sm shadow-md">
+          {item.initial}
+        </div>
+        <div>
+          <h4 className="font-bold text-slate-900 text-sm">{item.name}</h4>
+          <p className="text-slate-400 text-xs">{item.position} • {item.company}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export default function TestimonialSection() {
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Duplicate data for seamless loop (enough to cover wide screens)
+  const marqueeData = [...testimonials, ...testimonials];
+
   return (
-    <section
-      id="testimoni"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-[#F5F5F5] relative overflow-hidden"
-    >
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#B61F2B] rounded-full opacity-5 translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C9A74A] rounded-full opacity-5 -translate-x-1/2 translate-y-1/2"></div>
+    <section id="testimoni" className="py-24 bg-[#FAFAFA] relative overflow-hidden">
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 50s linear infinite;
+          width: max-content;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+        /* Mobile optimization: slightly faster but still slow enough */
+        @media (max-width: 768px) {
+          .animate-marquee {
+            animation-duration: 40s;
+          }
+        }
+      `}</style>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-100 rounded-full mb-6">
-            <FaStar className="w-4 h-4 text-[#C9A74A]" />
-            <span className="text-red-700 text-sm font-medium">
-              Testimoni Klien
-            </span>
-          </div>
-          <h2 className="text-5xl font-bold text-[#101010] mb-4">
-            Apa Kata Klien Kami?
-          </h2>
-          <div className="w-32 h-1.5 bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] mx-auto rounded-full mb-4"></div>
-          <p className="text-[#3A3A3A] max-w-2xl mx-auto text-lg">
-            Kepuasan klien adalah prioritas utama kami. Dengarkan pengalaman
-            mereka yang telah mempercayakan proyeknya kepada kami.
-          </p>
-        </motion.div>
+      {/* Background Decor */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-50/50 rounded-full blur-[100px] pointer-events-none -translate-y-1/2"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full mb-6 shadow-sm">
+           <Star className="w-4 h-4 text-[#C9A74A] fill-current" />
+           <span className="text-slate-800 text-xs font-bold uppercase tracking-widest">Trusted by Clients</span>
+        </div>
+        <h2 className="text-4xl md:text-5xl font-black text-[#101010] mb-6">
+          Suara Kepercayaan
+        </h2>
+        <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+          Dengarkan pengalaman mereka yang telah mewujudkan visi konstruksinya bersama kami.
+        </p>
+      </div>
 
-        {/* Testimonials Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              key={testimonial.id}
-              variants={itemVariants}
-              className="group bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-[#E2E2E2] hover:border-[#B61F2B] relative overflow-hidden"
-            >
-              {/* Decorative Corner */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#B61F2B]/5 to-[#C9A74A]/5 rounded-bl-full"></div>
+      {/* Marquee Container */}
+      <div className="relative w-full overflow-hidden">
+         {/* Gradient Masks - Enhanced for smooth fade */}
+         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent z-10 pointer-events-none"></div>
+         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent z-10 pointer-events-none"></div>
 
-              {/* Quote Icon */}
-              <div className="mb-4">
-                <FaQuoteLeft className="w-8 h-8 text-[#B61F2B] opacity-20" />
-              </div>
-
-              {/* Rating Stars */}
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <FaStar
-                    key={i}
-                    className="w-5 h-5 text-[#C9A74A] fill-current"
-                  />
-                ))}
-              </div>
-
-              {/* Comment */}
-              <p className="text-[#3A3A3A] leading-relaxed mb-6 text-base">
-                "{testimonial.comment}"
-              </p>
-
-              {/* Client Info */}
-              <div className="flex items-center gap-4 pt-4 border-t border-[#E2E2E2]">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#B61F2B] to-[#C9A74A] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-                  {testimonial.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#101010] text-lg">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-[#3A3A3A] text-sm">
-                    {testimonial.position}
-                  </p>
-                  <p className="text-[#B61F2B] text-xs font-medium">
-                    {testimonial.company}
-                  </p>
-                </div>
-              </div>
-
-              {/* Hover Effect Line */}
-              <div className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] transition-all duration-300"></div>
-            </motion.div>
-          ))}
-        </motion.div>
+         <div className="flex animate-marquee py-4 hover:cursor-grab active:cursor-grabbing">
+            {marqueeData.map((item, idx) => (
+               <MarqueeCard key={`${item.id}-${idx}`} item={item} />
+            ))}
+         </div>
       </div>
     </section>
   );
