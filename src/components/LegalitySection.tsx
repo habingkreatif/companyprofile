@@ -196,21 +196,22 @@ export default function LegalitySection() {
                         <ExternalLink className="w-5 h-5" />
                       </button>
                     </DialogTrigger>
-                    {/* OPTIMIZED MODAL */}
-                    <DialogContent className="max-w-[95vw] md:max-w-6xl p-0 overflow-hidden border-none bg-[#0a0a0a]/90 backdrop-blur-2xl h-[90vh] md:h-auto">
-                      <DialogHeader className="absolute top-0 left-0 right-0 z-50 p-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
-                        <DialogTitle className="text-white text-2xl font-bold flex items-center gap-3">
+                    {/* OPTIMIZED MODAL - Fixed Scroll & Portrait */}
+                    <DialogContent className="max-w-[95vw] md:max-w-6xl p-0 overflow-hidden border-none bg-[#0a0a0a]/95 backdrop-blur-2xl h-[95vh] md:h-[90vh] flex flex-col">
+                      <DialogHeader className="p-6 bg-gradient-to-b from-black/80 to-transparent shrink-0 z-20 absolute top-0 w-full pointer-events-none">
+                        <DialogTitle className="text-white text-xl md:text-2xl font-bold flex items-center gap-3 drop-shadow-md">
                            {item.icon} {item.title}
                         </DialogTitle>
                       </DialogHeader>
-                      <div className="w-full h-full overflow-y-auto custom-scrollbar-dark p-4 md:p-8 flex items-start justify-center pt-24">
-                        <div className="relative w-full max-w-4xl bg-white/5 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                      
+                      <div className="flex-1 overflow-y-auto w-full h-full custom-scrollbar-dark flex justify-center p-4 pt-20 pb-10">
+                        <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden min-h-min">
                           <Image
                             src={item.docImage}
                             alt={item.title}
                             width={1200}
                             height={1600}
-                             className="w-full h-auto object-contain"
+                            className="w-full h-auto object-contain block"
                             priority
                           />
                         </div>
@@ -255,43 +256,46 @@ export default function LegalitySection() {
           ))}
         </div>
 
-        {/* Modern Capability Visualizer (Redesigned KBLI) */}
-        <div className="bg-slate-900 rounded-[3rem] p-8 md:p-20 relative overflow-hidden text-white shadow-2xl">
-           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[120px] -mr-32 -mt-32"></div>
-           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#B61F2B]/30 rounded-full blur-[120px] -ml-32 -mb-32"></div>
+        {/* Modern Capability Visualizer (Light Theme Revert) */}
+        <div className="bg-white rounded-[2.5rem] p-8 md:p-16 border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative overflow-hidden">
+           {/* Subtle background decoration */}
+           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-slate-50 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
 
            <div className="relative z-10">
              <div className="text-center mb-12">
-               <h3 className="text-3xl md:text-5xl font-black mb-6">Capability <span className="text-[#B61F2B]">Explorer</span></h3>
-               <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+               <span className="inline-block py-1 px-3 rounded-full bg-slate-100 text-[#B61F2B] text-xs font-bold tracking-widest uppercase mb-4">
+                 Our Capabilities
+               </span>
+               <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-6">Capability <span className="text-[#B61F2B]">Explorer</span></h3>
+               <p className="text-slate-500 text-lg max-w-2xl mx-auto">
                  Temukan spesialisasi yang Anda butuhkan. Kami memiliki lisensi teknis untuk berbagai sektor konstruksi.
                </p>
              </div>
 
-             {/* Tech Search Bar */}
-             <div className="max-w-2xl mx-auto mb-16 relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#B61F2B] to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                <div className="relative bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center p-2">
+             {/* Tech Search Bar (Light Mode) */}
+             <div className="max-w-2xl mx-auto mb-12 relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-slate-200 to-slate-100 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative bg-white border border-slate-200 rounded-2xl flex items-center p-2 shadow-sm">
                    <Search className="w-6 h-6 text-slate-400 ml-4" />
                    <input 
                       type="text" 
                       placeholder="Cari layanan (e.g. 'Beton', 'Listrik', 'Gedung')..." 
-                      className="w-full bg-transparent border-none focus:ring-0 text-white placeholder-slate-500 px-4 py-3 text-lg font-medium"
+                      className="w-full bg-transparent border-none focus:ring-0 text-slate-900 placeholder-slate-400 px-4 py-3 text-lg font-medium"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                    />
                    <div className="hidden md:flex gap-2 pr-2">
-                      <span className="px-3 py-1 bg-white/10 rounded-lg text-xs font-bold text-slate-400 border border-white/5">KB</span>
-                      <span className="px-3 py-1 bg-white/10 rounded-lg text-xs font-bold text-slate-400 border border-white/5">LI</span>
+                      <span className="px-3 py-1 bg-slate-100 rounded-lg text-xs font-bold text-slate-400 border border-slate-200">KB</span>
+                      <span className="px-3 py-1 bg-slate-100 rounded-lg text-xs font-bold text-slate-400 border border-slate-200">LI</span>
                    </div>
                 </div>
              </div>
 
-             {/* Categories */}
+             {/* Categories (Light Mode) */}
              <div className="flex justify-center gap-2 md:gap-4 flex-wrap mb-10">
                 <button 
                    onClick={() => setActiveTab("all")}
-                   className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === 'all' ? 'bg-white text-slate-900 border-white' : 'bg-transparent text-slate-400 border-slate-700 hover:border-slate-500'}`}
+                   className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === 'all' ? 'bg-slate-900 text-white border-slate-900 shadow-lg' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}`}
                 >
                    All
                 </button>
@@ -299,15 +303,15 @@ export default function LegalitySection() {
                    <button 
                       key={cat.id}
                       onClick={() => setActiveTab(cat.id)}
-                      className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === cat.id ? 'bg-[#B61F2B] text-white border-[#B61F2B]' : 'bg-transparent text-slate-400 border-slate-700 hover:border-slate-500'}`}
+                      className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === cat.id ? 'bg-[#B61F2B] text-white border-[#B61F2B] shadow-lg shadow-red-900/10' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}`}
                    >
-                      {cat.icon} {cat.name}
+                      <span className={activeTab === cat.id ? "text-white" : "text-slate-400"}>{cat.icon}</span> {cat.name}
                    </button>
                 ))}
              </div>
 
-             {/* Results Grid */}
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto custom-scrollbar-dark pr-2">
+             {/* Results Grid (Light Mode) */}
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto custom-scrollbar-light pr-2">
                <AnimatePresence mode="popLayout">
                  {filteredKbli.map((item) => (
                     <motion.div
@@ -316,14 +320,14 @@ export default function LegalitySection() {
                        initial={{ opacity: 0, scale: 0.95 }}
                        animate={{ opacity: 1, scale: 1 }}
                        exit={{ opacity: 0, scale: 0.95 }}
-                       className="p-5 bg-white/5 border border-white/5 hover:border-white/20 rounded-xl hover:bg-white/10 transition-all cursor-default group"
+                       className="p-5 bg-white border border-slate-100 hover:border-[#B61F2B]/30 rounded-xl hover:shadow-lg hover:shadow-red-900/5 transition-all cursor-default group"
                     >
                        <div className="flex justify-between items-start mb-2">
-                          <span className="text-xs font-bold text-[#B61F2B] bg-[#B61F2B]/10 px-2 py-1 rounded mb-2 block group-hover:bg-[#B61F2B] group-hover:text-white transition-colors">
+                          <span className="text-xs font-bold text-[#B61F2B] bg-[#B61F2B]/5 px-2 py-1 rounded mb-2 block group-hover:bg-[#B61F2B] group-hover:text-white transition-colors">
                              CODE {item.code}
                           </span>
                        </div>
-                       <h4 className="text-slate-200 font-semibold leading-snug group-hover:text-white transition-colors">{item.title}</h4>
+                       <h4 className="text-slate-700 font-bold leading-snug group-hover:text-[#B61F2B] transition-colors">{item.title}</h4>
                     </motion.div>
                  ))}
                </AnimatePresence>
@@ -331,8 +335,8 @@ export default function LegalitySection() {
              
              {filteredKbli.length === 0 && (
                 <div className="text-center py-12">
-                   <LayoutTemplate className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                   <p className="text-slate-500">Tidak ditemukan hasil untuk "{searchTerm}"</p>
+                   <LayoutTemplate className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                   <p className="text-slate-400">Tidak ditemukan hasil untuk "{searchTerm}"</p>
                 </div>
              )}
 
