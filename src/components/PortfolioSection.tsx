@@ -1,14 +1,14 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ZoomIn, ArrowRight } from "lucide-react";
 
 interface Portfolio {
   id: number;
   title: string;
-  category: string;
+  category: "interior" | "eksterior" | "renovasi";
   image: string;
   description: string;
 }
@@ -17,403 +17,240 @@ const portfolios: Portfolio[] = [
   {
     id: 1,
     title: "Renovasi Rumah Modern",
-    category: "Desain 3D Eksterior",
+    category: "eksterior",
     image: "/9.png",
     description: "Transformasi rumah tradisional menjadi minimalis modern",
   },
   {
     id: 2,
     title: "Dapur Minimalis",
-    category: "Desain 3D Interior",
+    category: "interior",
     image: "/14.png",
     description: "Desain dan instalasi dapur minimalis fungsional",
   },
   {
     id: 3,
     title: "Cafe set Custom",
-    category: "Desain 3D Interior",
+    category: "interior",
     image: "/11.png",
     description: "Desain dan instalasi kitchen set premium custom",
   },
   {
     id: 4,
     title: "Ruang Keluarga Elegan",
-    category: "Desain 3D Interior",
+    category: "interior",
     image: "/7.png",
     description: "Renovasi ruang keluarga dengan konsep elegan dan nyaman",
   },
   {
     id: 5,
     title: "Kamar Tidur Modern",
-    category: "Desain 3D Interior",
+    category: "interior",
     image: "/5.png",
     description: "Instalasi sistem mechanical, electrical, plumbing",
   },
   {
     id: 6,
     title: "Ruang Tamu Modern",
-    category: "Desain 3D Interior",
+    category: "interior",
     image: "/17.png",
     description: "Desain interior ruang tamu dengan sentuhan modern",
   },
   {
     id: 7,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Eksterior",
+    title: "Fasad Rumah Minimalis",
+    category: "eksterior",
     image: "/rumah1.jpg",
     description: "Desain eksterior rumah bergaya minimalis.",
   },
   {
     id: 8,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Eksterior",
+    title: "Tampak Depan Modern",
+    category: "eksterior",
     image: "/rumah2.jpg",
     description: "Tampilan luar rumah minimalis yang modern.",
   },
   {
     id: 9,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Interior",
+    title: "Living Room Cozy",
+    category: "interior",
     image: "/rumah3.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
   {
     id: 10,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Interior",
+    title: "Pantry & Dining",
+    category: "interior",
     image: "/2.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
   {
     id: 11,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Interior",
+    title: "Void & Tangga",
+    category: "interior",
     image: "/3.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
   {
     id: 12,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Interior",
+    title: "Master Bedroom",
+    category: "interior",
     image: "/4.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
   {
     id: 13,
-    title: "Ruang Minimalis",
-    category: "Desain 3D Interior",
+    title: "Ruang Kerja",
+    category: "interior",
     image: "/6.jpg",
     description: "Interior ruang minimalis yang modern dan rapi.",
   },
 ];
 
-// Grid layout configuration - asymmetric sizing
-const gridConfig = {
-  base: [
-    { row: "span 2", col: "span 2" }, // Large item
-    { row: "span 1", col: "span 1" }, // Small item
-    { row: "span 1", col: "span 1" }, // Small item
-    { row: "span 1", col: "span 1" }, // Small item
-    { row: "span 2", col: "span 2" }, // Large item
-    { row: "span 1", col: "span 1" }, // Small item
-    { row: "span 1", col: "span 2" }, // Medium horizontal
-    { row: "span 2", col: "span 1" }, // Medium vertical
-    { row: "span 1", col: "span 1" }, // Small item
-  ],
-  md: [
-    { row: "span 3", col: "span 3" },
-    { row: "span 2", col: "span 2" },
-    { row: "span 2", col: "span 2" },
-    { row: "span 1", col: "span 1" },
-    { row: "span 3", col: "span 3" },
-    { row: "span 2", col: "span 2" },
-    { row: "span 2", col: "span 3" },
-    { row: "span 3", col: "span 2" },
-    { row: "span 1", col: "span 1" },
-  ],
-  lg: [
-    { row: "span 4", col: "span 4" },
-    { row: "span 3", col: "span 3" },
-    { row: "span 3", col: "span 3" },
-    { row: "span 2", col: "span 2" },
-    { row: "span 4", col: "span 4" },
-    { row: "span 3", col: "span 3" },
-    { row: "span 3", col: "span 4" },
-    { row: "span 4", col: "span 3" },
-    { row: "span 2", col: "span 2" },
-  ],
-};
+const categories = [
+  { id: "all", label: "Semua Karya" },
+  { id: "eksterior", label: "Eksterior" },
+  { id: "interior", label: "Interior" },
+];
 
 export default function PortfolioSection() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState("all");
+  const [selectedImage, setSelectedImage] = useState<Portfolio | null>(null);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -400, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 400, behavior: "smooth" });
-    }
-  };
+  const filteredPortfolios = portfolios.filter(
+    (item) => activeTab === "all" || item.category === activeTab
+  );
 
   return (
     <section
       id="portofolio"
-      className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FAFAFA]"
     >
-      <div className="max-w-full mx-auto">
-        <motion.div
-          className="text-center mb-10 md:mb-14 lg:mb-16 px-4"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
-            Portofolio Kami
-          </h2>
-          <div className="w-24 sm:w-28 md:w-32 h-1.5 bg-gradient-to-r from-[#B61F2B] to-[#C9A74A] mx-auto rounded-full mb-3 md:mb-4"></div>
-          <p className="text-gray-600 max-w-lg md:max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            Lihat hasil karya kami dalam berbagai proyek konstruksi dan renovasi
-          </p>
-        </motion.div>
-
-        <div className="relative">
-          <button
-            onClick={scrollLeft}
-            className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
-            aria-label="Scroll kiri"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
-          </button>
-
-          <button
-            onClick={scrollRight}
-            className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 z-10 border border-gray-200"
-            aria-label="Scroll kanan"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#B61F2B]" />
-          </button>
-
-          <div
-            ref={scrollContainerRef}
-            className="overflow-x-auto pb-20 w-full scrollbar-hide"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            <div className="inline-flex min-w-max">
-              <div className="grid grid-flow-col auto-cols-[minmax(300px,400px)] md:auto-cols-[minmax(400px,500px)] gap-4 md:gap-6">
-                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
-                  {/* Column 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
-                  >
-                    <Image
-                      src={portfolios[0].image}
-                      alt={portfolios[0].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                      <div>
-                        <span className="inline-block px-3 py-1.5 bg-[#B61F2B] text-white text-xs font-semibold rounded-full mb-2">
-                          {portfolios[0].category}
-                        </span>
-                        <h3 className="text-xl font-bold text-white">
-                          {portfolios[0].title}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                    className="row-span-2 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
-                  >
-                    <Image
-                      src={portfolios[1].image}
-                      alt={portfolios[1].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </motion.div>
-                </div>
-
-                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
-                  {/* Column 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.3 }}
-                    className="row-span-2 grid grid-cols-2 gap-4 md:gap-6"
-                  >
-                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                      <Image
-                        src={portfolios[2].image}
-                        alt={portfolios[2].title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                      <Image
-                        src={portfolios[3].image}
-                        alt={portfolios[3].title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.4 }}
-                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
-                  >
-                    <Image
-                      src={portfolios[4].image}
-                      alt={portfolios[4].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                      <div>
-                        <span className="inline-block px-3 py-1.5 bg-[#B61F2B] text-white text-xs font-semibold rounded-full mb-2">
-                          {portfolios[4].category}
-                        </span>
-                        <h3 className="text-xl font-bold text-white">
-                          {portfolios[4].title}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-
-                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
-                  {/* Column 3 */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.5 }}
-                    className="row-span-3 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
-                  >
-                    <Image
-                      src={portfolios[5].image}
-                      alt={portfolios[5].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.6 }}
-                    className="row-span-3 grid grid-cols-2 gap-4 md:gap-6"
-                  >
-                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                      <Image
-                        src={portfolios[6].image}
-                        alt={portfolios[6].title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="grid grid-rows-2 gap-4 md:gap-6">
-                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                        <Image
-                          src={portfolios[7].image}
-                          alt={portfolios[7].title}
-                          fill
-                          sizes="(max-width: 768px) 50vw, 25vw"
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                      </div>
-                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                        <Image
-                          src={portfolios[8].image}
-                          alt={portfolios[8].title}
-                          fill
-                          sizes="(max-width: 768px) 50vw, 25vw"
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Additional columns would go here for more scrolling content */}
-                <div className="grid grid-rows-6 gap-4 md:gap-6 min-h-[600px] md:min-h-[800px]">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.0 }}
-                    className="row-span-2 grid grid-cols-2 gap-4 md:gap-6"
-                  >
-                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                      <Image
-                        src={portfolios[11].image}
-                        alt={portfolios[11].title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                      <Image
-                        src={portfolios[12].image}
-                        alt={portfolios[12].title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.9 }}
-                    className="row-span-4 relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group"
-                  >
-                    <Image
-                      src={portfolios[10].image}
-                      alt={portfolios[10].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </motion.div>
-                </div>
-              </div>
-            </div>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-block py-1 px-3 rounded-full bg-slate-100 text-[#B61F2B] text-xs font-bold tracking-widest uppercase mb-4">
+            Our Portfolio
           </div>
+          <h2 className="text-4xl md:text-5xl font-black text-[#101010] mb-6">
+            Galeri <span className="text-[#B61F2B]">Karya</span>
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+            Kumpulan hasil karya terbaik kami yang menggabungkan estetika desain dan ketepatan konstruksi.
+          </p>
         </div>
+
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveTab(cat.id)}
+              className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all border ${
+                activeTab === cat.id
+                  ? "bg-[#101010] text-white border-[#101010] shadow-lg"
+                  : "bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Masonry Grid */}
+        <motion.div layout className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          <AnimatePresence>
+            {filteredPortfolios.map((item) => (
+              <motion.div
+                layout
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                className="break-inside-avoid relative group rounded-2xl overflow-hidden cursor-zoom-in"
+                onClick={() => setSelectedImage(item)}
+              >
+                <div className="relative w-full">
+                   <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={600}
+                      height={800} // Approximate aspect ratio, actual will be managed by CSS width
+                      className="w-full h-auto object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                   />
+                   
+                   {/* Overlay */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                      <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                         <span className="inline-block px-2 py-1 bg-[#B61F2B] text-white text-[10px] font-bold uppercase tracking-wider rounded mb-2">
+                            {item.category}
+                         </span>
+                         <h3 className="text-white font-bold text-lg leading-tight mb-1">{item.title}</h3>
+                         <p className="text-gray-300 text-xs line-clamp-2">{item.description}</p>
+                      </div>
+                      <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                         <ZoomIn className="w-4 h-4 text-white" />
+                      </div>
+                   </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
-      <style jsx global>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button
+              className="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-50"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div 
+               className="relative w-full max-w-5xl max-h-[90vh] flex flex-col items-center"
+               onClick={(e) => e.stopPropagation()} // Prevent close when clicking image area
+            >
+               <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="relative w-full h-[70vh] md:h-[80vh] rounded-xl overflow-hidden shadow-2xl"
+               >
+                  <Image
+                     src={selectedImage.image}
+                     alt={selectedImage.title}
+                     fill
+                     className="object-contain"
+                     quality={100}
+                     priority
+                  />
+               </motion.div>
+               
+               <motion.div 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="mt-6 text-center text-white max-w-2xl"
+               >
+                  <h3 className="text-2xl font-bold mb-2">{selectedImage.title}</h3>
+                  <p className="text-gray-400">{selectedImage.description}</p>
+               </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
