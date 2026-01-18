@@ -137,7 +137,7 @@ const services = [
     category: "spesialis"
   },
   {
-    title: "ME (Listrik & Plumbing)",
+    title: "MEP (Mekanikal, Elektrikal & Plumbing)",
     description: "Instalasi kelistrikan dan saluran air standar keamanan.",
     icon: <Zap className="w-8 h-8" />,
     category: "spesialis"

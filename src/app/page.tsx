@@ -18,6 +18,7 @@ export default function Home() {
       <HeroSection />
 
       <AboutSection />
+      <LegalitySection />
 
       <ServicesSection />
 
@@ -25,7 +26,6 @@ export default function Home() {
 
       <ProjectCarousel />
 
-      <LegalitySection />
  
       <TestimonialSection />
  
