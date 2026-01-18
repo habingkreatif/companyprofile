@@ -29,22 +29,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const legalityData = [
-  {
-    id: "nib",
-    title: "NIB (Nomor Induk Berusaha)",
-    desc: "Digital ID resmi dari Lembaga OSS. Fondasi legalitas operasional perusahaan.",
-    icon: <ShieldCheck className="w-10 h-10 text-emerald-500" />,
-    number: "1210200021312",
-    docImage: "/akta.jpg", // User to replace
-    color: "bg-emerald-500/10 text-emerald-600 border-emerald-200",
-  },
+
   {
     id: "sjk",
-    title: "SJK (Sertifikat Jasa Konstruksi)",
+    title: "Akta Perusahaan",
     desc: "Lisensi kompetensi teknis untuk proyek skala menengah & besar.",
     icon: <Building2 className="w-10 h-10 text-blue-500" />,
-    number: "Tersertifikasi Nasional",
-    docImage: "/sk.jpg", // User to replace
+    number: "AHU-01210.AH.02.01",
+    docImage: "/akta.jpg", // User to replace
     color: "bg-blue-500/10 text-blue-600 border-blue-200",
   },
   {
@@ -52,19 +44,11 @@ const legalityData = [
     title: "SK Kemenkumham",
     desc: "Legitimasi Badan Hukum PT. Perlindungan hukum penuh untuk klien.",
     icon: <FileCheck className="w-10 h-10 text-violet-500" />,
-    number: "AHU-22341.AH.01.01",
+    number: "AHU-0002038.AH.01.01",
     docImage: "/sk.jpg", // User to replace
     color: "bg-violet-500/10 text-violet-600 border-violet-200",
   },
-  {
-    id: "ska",
-    title: "Tim Tenaga Ahli (SKA/SKT)",
-    desc: "Didukung insinyur bersertifikat resmi untuk jaminan kualitas teknis.",
-    icon: <Award className="w-10 h-10 text-amber-500" />,
-    number: "Expert Certified",
-    docImage: null,
-    color: "bg-amber-500/10 text-amber-600 border-amber-200",
-  },
+ 
 ];
 
 const kbliCategories = [
@@ -166,7 +150,7 @@ export default function LegalitySection() {
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Compliance</span>
              </div>
              <div className="px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center">
-                <span className="text-3xl font-black text-slate-900">4+</span>
+                <span className="text-3xl font-black text-slate-900">2+</span>
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Certificates</span>
              </div>
           </motion.div>

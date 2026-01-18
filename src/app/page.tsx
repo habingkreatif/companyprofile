@@ -25,17 +25,16 @@ export default function Home() {
 
       <ProjectCarousel />
 
-      <PartnerLogos />
-
       <LegalitySection />
-
+ 
       <TestimonialSection />
+ 
+      <PartnerLogos />
 
       <ContactSection />
 
       <Footer />
 
-      <MobileTouchbar />
     </div>
   );
 }
