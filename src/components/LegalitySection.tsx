@@ -1,23 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   ShieldCheck,
   FileCheck,
   Building2,
-  Award,
   Search,
   Copy,
   CheckCircle2,
   ExternalLink,
-  ChevronRight,
   Briefcase,
   HardHat,
   Zap,
   LayoutTemplate,
+  Lock,
+  FileText,
+  Award,
+  MousePointer2
 } from "lucide-react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -25,30 +27,177 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
+// --- 3D Card Component (Light Mode) ---
+const PremiumDocCard = ({ item, handleCopy, copied }: { item: any, handleCopy: any, copied: any }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="relative w-full max-w-md mx-auto perspective-1000 group/card"
+    >
+      <div 
+        className={`relative rounded-[2rem] p-[1px] bg-gradient-to-br ${item.borderGradient} shadow-2xl transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]`}
+        style={{ transform: "translateZ(0)" }}
+      >
+        <div className={`relative h-full bg-white rounded-[1.9rem] overflow-hidden`}>
+            
+            {/* Soft Sheen Effect */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${item.sheen} opacity-30 group-hover/card:opacity-50 transition-opacity duration-500`}></div>
+            
+            {/* Content Container */}
+            <div className="relative p-8 flex flex-col items-center text-center h-full z-10">
+                
+                {/* Badge Top */}
+                <div className="mb-6">
+                    <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm ${item.badgeStyle}`}>
+                        {item.icon} {item.badgeText}
+                    </span>
+                </div>
+
+                {/* Title & Subtitle */}
+                <motion.div style={{ transform: "translateZ(20px)" }}>
+                    <h3 className={`text-3xl font-black text-slate-900 mb-2 tracking-tight`}>
+                        {item.title}
+                    </h3>
+                    <p className="text-slate-500 font-semibold text-sm mb-6 uppercase tracking-wide">
+                        {item.subtitle}
+                    </p>
+                </motion.div>
+
+                {/* Document Preview (Interactive Window) */}
+                <motion.div 
+                    style={{ transform: "translateZ(30px)" }}
+                    className="w-full relative group/preview cursor-pointer mb-8"
+                >
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-lg border border-slate-100 hover:shadow-xl transition-all duration-500 bg-slate-50">
+                                <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover/preview:opacity-100 transition-opacity z-20 flex items-center justify-center backdrop-blur-[2px]">
+                                    <span className="px-5 py-2.5 bg-white text-slate-800 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 transform scale-95 group-hover/preview:scale-100 transition-transform">
+                                        <ExternalLink className="w-3.5 h-3.5" /> Lihat Dokumen
+                                    </span>
+                                </div>
+                                {item.docImage ? (
+                                    <Image 
+                                        src={item.docImage} 
+                                        alt={item.title} 
+                                        fill 
+                                        className="object-cover group-hover/preview:scale-105 transition-transform duration-700 p-2" 
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-slate-50 flex items-center justify-center">
+                                        <FileText className="text-slate-300 w-16 h-16" />
+                                    </div>
+                                )}
+                            </div>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl h-[85vh] p-0 bg-white border-slate-100 shadow-2xl">
+                             <DialogHeader className="absolute top-0 left-0 w-full p-6 z-20 flex flex-row items-center justify-between pointer-events-none">
+                                <DialogTitle className="hidden">Preview {item.title}</DialogTitle>
+                             </DialogHeader>
+                             <div className="w-full h-full overflow-y-auto flex items-center justify-center p-8 bg-slate-50">
+                                { item.docImage && <Image src={item.docImage} alt={item.title} width={1000} height={1400} className="w-auto h-auto max-w-full rounded shadow-xl ring-1 ring-slate-900/5" /> }
+                             </div>
+                        </DialogContent>
+                    </Dialog>
+                </motion.div>
+
+                <div className="w-full h-px bg-slate-100 mb-6"></div>
+
+                {/* Description */}
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
+                    {item.desc}
+                </p>
+
+                {/* Copy ID */}
+                <motion.div 
+                    style={{ transform: "translateZ(10px)" }}
+                    onClick={() => handleCopy(item.number)}
+                    className="mt-auto w-full group/copy cursor-pointer"
+                >
+                    <div className="relative overflow-hidden bg-slate-50 hover:bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-3 flex items-center justify-between transition-all shadow-sm group-hover/copy:shadow-md">
+                        <div className="flex flex-col items-start px-2">
+                            <span className="text-[10px] uppercase text-slate-400 font-bold tracking-widest mb-0.5">Nomor Registrasi</span>
+                            <code className={`text-sm font-mono font-bold text-slate-700 group-hover/copy:text-[#B61F2B] transition-colors`}>
+                                {item.number}
+                            </code>
+                        </div>
+                        <div className="w-9 h-9 rounded-lg bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover/copy:text-[#B61F2B] group-hover/copy:border-red-100 transition-all">
+                            {copied === item.number ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const legalityData = [
-
   {
-    id: "sjk",
+    id: "akta",
     title: "Akta Perusahaan",
-    desc: "Lisensi kompetensi teknis untuk proyek skala menengah & besar.",
-    icon: <Building2 className="w-10 h-10 text-blue-500" />,
+    subtitle: "Legalitas Eksekutif",
+    desc: "Dokumen resmi pendirian badan usaha yang telah disahkan oleh negara.",
+    icon: <Award className="w-3.5 h-3.5" />,
     number: "AHU-01210.AH.02.01",
-    docImage: "/akta.jpg", // User to replace
-    color: "bg-blue-500/10 text-blue-600 border-blue-200",
+    docImage: "/akta.jpg",
+    // Premium Gold Theme (Light)
+    badgeText: "Gold Standard",
+    badgeStyle: "bg-amber-50 text-amber-700 border-amber-200",
+    borderGradient: "from-amber-200 via-amber-100 to-white",
+    sheen: "from-amber-100/40 to-transparent"
   },
   {
     id: "sk",
     title: "SK Kemenkumham",
-    desc: "Legitimasi Badan Hukum PT. Perlindungan hukum penuh untuk klien.",
-    icon: <FileCheck className="w-10 h-10 text-violet-500" />,
+    subtitle: "Badan Hukum Terverifikasi",
+    desc: "Surat Keputusan pengesahan status badan hukum Perseroan Terbatas (PT).",
+    icon: <ShieldCheck className="w-3.5 h-3.5" />,
     number: "AHU-0002038.AH.01.01",
-    docImage: "/sk.jpg", // User to replace
-    color: "bg-violet-500/10 text-violet-600 border-violet-200",
+    docImage: "/sk.jpg",
+    // Premium Platinum Theme (Light)
+    badgeText: "Verified Entity",
+    badgeStyle: "bg-slate-100 text-slate-700 border-slate-200",
+    borderGradient: "from-slate-200 via-slate-100 to-white",
+    sheen: "from-slate-100/50 to-transparent"
   },
- 
 ];
 
 const kbliCategories = [
@@ -60,32 +209,100 @@ const kbliCategories = [
 
 const kbliData = [
   // Gedung
-  { category: "building", code: "41011", title: "Konstruksi Gedung Hunian" },
-  { category: "building", code: "41012", title: "Konstruksi Gedung Perkantoran" },
-  { category: "building", code: "41013", title: "Konstruksi Gedung Industri" },
-  { category: "building", code: "41014", title: "Konstruksi Gedung Perbelanjaan" },
-  { category: "building", code: "41015", title: "Konstruksi Gedung Kesehatan" },
-  { category: "building", code: "41016", title: "Konstruksi Gedung Pendidikan" },
-  { category: "building", code: "41019", title: "Konstruksi Gedung Lainnya" },
-  // Infra
-  { category: "infra", code: "42101", title: "Konstruksi Jalan Raya" },
-  { category: "infra", code: "42201", title: "Konstruksi Jaringan Irigasi" },
-  { category: "infra", code: "43901", title: "Konstruksi Atap" },
-  { category: "infra", code: "43902", title: "Konstruksi Beton" },
-  // Specialist
-  { category: "specialist", code: "43211", title: "Instalasi Listrik" },
-  { category: "specialist", code: "43212", title: "Instalasi Elektronika" },
-  { category: "specialist", code: "43221", title: "Instalasi Plumbing & Air" },
-  { category: "specialist", code: "43301", title: "Pemasangan Lantai & Dinding" },
-  { category: "specialist", code: "43303", title: "Pemasangan Pintu & Jendela" },
-  { category: "specialist", code: "43305", title: "Dekorasi Interior" },
-  { category: "specialist", code: "43309", title: "Finishing Bangunan" },
-  { category: "specialist", code: "74103", title: "Desain Interior Spesialis" },
-  // Consultant
-  { category: "consultant", code: "71101", title: "Jasa Arsitektur" },
-  { category: "consultant", code: "71102", title: "Jasa Engineering" },
-  { category: "consultant", code: "7020", title: "Konsultasi Manajemen" },
-  { category: "consultant", code: "4663", title: "Perdagangan Material" },
+  { 
+    category: "building", 
+    code: "41011", 
+    title: "Konstruksi Gedung Hunian",
+    description: "Pembangunan, pemeliharaan, dan perbaikan bangunan yang digunakan untuk hunian dan tempat tinggal."
+  },
+  { 
+    category: "building", 
+    code: "41012", 
+    title: "Konstruksi Gedung Perkantoran",
+    description: "Pembangunan, pemeliharaan, dan perbaikan bangunan yang digunakan untuk perkantoran."
+  },
+  { 
+    category: "building", 
+    code: "41013", 
+    title: "Konstruksi Gedung Industri",
+    description: "Pembangunan, pemeliharaan, dan perbaikan bangunan untuk industri, pabrik, dan workshop."
+  },
+  { 
+    category: "building", 
+    code: "41019", 
+    title: "Konstruksi Gedung Lainnya",
+    description: "Pembangunan gedung lainnya seperti tempat ibadah, terminal, dan bangunan budaya."
+  },
+  
+  // Spesialis
+  { 
+    category: "specialist", 
+    code: "43901", 
+    title: "Pemasangan Atap",
+    description: "Kegiatan pemasangan atap bangunan (genteng, sirap, metal, dsb) dan kerangka atap."
+  },
+  { 
+    category: "specialist", 
+    code: "43301", 
+    title: "Pemasangan Lantai & Dinding",
+    description: "Penyelesaian interior/eksterior seperti pemasangan keramik, marmer, parket, dan wallpaper."
+  },
+  { 
+    category: "specialist", 
+    code: "43304", 
+    title: "Pemasangan Partisi & Plafon",
+    description: "Instalasi sekat ruangan (movable), partisi gypsum, dan plafon bangunan."
+  },
+  { 
+    category: "specialist", 
+    code: "43211", 
+    title: "Instalasi Listrik",
+    description: "Pemasangan sistem kelistrikan, panel, dan sambungan kabel pada bangunan."
+  },
+  { 
+    category: "specialist", 
+    code: "43212", 
+    title: "Instalasi Telekomunikasi",
+    description: "Instalasi jaringan telepon, data, antena, dan infrastruktur komunikasi gedung."
+  },
+  { 
+    category: "specialist", 
+    code: "43213", 
+    title: "Instalasi Elektronika",
+    description: "Pemasangan sistem alarm, CCTV, kontrol akses, dan sistem elektronik keamanan."
+  },
+  { 
+    category: "specialist", 
+    code: "43221", 
+    title: "Instalasi Plumbing & Air",
+    description: "Instalasi saluran air bersih, air limbah, drainase, dan sistem perpipaan bangunan."
+  },
+  { 
+    category: "specialist", 
+    code: "43302", 
+    title: "Pengecatan & Pernis",
+    description: "Pengecatan interior dan eksterior bangunan serta pekerjaan finishing sejenis."
+  },
+
+  // Consultant & Others
+  { 
+    category: "consultant", 
+    code: "71101", 
+    title: "Jasa Arsitektur",
+    description: "Layanan desain arsitektural, perencanaan bangunan, dan pengawasan konstruksi."
+  },
+  { 
+    category: "consultant", 
+    code: "7020", 
+    title: "Konsultasi Manajemen",
+    description: "Konsultasi manajemen proyek dan strategi bisnis terkait konstruksi."
+  },
+  { 
+    category: "consultant", 
+    code: "4663", 
+    title: "Perdagangan Material",
+    description: "Perdagangan besar material konstruksi, kaca, ubin, dan perlengkapan bangunan."
+  },
 ];
 
 export default function LegalitySection() {
@@ -96,7 +313,8 @@ export default function LegalitySection() {
   const filteredKbli = kbliData.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.code.includes(searchTerm);
+      item.code.includes(searchTerm) || 
+      item.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTab = activeTab === "all" || item.category === activeTab;
     return matchesSearch && matchesTab;
   });
@@ -108,243 +326,167 @@ export default function LegalitySection() {
   };
 
   return (
-    <section id="legalitas" className="py-24 bg-white relative overflow-hidden">
-      {/* Decorative Gradient Blurs */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-b from-slate-50 to-transparent -mr-64 -mt-64 rounded-full blur-3xl opacity-60 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-red-50 to-transparent -ml-40 -mb-40 rounded-full blur-3xl opacity-40 pointer-events-none" />
+    <section id="legalitas" className="py-24 bg-slate-50 relative overflow-hidden">
+      
+      {/* Background Decor (Aurora) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-100 rounded-full blur-[120px] opacity-60"></div>
+          <div className="absolute top-[20%] -right-[10%] w-[40%] h-[60%] bg-amber-50 rounded-full blur-[120px] opacity-60"></div>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[40%] bg-slate-100 rounded-full blur-[100px] opacity-60"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm mb-6"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-12 h-[2px] bg-[#B61F2B]"></span>
-              <span className="text-sm font-bold tracking-widest uppercase text-[#B61F2B]">Verified & Secured</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-6">
-              Legalitas <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B61F2B] to-red-600">Terjamin.</span><br />
-              Proyek Aman.
-            </h2>
-            <p className="text-lg text-slate-500 font-medium leading-relaxed">
-              Kami beroperasi di atas fondasi hukum yang kokoh. Transparansi dokumen adalah 
-              komitmen awal kami sebelum batu pertama diletakkan.
-            </p>
+            <ShieldCheck className="w-4 h-4 text-[#B61F2B]" />
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">Verified Trust System</span>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:flex gap-4"
+          
+          <motion.h2 
+             initial={{ opacity: 0, scale: 0.95 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.5 }}
+             className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight"
           >
-             <div className="px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center">
-                <span className="text-3xl font-black text-slate-900">100%</span>
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Compliance</span>
-             </div>
-             <div className="px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center">
-                <span className="text-3xl font-black text-slate-900">2+</span>
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Certificates</span>
-             </div>
-          </motion.div>
+            Legalitas & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B61F2B] to-red-600">Sertifikasi</span>
+          </motion.h2>
+          
+          <p className="text-lg text-slate-500 leading-relaxed font-medium">
+            Fondasi hukum yang transparan dan terverifikasi, menjamin keamanan serta profesionalitas dalam setiap kerjasama proyek.
+          </p>
         </div>
 
-        {/* Modern Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-32">
-          {legalityData.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group relative bg-white p-6 rounded-3xl border border-slate-100 hover:border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
-            >
-              {/* Top Icons */}
-              <div className="flex justify-between items-start mb-6">
-                <div className={`p-3 rounded-2xl ${item.color} bg-opacity-10`}>
-                  {item.icon}
-                </div>
-                {item.docImage && (
-                   <Dialog>
-                    <DialogTrigger asChild>
-                      <button className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-[#B61F2B] transition-colors">
-                        <ExternalLink className="w-5 h-5" />
-                      </button>
-                    </DialogTrigger>
-                    {/* OPTIMIZED MODAL - Fixed Scroll & Portrait */}
-                    <DialogContent className="max-w-[95vw] md:max-w-6xl p-0 overflow-hidden border-none bg-[#0a0a0a]/95 backdrop-blur-2xl h-[95vh] md:h-[90vh] flex flex-col">
-                      <DialogHeader className="p-6 bg-gradient-to-b from-black/80 to-transparent shrink-0 z-20 absolute top-0 w-full pointer-events-none">
-                        <DialogTitle className="text-white text-xl md:text-2xl font-bold flex items-center gap-3 drop-shadow-md">
-                           {item.icon} {item.title}
-                        </DialogTitle>
-                      </DialogHeader>
-                      
-                      <div className="flex-1 overflow-y-auto w-full h-full custom-scrollbar-dark flex justify-center p-4 pt-20 pb-10">
-                        <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden min-h-min">
-                          <Image
-                            src={item.docImage}
-                            alt={item.title}
-                            width={1200}
-                            height={1600}
-                            className="w-full h-auto object-contain block"
-                            priority
-                          />
-                        </div>
+        {/* --- 3D EXECUTIVE VAULT (Light) --- */}
+        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-32 relative">
+            {legalityData.map((item, index) => (
+                <PremiumDocCard key={item.id} item={item} handleCopy={handleCopy} copied={copied} />
+            ))}
+        </div>
+
+        {/* --- CAPABILITY SEARCH ENGINE (Clean Light) --- */}
+        <div className="max-w-5xl mx-auto">
+           <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group/search-container">
+               
+               {/* Decorative Gradient Blob */}
+               <div className="absolute -top-20 -right-20 w-64 h-64 bg-slate-50 rounded-full blur-3xl opacity-50 group-hover/search-container:bg-red-50 transition-colors duration-700"></div>
+
+               <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
+                      <div className="text-center md:text-left">
+                          <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3 justify-center md:justify-start">
+                              <LayoutTemplate className="w-8 h-8 text-slate-400" />
+                              Kapabilitas & KBLI
+                          </h3>
+                          <p className="text-slate-500 text-sm">Cari berdasarkan kode standar industri (KBLI) kami.</p>
                       </div>
-                    </DialogContent>
-                   </Dialog>
-                )}
-              </div>
 
-              {/* Content */}
-              <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">
-                {item.title}
-              </h3>
-              <p className="text-sm text-slate-500 mb-6 leading-relaxed flex-grow">
-                {item.desc}
-              </p>
+                      {/* Search Input */}
+                      <div className="w-full md:w-auto min-w-[300px]">
+                          <div className="relative group">
+                              <div className="absolute inset-0 bg-[#B61F2B]/10 blur-xl rounded-full opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                              <div className="relative bg-white border border-slate-200 group-focus-within:border-[#B61F2B]/50 rounded-full flex items-center px-4 py-3 transition-colors shadow-sm">
+                                  <Search className="w-5 h-5 text-slate-400 mr-3" />
+                                  <input 
+                                      type="text" 
+                                      placeholder="Cari kode KBLI..." 
+                                      className="flex-grow bg-transparent outline-none text-slate-900 font-medium placeholder:text-slate-400"
+                                      value={searchTerm}
+                                      onChange={(e) => setSearchTerm(e.target.value)}
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
-              {/* Footer */}
-              <div 
-                onClick={() => handleCopy(item.number)}
-                className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between cursor-pointer group/copy"
-              >
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                  <span className="text-xs font-bold font-mono text-slate-600 uppercase tracking-tight">
-                    {item.number}
-                  </span>
-                </div>
-                <div className="relative">
-                   <AnimatePresence>
-                      {copied === item.number ? (
-                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">Copied!</span>
-                         </motion.div>
-                      ) : (
-                         <Copy className="w-4 h-4 text-slate-300 group-hover/copy:text-slate-900 transition-colors" />
-                      )}
-                   </AnimatePresence>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  {/* Tabs */}
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
+                      {['all', ...kbliCategories.map(k => k.id)].map(catId => {
+                          const cat = kbliCategories.find(k => k.id === catId);
+                          const isActive = activeTab === catId;
+                          return (
+                              <button
+                                  key={catId}
+                                  onClick={() => setActiveTab(catId)}
+                                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all border ${
+                                      isActive 
+                                      ? 'bg-slate-900 text-white border-slate-900 shadow-md' 
+                                      : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                                  }`}
+                              >
+                                  {cat ? cat.name : "Semua"}
+                              </button>
+                          )
+                      })}
+                  </div>
 
-        {/* Modern Capability Visualizer (Light Theme Revert) */}
-        <div className="bg-white rounded-[2.5rem] p-8 md:p-16 border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative overflow-hidden">
-           {/* Subtle background decoration */}
-           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-slate-50 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
-
-           <div className="relative z-10">
-             <div className="text-center mb-12">
-               <span className="inline-block py-1 px-3 rounded-full bg-slate-100 text-[#B61F2B] text-xs font-bold tracking-widest uppercase mb-4">
-                 Our Capabilities
-               </span>
-               <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-6">Capability <span className="text-[#B61F2B]">Explorer</span></h3>
-               <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-                 Temukan spesialisasi yang Anda butuhkan. Kami memiliki lisensi teknis untuk berbagai sektor konstruksi.
-               </p>
-             </div>
-
-             {/* Tech Search Bar (Light Mode) */}
-             <div className="max-w-2xl mx-auto mb-12 relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-slate-200 to-slate-100 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-white border border-slate-200 rounded-2xl flex items-center p-2 shadow-sm">
-                   <Search className="w-6 h-6 text-slate-400 ml-4" />
-                   <input 
-                      type="text" 
-                      placeholder="Cari layanan (e.g. 'Beton', 'Listrik', 'Gedung')..." 
-                      className="w-full bg-transparent border-none focus:ring-0 text-slate-900 placeholder-slate-400 px-4 py-3 text-lg font-medium"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                   />
-                   <div className="hidden md:flex gap-2 pr-2">
-                      <span className="px-3 py-1 bg-slate-100 rounded-lg text-xs font-bold text-slate-400 border border-slate-200">KB</span>
-                      <span className="px-3 py-1 bg-slate-100 rounded-lg text-xs font-bold text-slate-400 border border-slate-200">LI</span>
-                   </div>
-                </div>
-             </div>
-
-             {/* Categories (Light Mode) */}
-             <div className="flex justify-center gap-2 md:gap-4 flex-wrap mb-10">
-                <button 
-                   onClick={() => setActiveTab("all")}
-                   className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === 'all' ? 'bg-slate-900 text-white border-slate-900 shadow-lg' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}`}
-                >
-                   All
-                </button>
-                {kbliCategories.map(cat => (
-                   <button 
-                      key={cat.id}
-                      onClick={() => setActiveTab(cat.id)}
-                      className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${activeTab === cat.id ? 'bg-[#B61F2B] text-white border-[#B61F2B] shadow-lg shadow-red-900/10' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}`}
-                   >
-                      <span className={activeTab === cat.id ? "text-white" : "text-slate-400"}>{cat.icon}</span> {cat.name}
-                   </button>
-                ))}
-             </div>
-
-             {/* Results Grid (Light Mode) */}
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto custom-scrollbar-light pr-2">
-               <AnimatePresence mode="popLayout">
-                 {filteredKbli.map((item) => (
-                    <motion.div
-                       layout
-                       key={item.code}
-                       initial={{ opacity: 0, scale: 0.95 }}
-                       animate={{ opacity: 1, scale: 1 }}
-                       exit={{ opacity: 0, scale: 0.95 }}
-                       className="p-5 bg-white border border-slate-100 hover:border-[#B61F2B]/30 rounded-xl hover:shadow-lg hover:shadow-red-900/5 transition-all cursor-default group"
-                    >
-                       <div className="flex justify-between items-start mb-2">
-                          <span className="text-xs font-bold text-[#B61F2B] bg-[#B61F2B]/5 px-2 py-1 rounded mb-2 block group-hover:bg-[#B61F2B] group-hover:text-white transition-colors">
-                             CODE {item.code}
-                          </span>
-                       </div>
-                       <h4 className="text-slate-700 font-bold leading-snug group-hover:text-[#B61F2B] transition-colors">{item.title}</h4>
-                    </motion.div>
-                 ))}
-               </AnimatePresence>
-             </div>
-             
-             {filteredKbli.length === 0 && (
-                <div className="text-center py-12">
-                   <LayoutTemplate className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                   <p className="text-slate-400">Tidak ditemukan hasil untuk "{searchTerm}"</p>
-                </div>
-             )}
-
+                  {/* Grid Results */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                      <AnimatePresence mode="popLayout">
+                          {filteredKbli.length > 0 ? (
+                              filteredKbli.map((item) => (
+                                  <motion.div
+                                      layout
+                                      key={item.code}
+                                      initial={{ opacity: 0, scale: 0.9 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      exit={{ opacity: 0, scale: 0.9 }}
+                                      className="bg-white p-5 rounded-2xl border border-slate-100 hover:border-[#B61F2B]/20 hover:shadow-lg hover:shadow-slate-200/50 transition-all group/item"
+                                  >
+                                      <div className="flex items-start justify-between mb-3">
+                                          <div className="px-2 py-1 bg-slate-50 rounded-lg text-xs font-mono font-bold text-slate-500 border border-slate-200 group-hover/item:text-[#B61F2B] group-hover/item:border-red-100 transition-colors">
+                                              {item.code}
+                                          </div>
+                                      </div>
+                                      <h4 className="text-slate-800 font-bold text-sm mb-2 group-hover/item:text-[#B61F2B] transition-colors">
+                                          {item.title}
+                                      </h4>
+                                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 font-medium">
+                                          {item.description}
+                                      </p>
+                                  </motion.div>
+                              ))
+                          ) : (
+                              <div className="col-span-full py-12 text-center">
+                                  <LayoutTemplate className="w-12 h-12 mb-3 text-slate-200 mx-auto" />
+                                  <p className="text-slate-400 font-medium">Tidak ada data ditemukan.</p>
+                              </div>
+                          )}
+                      </AnimatePresence>
+                  </div>
+               </div>
            </div>
         </div>
 
       </div>
       
       <style jsx global>{`
-        .custom-scrollbar-dark::-webkit-scrollbar {
+        .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
-        .custom-scrollbar-dark::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(0,0,0,0.02);
           border-radius: 10px;
         }
-        .custom-scrollbar-dark::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(0,0,0,0.1);
           border-radius: 10px;
         }
-        .custom-scrollbar-dark::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.4);
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(0,0,0,0.2);
+        }
+        .perspective-1000 {
+            perspective: 1000px;
         }
       `}</style>
     </section>
   );
 }
+
