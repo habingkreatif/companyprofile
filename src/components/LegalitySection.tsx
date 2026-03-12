@@ -46,10 +46,10 @@ const legalityData = [
     id: "nib",
     title: "NIB",
     desc: "Nomor Induk Berusaha sebagai identitas resmi pelaku usaha dan izin dasar operasional.",
-    icon: <Briefcase className="w-10 h-10 text-violet-500" />,
+    icon: <Briefcase className="w-10 h-10 text-orange-500" />,
     number: "2801260257576",
     docImage: "/nib.webp",
-    color: "bg-violet-500/10 text-violet-600 border-violet-200",
+    color: "bg-orange-500/10 text-orange-600 border-orange-200",
   },
 ];
 
