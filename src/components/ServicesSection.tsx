@@ -1,236 +1,257 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  ClipboardList, 
-  HardHat, 
-  Hammer, 
-  Trees, 
-  Maximize, 
-  Grid2X2, 
-  Home, 
-  Utensils, 
-  PaintRoller, 
-  Ruler, 
-  DoorOpen, 
-  Building2, 
-  Paintbrush, 
-  Layers, 
-  Zap, 
-  LayoutGrid, 
-  Monitor, 
+import {
+  Home,
+  Building2,
+  PenTool,
+  ArrowUpRight,
   Wrench,
-  ArrowRight
+  MonitorSmartphone,
+  HardHat
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const categories = [
-  { id: "all", label: "Semua Layanan" },
-  { id: "konstruksi", label: "Konstruksi & Renovasi" },
-  { id: "interior", label: "Interior & Eksterior" },
-  { id: "spesialis", label: "Pekerjaan Spesialis" },
-  { id: "perencanaan", label: "Perencanaan & Digital" },
+  { id: "residential", label: "Residensial & Hunian", code: "01" },
+  { id: "commercial", label: "Komersial & Gedung", code: "02" },
+  { id: "planning", label: "Desain & Perencanaan", code: "03" },
 ];
 
 const services = [
-  // PERENCANAAN
+  // RESIDENTIAL
   {
-    title: "Perencanaan & Konsultasi",
-    description: "Konsultasi teknis dan perencanaan matang untuk hasil proyek optimal.",
-    icon: <ClipboardList className="w-8 h-8" />,
-    category: "perencanaan"
+    code: "RES-01",
+    title: "Bangun Rumah Baru",
+    description: "Layanan rancang bangun rumah tinggal dari nol. Pengawasan penuh dari persiapan struktur bawah hingga penyerahan kunci.",
+    icon: <Home className="w-5 h-5 text-neutral-900" />,
+    category: "residential",
+    deliverables: [
+      "Visualisasi Fasad & Layout Fungsional",
+      "Material Standar SNI & RAB Mengikat",
+      "Laporan Kurva-S & Progres Mingguan",
+      "Sertifikat Garansi Struktur Pemeliharaan"
+    ],
+    waText: "Halo HAB, saya ingin konsultasi pengerjaan Bangun Rumah Baru."
   },
   {
-    title: "Desain 2D/3D & RAB",
-    description: "Visualisasi desain detail lengkap dengan estimasi biaya presisi.",
-    icon: <Ruler className="w-8 h-8" />,
-    category: "perencanaan"
+    code: "RES-02",
+    title: "Renovasi & Ekstensifikasi",
+    description: "Peremajaan bangunan total, penambahan lantai (ngedak), atau perbaikan fasad dengan analisis beban struktur lama.",
+    icon: <Wrench className="w-5 h-5 text-neutral-900" />,
+    category: "residential",
+    deliverables: [
+      "Audit Fisik & Kekuatan Struktur Lama",
+      "Perhitungan Penambahan Beban Beton",
+      "Manajemen Proyek Minim Gangguan",
+      "Penyerahan On-Time Sesuai Kontrak"
+    ],
+    waText: "Halo HAB, saya ingin konsultasi pengerjaan Renovasi Rumah."
   },
   {
-    title: "Website & Company Profile",
-    description: "Pembuatan website profesional untuk portofolio dan branding bisnis.",
-    icon: <Monitor className="w-8 h-8" />,
-    category: "perencanaan"
-  },
-
-  // KONSTRUKSI
-  {
-    title: "Jasa Konstruksi Bangunan",
-    description: "Pembangunan struktur baru dengan standar teknik sipil terbaik.",
-    icon: <HardHat className="w-8 h-8" />,
-    category: "konstruksi"
-  },
-  {
-    title: "Renovasi Total",
-    description: "Peremajaan bangunan menyeluruh untuk kenyamanan dan nilai aset.",
-    icon: <Hammer className="w-8 h-8" />,
-    category: "konstruksi"
-  },
-  {
-    title: "Dak & Struktur Beton",
-    description: "Pengecoran dak dan struktur beton bertulang yang kokoh.",
-    icon: <Building2 className="w-8 h-8" />,
-    category: "konstruksi"
-  },
-  {
-    title: "Perbaikan Atap",
-    description: "Solusi anti bocor dan penggantian rangka atap profesional.",
-    icon: <Home className="w-8 h-8" />,
-    category: "konstruksi"
-  },
-  {
-    title: "Pemeliharaan Bangunan",
-    description: "Maintenance rutin untuk menjaga performa dan estetika gedung.",
-    icon: <Wrench className="w-8 h-8" />,
-    category: "konstruksi"
+    code: "RES-03",
+    title: "Custom Interior & Furniture",
+    description: "Optimalisasi tata ruang dalam dengan custom cabinetry presisi tinggi, pemilihan finishing material, dan lighting.",
+    icon: <PenTool className="w-5 h-5 text-neutral-900" />,
+    category: "residential",
+    deliverables: [
+      "Custom Cabinetry HPL & Duco Premium",
+      "Layout Ergonomis & Akurasi Ukuran",
+      "Instalasi Hidden LED & Electrical",
+      "Pemasangan Bersih Tanpa Cacat Detail"
+    ],
+    waText: "Halo HAB, saya ingin konsultasi pengerjaan Custom Interior."
   },
 
-  // INTERIOR & EKSTERIOR
+  // COMMERCIAL
   {
-    title: "Interior & Makeover",
-    description: "Transformasi ruang dalam untuk kenyamanan dan gaya modern.",
-    icon: <PaintRoller className="w-8 h-8" />,
-    category: "interior"
+    code: "COM-01",
+    title: "Konstruksi Gudang & Pabrik",
+    description: "Pembangunan infrastruktur industri dengan perhitungan struktur baja WF/beton bertulang anti-debu skala berat.",
+    icon: <Building2 className="w-5 h-5 text-neutral-900" />,
+    category: "commercial",
+    deliverables: [
+      "Perhitungan Struktur Baja WF & Fondasi",
+      "Pengecoran Floor Hardener Anti-Debu",
+      "Sistem Sirkulasi & Ventilisasi Industri",
+      "Kepatuhan Standar Regulasi K3/HSE"
+    ],
+    waText: "Halo HAB, saya butuh penawaran Konstruksi Gudang/Pabrik."
   },
   {
-    title: "Kitchen Set Custom",
-    description: "Desain dapur fungsional dengan material berkualitas tinggi.",
-    icon: <Utensils className="w-8 h-8" />,
-    category: "interior"
+    code: "COM-02",
+    title: "Bangun Kantor & Area Ruko",
+    description: "Perencanaan dan konstruksi ruang usaha komersial yang mengutamakan fungsionalitas dan citra identitas bisnis.",
+    icon: <HardHat className="w-5 h-5 text-neutral-900" />,
+    category: "commercial",
+    deliverables: [
+      "Tata Ruang Kerja Ergonomis B2B",
+      "Fasad ACP, Kaca & Aluminium Glass",
+      "Jaringan MEP & Kelistrikan Komersial",
+      "Penyerahan BAST Sesuai Jadwal SLA"
+    ],
+    waText: "Halo HAB, saya membutuhkan penawaran Bangun Kantor/Ruko."
   },
   {
-    title: "Pengecatan Profesional",
-    description: "Pengecatan dinding interior dan eksterior dengan hasil halus.",
-    icon: <Paintbrush className="w-8 h-8" />,
-    category: "interior"
-  },
-  {
-    title: "Lanskap & Taman",
-    description: "Penataan area hijau dan taman untuk keasrian lingkungan.",
-    icon: <Trees className="w-8 h-8" />,
-    category: "interior"
+    code: "COM-03",
+    title: "Instalasi Spesialis & MEP",
+    description: "Pengerjaan sistem mekanikal, elektrikal, plumbing 3-phase, serta partisi akustik skala gedung.",
+    icon: <MonitorSmartphone className="w-5 h-5 text-neutral-900" />,
+    category: "commercial",
+    deliverables: [
+      "Panel Kelistrikan Induk & 3-Phase",
+      "Instalasi Pipa Air Bersih & Kotor",
+      "Plafon Akustik & Partisi Gypsum",
+      "Kusen Aluminium Heavy Duty"
+    ],
+    waText: "Halo HAB, saya membutuhkan vendor Pekerjaan MEP/Spesialis."
   },
 
-  // SPESIALIS
+  // PLANNING
   {
-    title: "Kaca & Aluminium",
-    description: "Instalasi kusen aluminium dan partisi kaca modern.",
-    icon: <Maximize className="w-8 h-8" />,
-    category: "spesialis"
+    code: "PLN-01",
+    title: "Penyusunan Desain DED & RAB",
+    description: "Penyusunan dokumen teknis lengkap sebagai cetak biru resmi sebelum memasuki tahap tender atau pembangunan fisik.",
+    icon: <PenTool className="w-5 h-5 text-neutral-900" />,
+    category: "planning",
+    deliverables: [
+      "Gambar Kerja Detail (DED) 2D",
+      "Visualisasi Render 3D Eksterior/Interior",
+      "Rancangan Anggaran Biaya (RAB) Detail",
+      "Daftar Spesifikasi Teknis Material"
+    ],
+    waText: "Halo HAB, saya ingin memesan layanan Desain & RAB."
   },
   {
-    title: "Pagar & Bengkel Las",
-    description: "Fabrikasi pagar, kanopi, dan tralis besi sesuai pesanan.",
-    icon: <Grid2X2 className="w-8 h-8" />,
-    category: "spesialis"
-  },
-  {
-    title: "Pintu, Jendela & Kusen",
-    description: "Pemasangan dan finishing pintu serta jendela presisi.",
-    icon: <DoorOpen className="w-8 h-8" />,
-    category: "spesialis"
-  },
-  {
-    title: "Plafon & Partisi Gypsum",
-    description: "Desain plafon artistik dan partisi ruangan gypsum rapi.",
-    icon: <Layers className="w-8 h-8" />,
-    category: "spesialis"
-  },
-  {
-    title: "MEP (Mekanikal, Elektrikal & Plumbing)",
-    description: "Instalasi kelistrikan dan saluran air standar keamanan.",
-    icon: <Zap className="w-8 h-8" />,
-    category: "spesialis"
-  },
-  {
-    title: "Lantai & Keramik",
-    description: "Pemasangan granit, keramik, dan parket lantai presisi.",
-    icon: <LayoutGrid className="w-8 h-8" />,
-    category: "spesialis"
+    code: "PLN-02",
+    title: "Konsultasi Tata Kelola IT",
+    description: "Pendampingan penyusunan SOP teknis, audit tata kelola TI (COBIT), dan manajemen aset infrastruktur digital bisnis.",
+    icon: <MonitorSmartphone className="w-5 h-5 text-neutral-900" />,
+    category: "planning",
+    deliverables: [
+      "Pemetaan SOP IT & Standard Operasional",
+      "Implementasi IT Asset Management (GLPI)",
+      "Konsultasi Infrastruktur Jaringan Usaha",
+      "Digitalisasi Sistem & Platform Bisnis"
+    ],
+    waText: "Halo HAB, saya butuh konsultasi untuk IT & Digital Solution."
   },
 ];
 
 export default function ServicesSection() {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("residential");
 
   const filteredServices = services.filter(
-    (service) => activeTab === "all" || service.category === activeTab
+    (service) => service.category === activeTab
   );
 
   return (
-    <section
-      id="layanan"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
-    >
-      {/* Background Gradients */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+    <section id="layanan" className="py-20 sm:py-28 bg-[#FAFAFA] text-neutral-900 font-sans border-b border-neutral-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 px-4">
-          <div className="inline-block py-1 px-3 rounded-full bg-slate-100 text-[#B61F2B] text-xs font-bold tracking-widest uppercase mb-4">
-            Our Expertise
+        {/* Editorial Top Line & Header */}
+        <div className="border-b border-neutral-300 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 text-left">
+          <div className="max-w-2xl">
+            <span className="text-xs font-mono font-bold text-[#B61F2B] uppercase tracking-widest block mb-2">
+              02 / MATRIKS SPESIFIKASI LAYANAN
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-neutral-950 leading-tight">
+              Pilar Rekayasa & <br />
+              <span className="font-bold text-neutral-900">Solusi Konstruksi.</span>
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-[#101010] mb-6">
-            Layanan <span className="text-[#B61F2B]">Terintegrasi</span>
-          </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-             Solusi konstruksi end-to-end. Dari perencanaan digital hingga eksekusi fisik, kami menjamin kualitas di setiap tahap.
+
+          <p className="text-xs sm:text-sm text-neutral-500 max-w-md leading-relaxed font-normal md:text-right">
+            Pendekatan terstruktur end-to-end yang menjamin transparansi RAB mengikat, kepatuhan analisis struktur, dan kepastian jadwal serah terima.
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveTab(cat.id)}
-              className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${
-                activeTab === cat.id
-                  ? "bg-[#B61F2B] text-white border-[#B61F2B] shadow-lg shadow-red-900/20"
-                  : "bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Monospaced Filter Tab Index */}
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mb-12 border-b border-neutral-200 pb-6 text-xs font-mono">
+          {categories.map((cat) => {
+            const isActive = activeTab === cat.id;
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveTab(cat.id)}
+                className={`transition-colors py-1 flex items-center gap-2 ${isActive
+                    ? "text-[#B61F2B] font-bold border-b-2 border-[#B61F2B] -mb-[26px]"
+                    : "text-neutral-500 hover:text-neutral-900"
+                  }`}
+              >
+                <span>[{cat.code}]</span>
+                <span className="uppercase tracking-wider">{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Grid */}
-        <motion.div 
-           layout
-           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        {/* Structural Grid (No Card Containers) */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredServices.map((service, index) => (
               <motion.div
                 layout
                 key={service.title}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className="group bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#B61F2B]/30 hover:shadow-xl hover:shadow-[#B61F2B]/5 transition-all duration-300 flex flex-col h-full"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="bg-white border border-neutral-200 p-8 flex flex-col justify-between text-left hover:border-neutral-900 transition-colors group"
               >
-                <div className="w-14 h-14 bg-slate-50 rounded-xl flex items-center justify-center text-[#B61F2B] mb-6 group-hover:scale-110 group-hover:bg-[#B61F2B] group-hover:text-white transition-all duration-300">
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#B61F2B] transition-colors line-clamp-2">
-                  {service.title}
-                </h3>
-                
-                <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                  {service.description}
-                </p>
+                <div>
+                  {/* Scope Index Code & Minimal Icon */}
+                  <div className="flex items-center justify-between pb-6 mb-6 border-b border-neutral-100 font-mono text-xs">
+                    <span className="text-[#B61F2B] font-bold">
+                      [{service.code}]
+                    </span>
+                    <div className="p-2 bg-neutral-100 text-neutral-900">
+                      {service.icon}
+                    </div>
+                  </div>
 
-                <div className="flex items-center text-xs font-bold text-[#B61F2B] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                   {/* Selengkapnya <ArrowRight className="w-3 h-3 ml-1" /> */}
+                  {/* Title & Description */}
+                  <h3 className="text-xl font-bold text-neutral-950 mb-3 group-hover:text-[#B61F2B] transition-colors leading-snug">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed mb-8">
+                    {service.description}
+                  </p>
+
+                  {/* Editorial Deliverables List */}
+                  <div className="space-y-3 mb-8 border-t border-neutral-100 pt-6">
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-2 font-bold">
+                      Lingkup Pengerjaan Utama:
+                    </span>
+                    {service.deliverables.map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-700 font-mono">
+                        <span className="text-[#B61F2B] font-bold">—</span>
+                        <span className="leading-tight">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Direct Action Link */}
+                <div className="pt-6 border-t border-neutral-100">
+                  <a
+                    href={`https://wa.me/6285326566522?text=${encodeURIComponent(service.waText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-between w-full text-xs font-mono font-bold text-neutral-900 hover:text-[#B61F2B] transition-colors group-hover:underline"
+                  >
+                    <span>KONSULTASI SPESIFIKASI</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
+
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
+
       </div>
     </section>
   );

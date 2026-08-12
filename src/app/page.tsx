@@ -26,9 +26,8 @@ export default function Home() {
 
       <ProjectCarousel />
 
- 
       <TestimonialSection />
- 
+
       <PartnerLogos />
 
       <ContactSection />

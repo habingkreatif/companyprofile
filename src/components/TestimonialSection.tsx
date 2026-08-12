@@ -1,173 +1,165 @@
- "use client";
+"use client";
 
-import { motion } from "framer-motion";
-import { Star, Quote, UserCircle2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
-interface Testimonial {
-  id: number;
-  name: string;
-  position: string;
-  company: string;
-  rating: number;
-  comment: string;
-  initial: string;
+interface SiteTranscript {
+  id: string;
+  location: string;
+  client: string;
+  role: string;
+  projectType: string;
+  transcript: string;
+  rabStatus: string;
+  warrantyStatus: string;
 }
 
-const testimonials: Testimonial[] = [
+const siteLogs: SiteTranscript[] = [
   {
-    id: 1,
-    name: "Warsito Hadi",
-    position: "Pemilik Cafe",
-    company: "Yogyakarta",
-    rating: 5,
-    comment:
-      "Desain 3D Cafe yang diberikan sangat realistis dan detail. Membantu kami membayangkan konsep interior dan layout sebelum pembangunan. Sangat memuaskan!",
-    initial: "W",
+    id: "01",
+    location: "Sleman, DIY",
+    client: "Dewangga Anggara",
+    role: "Pemilik Rumah",
+    projectType: "Pembangunan Hunian 2 Lantai",
+    transcript:
+      "Awalnya saya ragu karena pengalaman proyek rumah pertama dulu biayanya bengkak 30%. Pas ketemu tim HAB, RAB dikunci transparan dari depan. Tiap ada penyesuaian di lapangan selalu diomongin dulu. Pas serah terima, biayanya pas 100% sama kesepakatan awal.",
+    rabStatus: "100% Tepat RAB (Zero Adendum)",
+    warrantyStatus: "Garansi Pemeliharaan Aktif",
   },
   {
-    id: 2,
-    name: "Siti Nurhaliza",
-    position: "Pemilik Kitchen & Cafe",
-    company: "Cafe & Resto",
-    rating: 5,
-    comment:
-      "Desain 3D kitchen set dan cafe sangat membantu visualisasi. Detail setiap elemen terlihat jelas, mempermudah pengambilan keputusan desain.",
-    initial: "S",
+    id: "02",
+    location: "Bantul, DIY",
+    client: "Warsito Hadi",
+    role: "Commercial Owner",
+    projectType: "Konstruksi Cafe & Area Komersial",
+    transcript:
+      "Saya sangat rewel di kerapian detail. Pekerjaan struktur baja dan bata eksposnya presisi banget. Yang saya hargai, insinyur HAB enggak asal 'yang penting jadi', tapi bener-bener ngejar siku dan kerapian nat pengerjaan.",
+    rabStatus: "Presisi Detail 1:1 Gambar Kerja",
+    warrantyStatus: "BAST Selesai & Operasional",
   },
   {
-    id: 3,
-    name: "Ahmad Fauzi",
-    position: "Developer",
-    company: "Property Developer",
-    rating: 5,
-    comment:
-      "Desain 3D apartemen yang diberikan akurat dan realistis. Membantu kami memperlihatkan konsep properti kepada klien sebelum pembangunan dimulai.",
-    initial: "A",
-  },
-  {
-    id: 4,
-    name: "Dewi Lestari",
-    position: "Pemilik Masjid",
-    company: "Bantul, Yogyakarta",
-    rating: 5,
-    comment:
-      "Desain 3D masjid yang diberikan sangat detail dan memudahkan kami membayangkan hasil akhir. Eksekusi konstruksi sesuai dengan desain yang ditampilkan.",
-    initial: "D",
-  },
-  {
-    id: 5,
-    name: "Dewangga Anggara",
-    position: "Pemilik Rumah",
-    company: "Sleman, Yogyakarta",
-    rating: 5,
-    comment:
-      "Renovasi rumah kami pekerjaannya lebih cepat dari timeline dgn kualitas sangat baik. Tim Habs Konstruksi Karya sangat responsif dan profesional.",
-    initial: "D",
-  },
-  {
-    id: 6,
-    name: "Maya Sari",
-    position: "Pemilik Rumah",
-    company: "Sleman, Yogyakarta",
-    rating: 5,
-    comment:
-      "Desain 3D rumah dan RAB yang diberikan sangat detail, mempermudah kami melihat visual rumah secara lengkap sebelum pembangunan dimulai.",
-    initial: "M",
+    id: "03",
+    location: "Yogyakarta",
+    client: "Ahmad Fauzi",
+    role: "Developer Properti",
+    projectType: "Gudang & Perkantoran",
+    transcript:
+      "Sebagai pengembang, yang paling bikin pusing itu kalau jadwal mundur. Tim HAB sangat disiplin kirim rekap Kurva-S tiap minggu. Semua material masuk dicatat, tenaga kerja dipantau K3-nya. Proyek kelar 10 hari lebih cepat.",
+    rabStatus: "Selesai 10 Hari Lebih Cepat",
+    warrantyStatus: "Sertifikat K3 & Garansi Resmi",
   },
 ];
 
-const MarqueeCard = ({ item }: { item: Testimonial }) => (
-  <div className="w-[350px] md:w-[450px] flex-shrink-0 mx-4">
-    <div className="bg-white p-8 rounded-2xl shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] border border-slate-100 h-full hover:border-[#B61F2B]/20 transition-colors group">
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex gap-1">
-          {[...Array(item.rating)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 text-[#C9A74A] fill-current" />
-          ))}
-        </div>
-        <Quote className="w-8 h-8 text-slate-100 group-hover:text-[#B61F2B]/10 transition-colors" />
-      </div>
-
-      <p className="text-slate-600 leading-relaxed mb-6 font-medium">
-        "{item.comment}"
-      </p>
-
-      <div className="flex items-center gap-4 pt-4 border-t border-slate-50">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#B61F2B] to-[#C9A74A] flex items-center justify-center text-white font-bold text-sm shadow-md">
-          {item.initial}
-        </div>
-        <div>
-          <h4 className="font-bold text-slate-900 text-sm">{item.name}</h4>
-          <p className="text-slate-400 text-xs">{item.position} • {item.company}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 export default function TestimonialSection() {
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+  const current = siteLogs[activeIdx];
 
-  useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev + 1) % siteLogs.length);
+  };
 
-  // Duplicate data for seamless loop (enough to cover wide screens)
-  const marqueeData = [...testimonials, ...testimonials];
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev - 1 + siteLogs.length) % siteLogs.length);
+  };
 
   return (
-    <section id="testimoni" className="py-24 bg-[#FAFAFA] relative overflow-hidden">
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 50s linear infinite;
-          width: max-content;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-        /* Mobile optimization: slightly faster but still slow enough */
-        @media (max-width: 768px) {
-          .animate-marquee {
-            animation-duration: 40s;
-          }
-        }
-      `}</style>
+    <section id="testimoni" className="py-24 bg-[#FAFAFA] text-neutral-900 font-sans border-b border-neutral-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Background Decor */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-50/50 rounded-full blur-[100px] pointer-events-none -translate-y-1/2"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full mb-6 shadow-sm">
-           <Star className="w-4 h-4 text-[#C9A74A] fill-current" />
-           <span className="text-slate-800 text-xs font-bold uppercase tracking-widest">Trusted by Clients</span>
-        </div>
-        <h2 className="text-4xl md:text-5xl font-black text-[#101010] mb-6">
-          Suara Kepercayaan
-        </h2>
-        <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-          Dengarkan pengalaman mereka yang telah mewujudkan visi konstruksinya bersama kami.
-        </p>
-      </div>
+        {/* Top Header & Tab Navigation */}
+        <div className="border-b border-neutral-300 pb-6 mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+          <div className="text-left">
+            <span className="text-xs font-mono font-bold text-[#B61F2B] uppercase tracking-wider block mb-2">
+              05 / TRANSKRIP INSPEKSI LAPANGAN
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-neutral-950">
+              Catatan Serah Terima <span className="font-bold">Klien PT HAB</span>
+            </h2>
+          </div>
 
-      {/* Marquee Container */}
-      <div className="relative w-full overflow-hidden">
-         {/* Gradient Masks - Enhanced for smooth fade */}
-         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent z-10 pointer-events-none"></div>
-         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent z-10 pointer-events-none"></div>
-
-         <div className="flex animate-marquee py-4 hover:cursor-grab active:cursor-grabbing">
-            {marqueeData.map((item, idx) => (
-               <MarqueeCard key={`${item.id}-${idx}`} item={item} />
+          {/* Minimalist Tab Selector */}
+          <div className="flex items-center gap-2">
+            {siteLogs.map((log, idx) => (
+              <button
+                key={log.id}
+                onClick={() => setActiveIdx(idx)}
+                className={`text-xs font-mono px-3 py-1.5 transition-all duration-200 ${activeIdx === idx
+                    ? "bg-neutral-900 text-white font-bold"
+                    : "bg-neutral-200/60 text-neutral-600 hover:bg-neutral-300"
+                  }`}
+              >
+                [{log.id}] {log.location.split(",")[0]}
+              </button>
             ))}
-         </div>
+          </div>
+        </div>
+
+        {/* Main Content Area: Large Airy Monograph Statement */}
+        <div className="text-left space-y-12">
+
+          {/* Big Featured Quote */}
+          <div className="min-h-[160px] flex items-center">
+            <blockquote className="text-xl sm:text-3xl font-light text-neutral-900 leading-relaxed tracking-tight">
+              "{current.transcript}"
+            </blockquote>
+          </div>
+
+          {/* Client Identity Header */}
+          <div className="pt-6 border-t border-neutral-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-bold text-neutral-950">
+                {current.client}
+              </h3>
+              <p className="text-xs text-neutral-500 font-mono">
+                {current.role} • <span className="text-neutral-700">{current.location}</span>
+              </p>
+            </div>
+
+            {/* Prev / Next Minimalist Arrows */}
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono text-neutral-400">
+                {activeIdx + 1} / {siteLogs.length}
+              </span>
+              <button
+                onClick={handlePrev}
+                className="p-2 border border-neutral-300 hover:bg-neutral-900 hover:text-white transition-colors"
+                title="Sebelumnya"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="p-2 border border-neutral-300 hover:bg-neutral-900 hover:text-white transition-colors"
+                title="Selanjutnya"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Technical Spec Data Strip (Informative Horizontal Bar) */}
+          <div className="grid sm:grid-cols-3 gap-6 pt-6 border-t border-neutral-200 text-left text-xs font-mono">
+            <div>
+              <span className="text-neutral-400 block uppercase text-[10px] mb-1">Jenis Proyek</span>
+              <span className="font-semibold text-neutral-800">{current.projectType}</span>
+            </div>
+
+            <div>
+              <span className="text-neutral-400 block uppercase text-[10px] mb-1">Akurasi RAB & Waktu</span>
+              <span className="font-bold text-[#B61F2B]">{current.rabStatus}</span>
+            </div>
+
+            <div>
+              <span className="text-neutral-400 block uppercase text-[10px] mb-1">Status Legalitas & Garansi</span>
+              <span className="font-medium text-emerald-700 flex items-center gap-1">
+                <Check className="w-3.5 h-3.5" />
+                {current.warrantyStatus}
+              </span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );
