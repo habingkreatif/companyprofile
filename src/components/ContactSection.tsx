@@ -40,7 +40,7 @@ export default function ContactSection() {
               <h2 className="text-3xl sm:text-5xl font-bold tracking-tight leading-[1.15] text-white mb-6">
                 Mulai perencanaan proyek Anda <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">
-                  bersama tim insinyur HAB.
+                  bersama tim insinyur HABS
                 </span>
               </h2>
               <p className="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed font-normal">
@@ -51,7 +51,7 @@ export default function ContactSection() {
             {/* WhatsApp High-Conversion Action */}
             <div>
               <a
-                href="https://wa.me/6285326566522?text=Halo%20HAB%20Konstruksi,%20saya%20ingin%20diskusi%20perencanaan%20proyek."
+                href="https://wa.me/6285326566522?text=Halo%20HABS%20Konstruksi,%20saya%20ingin%20diskusi%20perencanaan%20proyek."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-between gap-6 w-full sm:w-auto px-8 py-5 bg-emerald-600 hover:bg-emerald-500 text-white transition-all duration-300 rounded-2xl font-bold text-base sm:text-lg shadow-xl shadow-emerald-950/40 group"
@@ -125,7 +125,7 @@ export default function ContactSection() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Lokasi Kantor PT HAB Konstruksi Karya"
+                title="Lokasi Kantor PT HABS Konstruksi Karya"
                 className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
 
@@ -136,7 +136,7 @@ export default function ContactSection() {
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-white">Kantor Pusat PT HAB</h4>
+                    <h4 className="text-xs font-bold text-white">Kantor Pusat PT HABS Konstruksi Karya</h4>
                     <p className="text-[11px] text-slate-400">Pundong, Bantul, DIY</p>
                   </div>
                 </div>
