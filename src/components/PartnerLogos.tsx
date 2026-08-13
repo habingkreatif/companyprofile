@@ -135,7 +135,7 @@ export default function PartnerLogos() {
             {/* Micro Footnote Statement */}
             <div className="pt-4 border-t border-neutral-200 font-mono text-xs text-neutral-500 flex items-center justify-between">
               <span>● 100% IN-HOUSE SUPPLY CHAIN</span>
-              <span className="text-neutral-400">HAB GROUP SPEC</span>
+              <span className="text-neutral-400">HABS GROUP SPEC</span>
             </div>
           </div>
 

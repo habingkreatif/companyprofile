@@ -167,8 +167,8 @@ export default function HeroSection() {
               <a
                 href={
                   projectType === "residential"
-                    ? "https://wa.me/6285326566522?text=Halo%20HAB%20Konstruksi,%20saya%20ingin%20konsultasi%20mengenai%20proyek%20hunian/rumah."
-                    : "https://wa.me/6285326566522?text=Halo%20HAB%20Konstruksi,%20saya%20ingin%20diskusi%20mengenai%20proyek%20komersial/B2B/tender."
+                    ? "https://wa.me/6285326566522?text=Halo%20HABS%20Konstruksi,%20saya%20ingin%20konsultasi%20mengenai%20proyek%20hunian/rumah."
+                    : "https://wa.me/6285326566522?text=Halo%20HABS%20Konstruksi,%20saya%20ingin%20diskusi%20mengenai%20proyek%20komersial/B2B/tender."
                 }
                 target="_blank"
                 rel="noopener noreferrer"

@@ -32,7 +32,7 @@ const services = [
       "Laporan Kurva-S & Progres Mingguan",
       "Sertifikat Garansi Struktur Pemeliharaan"
     ],
-    waText: "Halo HAB, saya ingin konsultasi pengerjaan Bangun Rumah Baru."
+    waText: "Halo HABS, saya ingin konsultasi pengerjaan Bangun Rumah Baru."
   },
   {
     code: "RES-02",
@@ -46,7 +46,7 @@ const services = [
       "Manajemen Proyek Minim Gangguan",
       "Penyerahan On-Time Sesuai Kontrak"
     ],
-    waText: "Halo HAB, saya ingin konsultasi pengerjaan Renovasi Rumah."
+    waText: "Halo HABS, saya ingin konsultasi pengerjaan Renovasi Rumah."
   },
   {
     code: "RES-03",
@@ -60,7 +60,7 @@ const services = [
       "Instalasi Hidden LED & Electrical",
       "Pemasangan Bersih Tanpa Cacat Detail"
     ],
-    waText: "Halo HAB, saya ingin konsultasi pengerjaan Custom Interior."
+    waText: "Halo HABS, saya ingin konsultasi pengerjaan Custom Interior."
   },
 
   // COMMERCIAL
@@ -76,7 +76,7 @@ const services = [
       "Sistem Sirkulasi & Ventilisasi Industri",
       "Kepatuhan Standar Regulasi K3/HSE"
     ],
-    waText: "Halo HAB, saya butuh penawaran Konstruksi Gudang/Pabrik."
+    waText: "Halo HABS, saya butuh penawaran Konstruksi Gudang/Pabrik."
   },
   {
     code: "COM-02",
@@ -90,7 +90,7 @@ const services = [
       "Jaringan MEP & Kelistrikan Komersial",
       "Penyerahan BAST Sesuai Jadwal SLA"
     ],
-    waText: "Halo HAB, saya membutuhkan penawaran Bangun Kantor/Ruko."
+    waText: "Halo HABS, saya membutuhkan penawaran Bangun Kantor/Ruko."
   },
   {
     code: "COM-03",
@@ -104,7 +104,7 @@ const services = [
       "Plafon Akustik & Partisi Gypsum",
       "Kusen Aluminium Heavy Duty"
     ],
-    waText: "Halo HAB, saya membutuhkan vendor Pekerjaan MEP/Spesialis."
+    waText: "Halo HABS, saya membutuhkan vendor Pekerjaan MEP/Spesialis."
   },
 
   // PLANNING
@@ -120,7 +120,7 @@ const services = [
       "Rancangan Anggaran Biaya (RAB) Detail",
       "Daftar Spesifikasi Teknis Material"
     ],
-    waText: "Halo HAB, saya ingin memesan layanan Desain & RAB."
+    waText: "Halo HABS, saya ingin memesan layanan Desain & RAB."
   },
   {
     code: "PLN-02",
@@ -134,7 +134,7 @@ const services = [
       "Konsultasi Infrastruktur Jaringan Usaha",
       "Digitalisasi Sistem & Platform Bisnis"
     ],
-    waText: "Halo HAB, saya butuh konsultasi untuk IT & Digital Solution."
+    waText: "Halo HABS, saya butuh konsultasi untuk IT & Digital Solution."
   },
 ];
 
@@ -176,8 +176,8 @@ export default function ServicesSection() {
                 key={cat.id}
                 onClick={() => setActiveTab(cat.id)}
                 className={`transition-colors py-1 flex items-center gap-2 ${isActive
-                    ? "text-[#B61F2B] font-bold border-b-2 border-[#B61F2B] -mb-[26px]"
-                    : "text-neutral-500 hover:text-neutral-900"
+                  ? "text-[#B61F2B] font-bold border-b-2 border-[#B61F2B] -mb-[26px]"
+                  : "text-neutral-500 hover:text-neutral-900"
                   }`}
               >
                 <span>[{cat.code}]</span>

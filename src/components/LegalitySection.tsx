@@ -25,7 +25,7 @@ const legalityData = [
   {
     id: "akta",
     title: "Akta Pendirian PT",
-    desc: "Badan hukum resmi PT HAB Konstruksi Karya yang disahkan oleh Notaris resmi.",
+    desc: "Badan hukum resmi PT HABS Konstruksi Karya yang disahkan oleh Notaris resmi.",
     icon: <Building2 className="w-5 h-5 text-neutral-900" />,
     number: "AHU-01210.AH.02.01",
     docImage: "/akta.jpg",
@@ -94,7 +94,7 @@ export default function LegalitySection() {
               <span className="font-bold text-white">Investasi & Kontrak Anda Terjamin.</span>
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400 max-w-xl leading-relaxed font-normal mt-3">
-              PT HAB Konstruksi Karya beroperasi penuh di bawah payung hukum badan usaha yang sah. Seluruh dokumen legalitas dapat diverifikasi sebelum kerja sama dimulai.
+              PT HABS Konstruksi Karya beroperasi penuh di bawah payung hukum badan usaha yang sah. Seluruh dokumen legalitas dapat diverifikasi sebelum kerja sama dimulai.
             </p>
           </div>
 
@@ -209,7 +209,7 @@ export default function LegalitySection() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-neutral-800">
             <div>
               <h3 className="text-lg font-bold text-white">
-                Cakupan Kualifikasi & Standar Kerja PT HAB
+                Cakupan Kualifikasi & Standar Kerja PT HABS
               </h3>
               <p className="text-xs text-neutral-400 mt-1 font-normal">
                 Terdaftar resmi di Sistem OSS Pemerintah Republik Indonesia dengan klasifikasi bidang usaha terverifikasi.

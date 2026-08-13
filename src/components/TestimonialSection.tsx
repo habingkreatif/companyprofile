@@ -22,7 +22,7 @@ const siteLogs: SiteTranscript[] = [
     role: "Pemilik Rumah",
     projectType: "Pembangunan Hunian 2 Lantai",
     transcript:
-      "Awalnya saya ragu karena pengalaman proyek rumah pertama dulu biayanya bengkak 30%. Pas ketemu tim HAB, RAB dikunci transparan dari depan. Tiap ada penyesuaian di lapangan selalu diomongin dulu. Pas serah terima, biayanya pas 100% sama kesepakatan awal.",
+      "Awalnya saya ragu karena pengalaman proyek rumah pertama dulu biayanya bengkak 30%. Pas ketemu tim HABS, RAB dikunci transparan dari depan. Tiap ada penyesuaian di lapangan selalu diomongin dulu. Pas serah terima, biayanya pas 100% sama kesepakatan awal.",
     rabStatus: "100% Tepat RAB (Zero Adendum)",
     warrantyStatus: "Garansi Pemeliharaan Aktif",
   },
@@ -33,7 +33,7 @@ const siteLogs: SiteTranscript[] = [
     role: "Commercial Owner",
     projectType: "Konstruksi Cafe & Area Komersial",
     transcript:
-      "Saya sangat rewel di kerapian detail. Pekerjaan struktur baja dan bata eksposnya presisi banget. Yang saya hargai, insinyur HAB enggak asal 'yang penting jadi', tapi bener-bener ngejar siku dan kerapian nat pengerjaan.",
+      "Saya sangat rewel di kerapian detail. Pekerjaan struktur baja dan bata eksposnya presisi banget. Yang saya hargai, insinyur HABS enggak asal 'yang penting jadi', tapi bener-bener ngejar siku dan kerapian nat pengerjaan.",
     rabStatus: "Presisi Detail 1:1 Gambar Kerja",
     warrantyStatus: "BAST Selesai & Operasional",
   },
@@ -44,7 +44,7 @@ const siteLogs: SiteTranscript[] = [
     role: "Developer Properti",
     projectType: "Gudang & Perkantoran",
     transcript:
-      "Sebagai pengembang, yang paling bikin pusing itu kalau jadwal mundur. Tim HAB sangat disiplin kirim rekap Kurva-S tiap minggu. Semua material masuk dicatat, tenaga kerja dipantau K3-nya. Proyek kelar 10 hari lebih cepat.",
+      "Sebagai pengembang, yang paling bikin pusing itu kalau jadwal mundur. Tim HABS sangat disiplin kirim rekap Kurva-S tiap minggu. Semua material masuk dicatat, tenaga kerja dipantau K3-nya. Proyek kelar 10 hari lebih cepat.",
     rabStatus: "Selesai 10 Hari Lebih Cepat",
     warrantyStatus: "Sertifikat K3 & Garansi Resmi",
   },
@@ -73,7 +73,7 @@ export default function TestimonialSection() {
               05 / TRANSKRIP INSPEKSI LAPANGAN
             </span>
             <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-neutral-950">
-              Catatan Serah Terima <span className="font-bold">Klien PT HAB</span>
+              Catatan Serah Terima <span className="font-bold">Klien PT HABS</span>
             </h2>
           </div>
 
@@ -84,8 +84,8 @@ export default function TestimonialSection() {
                 key={log.id}
                 onClick={() => setActiveIdx(idx)}
                 className={`text-xs font-mono px-3 py-1.5 transition-all duration-200 ${activeIdx === idx
-                    ? "bg-neutral-900 text-white font-bold"
-                    : "bg-neutral-200/60 text-neutral-600 hover:bg-neutral-300"
+                  ? "bg-neutral-900 text-white font-bold"
+                  : "bg-neutral-200/60 text-neutral-600 hover:bg-neutral-300"
                   }`}
               >
                 [{log.id}] {log.location.split(",")[0]}

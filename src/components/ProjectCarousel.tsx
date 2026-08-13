@@ -220,7 +220,7 @@ export default function ProjectCarousel() {
                       </button>
 
                       <a
-                        href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HAB, saya melihat progres proyek "${currentProject.title}" di web dan ingin konsultasi pengerjaan serupa.`)}`}
+                        href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HABS, saya melihat progres proyek "${currentProject.title}" di web dan ingin konsultasi pengerjaan serupa.`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="py-3.5 px-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase font-mono flex items-center justify-center gap-2 transition-colors"
@@ -278,7 +278,7 @@ export default function ProjectCarousel() {
           projectData={{
             category: currentProject.location,
             location: currentProject.location,
-            author: "Tim Insinyur HAB",
+            author: "Tim Insinyur HABS",
             updatedAt: currentProject.updated_at,
             startDate: currentProject.start,
             endDate: currentProject.end,

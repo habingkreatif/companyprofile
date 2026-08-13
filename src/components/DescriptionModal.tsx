@@ -211,7 +211,7 @@ export default function DescriptionModal({
                   <div className="pt-6 border-t border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-neutral-500">
                      <div className="flex items-center gap-2 text-emerald-700">
                         <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                        <span>Pengawasan Oleh: {projectData?.author || "Tim Insinyur PT HAB"}</span>
+                        <span>Pengawasan Oleh: {projectData?.author || "Tim Insinyur PT HABS"}</span>
                      </div>
                      <div>
                         Pembaruan: {projectData?.updatedAt ? formatHariTanggal(projectData.updatedAt) : "Terbaru"}
@@ -242,7 +242,7 @@ export default function DescriptionModal({
                   </button>
 
                   <a
-                     href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HAB, saya membaca laporan detail untuk proyek "${title}" dan berminat konsultasi lebih lanjut.`)}`}
+                     href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HABS, saya membaca laporan detail untuk proyek "${title}" dan berminat konsultasi lebih lanjut.`)}`}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase font-bold transition-colors flex items-center justify-center gap-2"

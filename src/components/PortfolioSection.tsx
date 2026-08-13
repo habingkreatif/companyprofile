@@ -309,7 +309,7 @@ export default function PortfolioSection() {
                         {/* Scope of Work Editorial List */}
                         <div className="space-y-3">
                           <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold">
-                            Lingkup Pekerjaan PT HAB
+                            Lingkup Pekerjaan PT HABS
                           </h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-xs font-mono text-neutral-800">
                             {selectedProject.scope.map((item, i) => (
@@ -327,7 +327,7 @@ export default function PortfolioSection() {
                             Tertarik mendiskusikan konsep proyek serupa?
                           </span>
                           <a
-                            href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HAB, saya melihat proyek "${selectedProject.title}" di portofolio dan ingin diskusi pengerjaan serupa.`)}`}
+                            href={`https://wa.me/6285326566522?text=${encodeURIComponent(`Halo HABS, saya melihat proyek "${selectedProject.title}" di portofolio dan ingin diskusi pengerjaan serupa.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-colors rounded-none"
